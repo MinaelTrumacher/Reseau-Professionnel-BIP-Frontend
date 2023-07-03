@@ -1,0 +1,38 @@
+header{
+    border-bottom: 1rem solid;
+    border-color: #86BD24;
+    margin-top: 30px;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+}
+
+a{
+    color:black;
+}
+
+a:hover{
+    color:#007BFF;
+}
+
+mat-toolbar {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.5rem;
+    width: 100%;
+    background-color: white;
+}
+
+.search-bar {
+    width: 800px; 
+    border-radius: 10px;
+}
+
+.icon{
+    font-size: 25px;
+}
+
+mat-form-field {
+    border-radius: 40px;
+}
