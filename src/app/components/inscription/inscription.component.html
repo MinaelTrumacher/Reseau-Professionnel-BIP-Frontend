@@ -1,0 +1,124 @@
+
+
+<form [formGroup]="formulaire" (ngSubmit)="Enregistrer()">
+    <!-- <h1>Formulaire d'inscription</h1> -->
+  
+    <mat-form-field>
+      <mat-label>Nom :</mat-label>
+      <input matInput formControlName="nom">
+      <mat-error *ngIf="formulaire?.get('nom')?.invalid && formulaire?.get('nom')?.touched">
+        Le nom est requis.
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Prénom :</mat-label>
+      <input matInput formControlName="prenom">
+      <mat-error *ngIf="formulaire?.get('prenom')?.invalid && formulaire?.get('prenom')?.touched">
+        Le prénom est requis.
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Rôle :</mat-label>
+      <select matNativeControl formControlName="role">
+        <option value="">Sélectionner un rôle</option>
+        <option value="apprenant">Apprenant</option>
+        <option value="employe">Employé</option>
+      </select>
+      <mat-error *ngIf="formulaire?.get('role')?.invalid && formulaire?.get('role')?.touched">
+        Le rôle est requis.
+      </mat-error>
+    </mat-form-field>
+
+
+      <ng-container *ngIf="formulaire?.get('role')?.value === 'employe'">
+    <mat-form-field floatLabel="always">
+      <mat-label>SIREN</mat-label>
+      <input matInput formControlName="siren" (input)="searchEntreprise()">
+    
+      <mat-error *ngIf="formulaire?.get('siren')?.errors?.['required']">SIREN est requis</mat-error>
+      <mat-error *ngIf="formulaire?.get('siren')?.errors?.['pattern']">SIREN doit comporter exactement 9 chiffres</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>ENTREPRISE</mat-label>
+      <mat-select formControlName="raison_social" required *ngIf="raison_social">
+        <mat-option [value]="raison_social?.uniteLegale?.periodesUniteLegale[0]?.denominationUniteLegale">
+          {{ raison_social?.uniteLegale?.periodesUniteLegale[0]?.denominationUniteLegale | titlecase }}
+        </mat-option>
+      </mat-select>
+      <input matInput formControlName="raison_social" *ngIf="!raison_social">
+    </mat-form-field>
+    
+  </ng-container>
+
+    <mat-form-field>
+      <mat-label>Code Postal :</mat-label>
+      <input matInput formControlName="codePostal" (input)="getVille(formulaire.get('codePostal')?.value)">
+      <mat-error *ngIf="formulaire.get('codePostal')?.invalid && formulaire.get('codePostal')?.touched">
+        Le code postal est requis.
+      </mat-error>
+    </mat-form-field>
+    
+    
+    <mat-form-field>
+      <mat-label>Ville :</mat-label>
+      <mat-select formControlName="ville">
+        <mat-option *ngFor="let ville of villes" [value]="ville.id">{{ ville.ville }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="formulaire.get('ville')?.invalid && formulaire.get('ville')?.touched">
+        La ville est requise.
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Email :</mat-label>
+      <input matInput type="email" formControlName="email">
+      <mat-error *ngIf="formulaire?.get('email')?.invalid && formulaire?.get('email')?.touched">
+        <ng-container *ngIf="formulaire?.get('email')?.hasError('required')">
+          L'email est requis et doit être au format valide.
+        </ng-container>
+        <ng-container *ngIf="formulaire?.get('email')?.hasError('409')">
+          L'adresse e-mail existe déjà.
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Mot de passe :</mat-label>
+      <input matInput type="password" formControlName="mdp">
+      <mat-error *ngIf="formulaire.get('mdp')?.invalid && formulaire.get('mdp')?.touched">
+        <ng-container *ngIf="formulaire.get('mdp')?.hasError('required')">
+          Le mot de passe est requis.<br>
+        </ng-container>
+        <ng-container *ngIf="formulaire.get('mdp')?.hasError('minlength')">
+          Le mot de passe doit avoir au moins 8 caractères.<br>
+        </ng-container>
+        <ng-container *ngIf="formulaire.get('mdp')?.hasError('maxlength')">
+          Le mot de passe ne peut pas dépasser 50 caractères.<br>
+        </ng-container>
+        <ng-container *ngIf="formulaire.get('mdp')?.hasError('pattern')">
+          Au moins une minuscule, une majuscule,<br> un chiffre et un caractère spécial.
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Description :</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+  
+    <div class="button">
+      <a class="pBt" (click)="OpenCgu()">
+        <input type="checkbox" [checked]="cguChecked" (change)="cguChecked = !cguChecked">
+
+        CGU
+      </a>
+      
+      <button mat-raised-button type="submit" [disabled]="!cguChecked">Enregistrer</button>
+      <button mat-raised-button (click)="annuler()">Annuler</button>   
+    </div>
+    
+  </form>
+  
+
