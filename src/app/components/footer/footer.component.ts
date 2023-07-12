@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalCguComponent } from '../modal-cgu/modal-cgu.component';
 
 @Component({
   selector: 'app-footer',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
+  constructor (private dialog:MatDialog){
+ 
+  }
+  
+  OpenCgu(){
+    this.dialog.open(ModalCguComponent);
+  }
 
 }
