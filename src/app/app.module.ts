@@ -12,6 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 //Components
 import { HomeComponent } from './components/home/home.component';
@@ -26,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { ModalCguComponent } from './components/modal-cgu/modal-cgu.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { GridComponent } from './components/grid/grid.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +39,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MessagerieComponent,
     ProfilComponent,
     InscriptionComponent,
-    ModalCguComponent
+    ModalCguComponent, 
+    GridComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +49,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HttpClientModule,
     ReactiveFormsModule,
     //Mat imports
+    MatGridListModule,
     MatInputModule,
     MatButtonModule,
     MatToolbarModule,
