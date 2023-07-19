@@ -1,27 +1,27 @@
 <section>
     <div class="profil">
         <div class="banniere">
-            <img  src="/assets/images/wallhaven-967zyk.jpg" alt="">
+            <img  src="/assets/images/banner_default.jpg" alt="">
         </div>
             <img class="pp" src="https://pbs.twimg.com/profile_images/385921406/abitbol_400x400.jpg" alt="Photo de profil">
                
     </div>
-    </section>
+</section>
     
-    <section class="identite">
-        <ng-container *ngIf="utilisateurList">
-            <li *ngFor="let utilisateur of utilisateurList">
-                <h1>{{ " "+utilisateur.prenom + " " +utilisateur.nom }}</h1>
-                <p>{{ utilisateur.description }}</p>
-            </li>
-        </ng-container>
-    </section>
+<section class="identite">
+    <ng-container *ngIf="utilisateurList">
+        <li *ngFor="let utilisateur of utilisateurList">
+            <h1>{{ " "+utilisateur.prenom + " " +utilisateur.nom }}</h1>
+            <p>{{ utilisateur.description }}</p>
+        </li>
+    </ng-container>
+</section>
     
-    <!-- <section class="layout">
-        <div class="long-column">CV et expériences</div>
-        <div class="container">
-          <div class="top-container">Quoi de neuf ?</div>
-          <div class="bottom-container">Fil d'actualité</div>
-        </div>
-      </section> -->
-    <app-grid></app-grid>
+<!-- <section class="layout">
+    <div class="long-column">CV et expériences</div>
+    <div class="container">
+        <div class="top-container">Quoi de neuf ?</div>
+        <div class="bottom-container">Fil d'actualité</div>
+    </div>
+</section> -->
+<app-grid></app-grid>

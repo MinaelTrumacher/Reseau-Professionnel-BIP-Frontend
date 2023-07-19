@@ -1,0 +1,32 @@
+<form [formGroup]="logForm">
+  <h1>Connexion</h1>
+  <mat-form-field>
+    <mat-label>email</mat-label>
+    <input matInput placeholder="example@afpa.com" type="text" formControlName="email"/>
+    <mat-error *ngIf="logForm?.get('email')?.invalid && logForm?.get('email')?.touched">Format de l'email non valide.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>mot de passe</mat-label>
+    <input matInput placeholder="mot de passe" [type]="hide ? 'password' : 'text'" formControlName="mdp"/>
+    <mat-icon matSuffix (click)="hide = !hide">{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+    <mat-error *ngIf="logForm?.get('mdp')?.invalid && logForm?.get('mdp')?.touched"
+    >Au moins 8 caractères dont un chiffre, une minuscule, une majuscule, un caractère spécial.
+    </mat-error>
+  </mat-form-field>
+  <div>
+
+  </div>
+
+  <div>
+    <mat-error *ngIf="error_401">Mot de passe ou login incorrect.</mat-error>
+    <mat-error *ngIf="error_423">Accès refusé, compte non vérifié.</mat-error>
+  </div>
+  <div>
+    <button mat-raised-button class="button-left" color="primary" (click)="loginRequest()">Valider</button>
+    <button mat-raised-button class="button-right" (click)="closeFormLogin()">Quitter</button>
+  </div>
+  <div>
+    <mat-label class="forgot-password" (click)="openPwdForgot()">Mot de passe oublié</mat-label>
+  </div>
+</form>

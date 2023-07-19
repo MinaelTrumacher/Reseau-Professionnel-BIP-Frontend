@@ -1,15 +1,19 @@
 export interface Utilisateur {
+  id: number;
   nom: string;
   prenom: string;
   role: string;
   email: string;
   mdp: string;
   description: string;
-  entreprise: {
-    siren: string;
-    raisonSociale: string;
-  };
+  etatInscription : string;
   geolocalisation: {
-    id: string;  
+    id: string; 
+    ville? : string;
+    region? : string;
+    latitude? : string;
+    longitude? : string;
   };
+  date_creation? : Date
+  date_inscription?: Date;
 }

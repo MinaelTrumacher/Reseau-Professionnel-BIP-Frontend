@@ -1,66 +1,70 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Utilisateur } from '../models/Utilisateur_Inscription';
 import { Observable } from 'rxjs';
-
-export interface Utilisateurs {
-  id: number;
-  nom: string;
-  prenom: string;
-  role: string;
-  email: string;
-  mdp: string;
-  geolocalisation: {
-    id :number;
-    ville : string;
-    region : string;
-    latitude : string;
-    longitude : string;
-  }
-  description : string;
-  etat_inscription :string;
-  date_creation : Date
-  date_inscription: Date;
-  
-}
-
+import { EncryptionService } from './encryption.service';
 @Injectable({
   providedIn: 'root'
 })
 export class UtilisateurService {
+  //Declaration varaible et constante
+  private BASEURL = 'http://localhost:8080';
+
+  constructor(private http: HttpClient,
+              private encryptservice: EncryptionService) { }
 
 
-  private baseUrl = 'http://localhost:8080';
-  constructor(private http: HttpClient) { }
+  //Fonctions pour inscription
+    getVilleByCodePostal(codePostal: string): Observable<any> {
+      const URL = `${this.BASEURL}/geolocalisations/codes-postaux/${codePostal}`;
+      return this.http.get<any>(URL);
+    }
 
-  AjouterUtilisateur(utilisateur: Utilisateur): Observable<any> {
-    const url = `${this.baseUrl}/api/authentification/register`; 
-    return this.http.post(url, utilisateur);
-  }
+    getEntrepriseBySiren(siren : string){
+      const endpoint = "https://api.insee.fr/entreprises/sirene/V3/siren/";
+      const filter = "?date=2022-01-01&champs=denominationUniteLegale%2C%20siren";
+      const token = "6975ba9d-5424-3644-9378-5cf27640b58b";
+      const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
-  getVilleByCodePostal(codePostal: string): Observable<any> {
-    const url = `http://localhost:8080/geolocalisation/${codePostal}`;
-    return this.http.get<any>(url);
-  }
+      return this.http.get(endpoint + siren + filter, { headers });
+    }
 
-  public utilisateursList() : Observable<Utilisateurs[]>{
-    return this.http.get<Utilisateurs[]>(this.baseUrl);
-  }
+  //Fonctions pour CRUD user
+    createUtilisateur(utilisateur: Utilisateur): Observable<any> {
+      console.log(utilisateur);
+      utilisateur.mdp = this.encryptservice.encryption(utilisateur.mdp);
+      console.log(utilisateur.mdp);
+      const url = `${this.BASEURL}/api/authentification/register`;
+      return this.http.post(url, utilisateur);
+    }
 
-  public getUtilisateur(id : number) : Observable<Utilisateurs>{
-    return this.http.get<Utilisateurs>(`${this.baseUrl}/${id}`);
-  }
+    public utilisateursList() : Observable<Utilisateur[]>{
+      return this.http.get<Utilisateur[]>(this.BASEURL);
+    }
 
-  public createUtilisateur (utilisateur : Utilisateurs) : Observable<Utilisateurs>{
-    return this.http.post<Utilisateurs>(this.baseUrl, utilisateur);
-  }
+    public getUtilisateur(id : number) : Observable<Utilisateur>{
+      return this.http.get<Utilisateur>(`${this.BASEURL}/${id}`);
+    }
 
-  public updateUtilisateur(utilisateur : Utilisateurs, id : number) : Observable<Utilisateurs>{
-    return this.http.put<Utilisateurs>(`${this.baseUrl}/${id}`, utilisateur)
-  }
+    public updateUtilisateur(utilisateur : Utilisateur, id : number) : Observable<Utilisateur>{
+      return this.http.put<Utilisateur>(`${this.BASEURL}/${id}`, utilisateur)
+    }
 
-  public deleteUtilisateur(id: number, utilisateur: Utilisateurs): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
-  }
-  
+    public deleteUtilisateur(id: number, utilisateur: Utilisateur): Observable<void> {
+      return this.http.delete<void>(`${this.BASEURL}/${id}`);
+    }
+
+  //Fonctions de connexion
+     //Variable de stockage id et token de l'utilisateur après connexion
+    userSession : { userId: number|null, token: string|null} = { userId: null, token: null};
+
+    //Methode Mise à jour Variable UserSession
+    setUserLogged(Response : {userId: number|null, token: string|null}) {
+      this.userSession = Response;
+    }
+
+    //Methode de nettoyage de la variable UserSession
+    cleanUserLogged() {
+      this.userSession = {userId: null, token: null};
+    }
 }

@@ -4,30 +4,41 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Mat import
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconRegistry } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 //Components
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { IndexComponent } from './components/index/index.component';
 import { MessagerieComponent } from './components/messagerie/messagerie.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MatSelectModule } from '@angular/material/select';
 import { ModalCguComponent } from './components/modal-cgu/modal-cgu.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormloginComponent } from './components/form-login/form-login.component'; 
+import { FormPwdComponent } from './components/form-pwd/form-pwd.component'; 
 import { GridComponent } from './components/grid/grid.component';
+
+//Service
+import { AuthenticationUserService } from './services/authentification-user.service';
+
+//Http
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,7 +50,9 @@ import { GridComponent } from './components/grid/grid.component';
     MessagerieComponent,
     ProfilComponent,
     InscriptionComponent,
-    ModalCguComponent, 
+    ModalCguComponent,
+    FormPwdComponent,
+    FormloginComponent,
     GridComponent
   ],
   imports: [
@@ -59,10 +72,13 @@ import { GridComponent } from './components/grid/grid.component';
     FormsModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatSnackBarModule
-   
+    MatSnackBarModule,
+    MatStepperModule,
+    MatCheckboxModule,
+    MatGridListModule,
+    MatTooltipModule
   ],
-  providers: [],
+  providers: [AuthenticationUserService, MatIconRegistry],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

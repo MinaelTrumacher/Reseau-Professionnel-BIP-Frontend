@@ -20,13 +20,10 @@ const routes: Routes = [
     component: MessagerieComponent
   },
   { 
-  path: 'profil',
-  component: ProfilComponent
-  },
-  {
-  path: 'profil',
-  component: GridComponent
-  }
+    path: 'profil',
+    component: ProfilComponent
+    },
+  
 ];
 
 @NgModule({
