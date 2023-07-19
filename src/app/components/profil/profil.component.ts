@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UtilisateurService, Utilisateurs} from 'src/app/services/utilisateur.service';
+import { UtilisateurService, } from 'src/app/services/utilisateur.service';
 import { Observer } from 'rxjs';
-
-
-
+import { Utilisateur } from 'src/app/models/Utilisateur_Inscription';
 
 @Component({
   selector: 'app-profil',
@@ -16,13 +14,13 @@ export class ProfilComponent implements OnInit{
 
   constructor(private utilisateurService  : UtilisateurService) { }
 
-  utilisateurList: Utilisateurs[] | undefined;
+  utilisateurList: Utilisateur[] | undefined;
 
   ngOnInit() {
     const id = 2; // Remplacez 1 par la logique pour récupérer l'ID de session
   
     this.utilisateurService.getUtilisateur(id).subscribe({
-      next: (utilisateur: Utilisateurs) => { 
+      next: (utilisateur: Utilisateur) => { 
         this.getUtilisateur(utilisateur.id); 
       },
       error: (error) => {
@@ -34,14 +32,14 @@ export class ProfilComponent implements OnInit{
 
   getUtilisateur(id: number) {
     this.utilisateurService.getUtilisateur(id).subscribe({
-      next: (utilisateur: Utilisateurs) => {
+      next: (utilisateur: Utilisateur) => {
         console.log(utilisateur);
         this.utilisateurList = [utilisateur];
       },
       error: (error) => {
         console.error(error);
       }
-    } as Observer<Utilisateurs>);
+    } as Observer<Utilisateur>);
   }
 }
 

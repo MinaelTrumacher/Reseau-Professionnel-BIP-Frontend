@@ -1,6 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Utilisateur } from 'src/app/models/Utilisateur_Inscription';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
@@ -14,74 +13,75 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class InscriptionComponent{
 
-  formulaire: FormGroup;
+  formulaire!: FormGroup;
   raison_social: any;
   utilisateur! : Utilisateur ;
   villes: { id: string, ville: string }[] = [];
-  errorMessage: string = '';
-  cguChecked: boolean = false;
+  errorMessage = '';
+  cguChecked = false;
+  hidePwd = true;
+  hidePwdConfirm = true;
 
-
-  constructor(private snackBar: MatSnackBar,private utilisateurservice : UtilisateurService , private dialog: MatDialog, private http: HttpClient,
+  constructor(private snackBar: MatSnackBar,private utilisateurservice : UtilisateurService , private dialog: MatDialog,
     private formBuilder: FormBuilder) { 
+    }
 
+    ngOnInit(): void {
       this.formulaire = this.formBuilder.group({
         nom: ['', Validators.required],
         prenom: ['', Validators.required],
         role: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
+        emailConfirm: ['',[
+          Validators.required,
+          this.matchValues('email'),
+        ]],
         mdp: ['', [
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(50),
-          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).*$'),
-          Validators.pattern('^(?=.*\\d)(?=.*[!@#$%^&()\\-_=+{};:,<.>]).*$')
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).*$/)
         ]],
-        
-        description: [''],
-        siren: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
-        raison_social: ['', Validators.required],
+        mdpConfirm: ['',[
+            Validators.required,
+            this.matchValues('mdp'),
+        ]],
+        //siren: ['', [Validators.required, Validators.pattern(/^(?:\d{9}|\d{3}\s\d{3}\s\d{3})$/)]],
+        //raison_social: ['', Validators.required],
         codePostal: ['', Validators.required],
         ville: ['', Validators.required],
-      
       });
 
     }
-    OpenCgu(){
+    openCgu(event: Event){
       this.dialog.open(ModalCguComponent);
     }
 
 
-    Enregistrer() {
-        // Vérifier si la case CGU est cochée
-      if (!this.cguChecked) {
-       // console.log("Veuillez accepter les CGU pour continuer.");
-        return; // Sortir de la méthode sans enregistrer
-      }
+    register() {
       // Récupérer les valeurs du formulaire
-      const { nom, prenom, role, email, mdp, description, siren,raison_social, codePostal, ville, idVille } = this.formulaire.value;
+      console.log(this.formulaire.value);
+      const { nom, prenom, role, email, mdp, ville } = this.formulaire.value;
 
       this.utilisateur = {
+        id : 0,
         nom,
         prenom,
         role,
         email,
         mdp,
-        description,
-        entreprise: {
-          siren,
-          raisonSociale : raison_social
-        },
+        description : "",
+        etatInscription : "",
         geolocalisation: {
           id: ville,         
         }
       };
-      //console.log(this.utilisateur);
-      this.utilisateurservice.AjouterUtilisateur(this.utilisateur)
+      console.log(this.utilisateur);
+      this.utilisateurservice.createUtilisateur(this.utilisateur)
         .subscribe({
           next: () => {
             console.log('Utilisateur enregistré avec succès !');
-            this.annuler();
+            this.cancel();
             this.snackBar.open("Un e-mail de confirmation a été envoyé. Veuillez confirmer votre inscription.", "Fermer", {
               duration: 50000, 
               verticalPosition: 'top',
@@ -99,20 +99,15 @@ export class InscriptionComponent{
     }
     
 
-  annuler(): void {
+  cancel(): void {
     this.dialog.closeAll(); 
   }
 
 
-  searchEntreprise() {
-    const siren = this.formulaire.get('siren')?.value;
+  /*searchEntreprise() {
+    const siren = this.formulaire.get('siren')?.value.replace(/\s/g,'');
     if (siren && siren.length === 9) {
-      const endpoint = "https://api.insee.fr/entreprises/sirene/V3/siren/";
-      const filter = "?date=2022-01-01&champs=denominationUniteLegale%2C%20siren";
-      const token = "6975ba9d-5424-3644-9378-5cf27640b58b";
-      const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-
-      this.http.get(endpoint + siren + filter, { headers }).subscribe({
+      this.utilisateurservice.getEntrepriseBySiren(siren).subscribe({
         next: (response: any) => {
           this.raison_social = response;
 
@@ -128,24 +123,36 @@ export class InscriptionComponent{
     } else {
       this.raison_social = null;
     }
-  }
+  }*/
 
 
 getVille(codePostal: string): void {
-  this.utilisateurservice.getVilleByCodePostal(codePostal).subscribe({
-    next: (response: any) => {
-      console.log(response);
-      this.villes = response.map((ville: any) => ({
-       
-        id: ville.id,
-        ville: ville.ville
-      }));
-    },
-    error: (error: any) => {
-      console.error(error);
-    }
-  });
+  if(codePostal.length == 5 )
+    this.utilisateurservice.getVilleByCodePostal(codePostal).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.villes = response.map((ville: any) => ({
+          id: ville.id,
+          ville: ville.ville
+        }));
+      },
+      error: (error: any) => {
+        console.error(error);
+      }
+    });
 }
 
+matchValues(
+  matchTo: string // name of the control to match to
+): (AbstractControl:any) => ValidationErrors | null {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const parentControls = control.parent?.controls as { [key: string]: AbstractControl<any> };
+    return !!control.parent &&
+      !!control.parent.value &&
+      control.value === parentControls[matchTo].value
+      ? null
+      : { isMatching: false };
+  };
+}
 
 }

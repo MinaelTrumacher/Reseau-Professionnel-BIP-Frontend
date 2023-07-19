@@ -1,26 +1,70 @@
 form {
-    display: flex;
-   // flex-direction: column;
-   flex-wrap: wrap;
-  //  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
   align-content: center;
   justify-content: space-evenly;
-    height: 60vh;
-    width: 60vw;
-    margin-top: 10px;
-    
-  }
-  
-  mat-form-field {
-    width: 40%; 
-    
-  }
-  button{
+  height: 70vh;
+  width: 60vw;
+  margin-top: 10px;
+  border-top: 1.5rem;
+  border-bottom: 1.5rem;
+  border-color: #87BB34;
+}
 
-   margin-left: 10px;
-  }
+h1 {
+  flex-basis: 100%;
+  text-align: center;
+}
 
-  .pBt{
-    cursor: pointer;
-   
+.button {
+  flex-basis: 100%;
+  text-align: center;
+}
+
+form::before,
+form::after {
+content: '';
+position: absolute;
+left: 0;
+right: 0;
+height: 10px;
+background-color: #87BB34;
+}
+
+form::before {
+top: 0;
+}
+
+form::after {
+bottom: 0;
+}
+
+mat-form-field {
+  width: 40%;    
+}
+
+button{
+  margin: 0 40px 0 40px;
+}
+
+.pBt{
+  cursor: pointer;
+  align-content: center;
+}
+
+.pBt:hover{
+  color:#86BB24;
+}
+
+.cgu-link {
+display: flex;
+justify-content: center;
+
+}
+
+
+
+.green-button{
+background-color: #86BB24;
+color: #FFFFFF;
 }

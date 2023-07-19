@@ -1,7 +1,7 @@
 <header>
     <mat-toolbar>
         <a class="logo custom-logo" href="/" title="Aller à afpa">
-            <img alt="" src="/assets/images/logo-afpa.jpg" style="width: 85%;"/>
+            <img alt="" src="/assets/images/logo_afpa.jpg" style="width: 85%;"/>
         </a>
         <div class="header-links">
             <form>
@@ -15,10 +15,10 @@
             </form>
         </div>
         <div class="menu-bouton">
-            <a href="#"><mat-icon class="icon">email</mat-icon></a>
-            <a href="#"><mat-icon class="icon">person</mat-icon></a>
-            <button mat-button color="primary">Se connecter</button>
-            <button mat-button color="primary" (click)="ModalInscription()">S'inscrire</button>
+            <a href="/messagerie"><mat-icon class="icon">email</mat-icon></a>
+            <a href="/profil"><mat-icon class="icon">person</mat-icon></a>
+            <button mat-button (click)="openFormLogin()" color="primary">Se connecter</button>
+            <button mat-button color="primary" (click)="openFormRegister()">S'inscrire</button>
         </div>
     </mat-toolbar>
 
