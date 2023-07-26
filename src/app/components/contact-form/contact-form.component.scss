@@ -1,0 +1,29 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+  overflow: hidden;
+}
+
+.center-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  width: 400px;
+  border-top: 1.5rem solid #86BB24;
+  border-bottom: 1.5rem solid #86BB24;
+}
+
+.center-form mat-form-field {
+  width: 100%;
+  margin-bottom: 9px;
+}
+
+.center-form button[type="submit"] {
+  margin-top: 12px;
+  align-self: center;
+  background-color: #86BB24;
+  color: #FFFFFF;
+}

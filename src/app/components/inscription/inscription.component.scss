@@ -24,19 +24,19 @@ h1 {
 form::before,
 form::after {
 content: '';
-position: absolute;
-left: 0;
-right: 0;
-height: 10px;
-background-color: #87BB34;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-color: #87BB34;
 }
 
 form::before {
-top: 0;
+  top: 0;
 }
 
 form::after {
-bottom: 0;
+  bottom: 0;
 }
 
 mat-form-field {
@@ -57,14 +57,11 @@ button{
 }
 
 .cgu-link {
-display: flex;
-justify-content: center;
-
+  display: flex;
+  justify-content: center;
 }
 
-
-
 .green-button{
-background-color: #86BB24;
-color: #FFFFFF;
+  background-color: #86BB24;
+  color: #FFFFFF;
 }

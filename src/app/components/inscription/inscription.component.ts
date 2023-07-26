@@ -103,29 +103,6 @@ export class InscriptionComponent{
     this.dialog.closeAll(); 
   }
 
-
-  /*searchEntreprise() {
-    const siren = this.formulaire.get('siren')?.value.replace(/\s/g,'');
-    if (siren && siren.length === 9) {
-      this.utilisateurservice.getEntrepriseBySiren(siren).subscribe({
-        next: (response: any) => {
-          this.raison_social = response;
-
-          if (this.formulaire.value['raisonSociale'] !== response?.denominationUniteLegale) {
-            this.formulaire.value['raisonSociale'] = response?.denominationUniteLegale;
-          }
-        },
-        error: (error: any) => {
-          console.error('Erreur lors de la recherche de l\'entreprise :', error);
-          this.raison_social = null;
-        }
-      });
-    } else {
-      this.raison_social = null;
-    }
-  }*/
-
-
 getVille(codePostal: string): void {
   if(codePostal.length == 5 )
     this.utilisateurservice.getVilleByCodePostal(codePostal).subscribe({

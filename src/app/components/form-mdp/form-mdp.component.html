@@ -1,0 +1,11 @@
+<form [formGroup]="RenewForm">
+  <h1>Récupération du mot de passe</h1>
+  <mat-form-field appearance="outline">
+    <mat-label>email</mat-label>
+    <input matInput placeholder="example@vd.com" type="text" formControlName="email"/>
+  </mat-form-field>
+  <div>
+    <button mat-raised-button color="primary" (click)="RenewMdp()">envoyer</button>
+    <button mat-raised-button>Quitter</button>
+  </div>
+</form>

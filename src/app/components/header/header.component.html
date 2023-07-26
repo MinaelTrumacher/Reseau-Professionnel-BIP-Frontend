@@ -1,26 +1,44 @@
 <header>
     <mat-toolbar>
-        <a class="logo custom-logo" href="/" title="Aller à afpa">
-            <img alt="" src="/assets/images/logo_afpa.jpg" style="width: 85%;"/>
+        <!-- Si connexion = true, alors le logo renvoie vers la page principale après connexion -->
+        <!-- Si connexion = false, alors le logo renvoie vers la page principale avant connexion -->
+        <a #logoElement class="logo custom-logo" [routerLink]="(utilisateurService.isLoggedIn$ | async) ? '/home' : '/index'" title="Accueil">
+            <img alt="" src="/assets/images/logo-bip.png" style="width: 50%;" />
         </a>
         <div class="header-links">
             <form>
-                <mat-form-field appearance="outline" class="search-bar" >
+                <mat-form-field appearance="outline" class="search-bar" *ngIf="(utilisateurService.isLoggedIn$ | async)">
                   <mat-label>Recherche</mat-label>
                   <input matInput placeholder="Recherche">
                 </mat-form-field>
-                <a href="#">
+                <a href="#" *ngIf="(utilisateurService.isLoggedIn$ | async)">
                     <mat-icon>arrow_downward</mat-icon>
                 </a>
             </form>
         </div>
         <div class="menu-bouton">
-            <a href="/messagerie"><mat-icon class="icon">email</mat-icon></a>
-            <a href="/profil"><mat-icon class="icon">person</mat-icon></a>
-            <button mat-button (click)="openFormLogin()" color="primary">Se connecter</button>
-            <button mat-button color="primary" (click)="openFormRegister()">S'inscrire</button>
+            <!-- Le bouton mail doit être actif seulement lorsque l'utilisateur est connecté -->
+            <button mat-button *ngIf="(utilisateurService.isLoggedIn$ | async)">
+                <mat-icon class="icon">email</mat-icon>
+            </button>
+            
+            <!-- Le bouton du menu avec l'icône person -->
+            <button mat-button *ngIf="(utilisateurService.isLoggedIn$ | async)" [matMenuTriggerFor]="menu">
+                <mat-icon class="icon">person</mat-icon>
+            </button>
+            
+            <!-- Le menu déroulant -->
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>Ma page</button>
+                <button mat-menu-item>Paramètres</button>
+                <button mat-menu-item>Deconnexion</button>
+            </mat-menu>
+            
+            <!-- Les boutons connexion et inscription doivent être actifs seulement avant la connexion de l'utilisateur et après sa déconnexion -->
+            <ng-container *ngIf="!(utilisateurService.isLoggedIn$ | async)">
+                <button mat-button color="primary" (click)="openFormLogin()">Se connecter</button>
+                <button mat-button color="primary" (click)="openFormRegister()">S'inscrire</button>
+            </ng-container>
         </div>
     </mat-toolbar>
-
 </header>
-
