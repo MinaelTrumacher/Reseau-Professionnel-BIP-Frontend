@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ModalCguContentComponent } from 'src/app/components/modal-cgu-content/modal-cgu-content.component';
 
 @Component({
   selector: 'app-modal-cgu',
@@ -10,11 +11,11 @@ export class ModalCguComponent {
 
   constructor(public dialog: MatDialog) {}
 
-  openDialog() {
-    const dialogRef = this.dialog.open(ModalCguComponent);
+  openCguModal(): void {
+    const dialogRef = this.dialog.open(ModalCguContentComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      console.log(`Formulaire fermé.`);
     });
   }
 }

@@ -1,0 +1,25 @@
+<div class="form-container">
+  <form class="center-form">
+    <h3>Nous vous invitons à remplir vos informations de contact afin de faciliter la communication avec notre administrateur. Votre coopération nous permettra de répondre rapidement à vos questions, commentaires ou préoccupations.</h3>
+    <mat-form-field class="bloc">
+      <mat-label for="nom">Nom</mat-label>
+      <input matInput placeholder="Votre nom" id="nom" name="nom" [formControl]="nomControl" required>
+    </mat-form-field>
+
+    <mat-form-field class="bloc">
+      <mat-label for="prenom">Prénom</mat-label>
+      <input matInput placeholder="Votre prénom" id="prenom" name="prenom" [formControl]="prenomControl" required>
+    </mat-form-field>
+
+    <mat-form-field class="bloc">
+      <mat-label for="email">Email</mat-label>
+      <input matInput placeholder="Votre adresse mail" id="email" name="email" [formControl]="emailControl" required>
+    </mat-form-field>
+
+    <mat-form-field class="bloc">
+      <mat-label for="message">Message</mat-label>
+      <textarea matInput placeholder="Votre message..." id="message" name="message" rows="4" [formControl]="messageControl" required></textarea>
+    </mat-form-field>
+      <button mat-raised-button type="submit" (click)="submitForm()">Envoyer</button>
+  </form>
+</div>

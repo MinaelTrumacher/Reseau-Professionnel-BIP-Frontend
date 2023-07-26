@@ -70,7 +70,7 @@ export class FormloginComponent implements OnInit {
           console.log("Sauvegarde id et token user:",this.utilisateurService.userSession);
 
           ////Reroutage vers page principal
-          this.router.navigate(["index"]);
+          this.router.navigate(["home"]);
 
           //Fermeture de la modal
           this.dialog.closeAll();
