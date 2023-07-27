@@ -53,6 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logoutRequest() {
     this.utilisateurService.cleanUserLogged();
     this.utilisateurService.updateIsLoggedInStatus(false); // Mettre à jour l'état de connexion
-    this.router.navigate([""]);            //Reroutage vers homecomponent
+    console.log("userSession après deconnexion", this.utilisateurService.userSession)
+    this.router.navigate([""]);            //Reroutage vers index
   }
 }
