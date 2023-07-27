@@ -57,9 +57,7 @@ export class FormloginComponent implements OnInit {
     if (this.logForm.valid) {
       const FORMDATA = this.logForm.value;
       console.log("Donnée saisie dans le formulaire authentification:",FORMDATA);
-      const USERNAME = FORMDATA.email;
-      const PASSWORD = FORMDATA.mdp;
-      const CREDENTIALS = { username: USERNAME, password: PASSWORD };
+      const CREDENTIALS = { username: FORMDATA.email, password: FORMDATA.mdp };
       console.log("Certificat envoyé - (json clef valeur): ------->",CREDENTIALS);
       this.authenticationUserService.login(CREDENTIALS).subscribe({
         next: (HttpResponse) => {

@@ -31,7 +31,7 @@
             <mat-menu #menu="matMenu">
                 <button mat-menu-item>Ma page</button>
                 <button mat-menu-item>Paramètres</button>
-                <button mat-menu-item>Deconnexion</button>
+                <button mat-menu-item (click)="logoutRequest()">Deconnexion</button>
             </mat-menu>
             
             <!-- Les boutons connexion et inscription doivent être actifs seulement avant la connexion de l'utilisateur et après sa déconnexion -->

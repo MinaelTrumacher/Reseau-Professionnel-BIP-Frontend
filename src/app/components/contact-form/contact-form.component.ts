@@ -4,6 +4,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { environment } from 'src/environments/environment';
+
+
 
 @Component({
   selector: 'app-contact-form',
@@ -26,7 +29,7 @@ export class ContactFormComponent {
       message: this.messageControl.value
     };
 
-    this.http.post('http://localhost:8080/contact', formData).subscribe({
+    this.http.post(environment.url + '/api/contact', formData).subscribe({
       next: () => {
         this.openSuccessDialog();
       },

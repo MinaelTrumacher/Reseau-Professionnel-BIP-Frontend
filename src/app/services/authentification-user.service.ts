@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; //utilisation du service de requete HTTP
 import { Observable } from 'rxjs';
 import { EncryptionService } from './encryption.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationUserService {
   //Déclaration variables
-  readonly ENDPOINT_AUTHENTICATION = 'http://localhost:8080/api/authentification/login';
-  readonly ENCRYPTION = true;                                                             //Activation/desaction de l'encryption
+  readonly ENCRYPTION = true;          //Activation/desaction de l'encryption
 
   constructor(private http: HttpClient,
               private encryptservice: EncryptionService) {}
@@ -34,6 +34,6 @@ login(credentials: { username: string, password: string }): Observable<any> {
 
     console.log("Envoie des données du formulaire d'authentification vers API Back: ------->",HEADEROPTIONS);
     console.log("Certificat encrypté",ENCODEDDATA);
-    return this.http.post(this.ENDPOINT_AUTHENTICATION, {}, HEADEROPTIONS );
+    return this.http.post(environment.url + '/authentification/login', {}, HEADEROPTIONS );
   }
 }

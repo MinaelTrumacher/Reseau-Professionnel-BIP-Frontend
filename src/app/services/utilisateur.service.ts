@@ -3,23 +3,23 @@ import { Injectable } from '@angular/core';
 import { Utilisateur } from '../models/Utilisateur_Inscription';
 import { Observable, Subject } from 'rxjs';
 import { EncryptionService } from './encryption.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilisateurService {
+ 
   private isLoggedInSubject = new Subject<boolean>(); // Subject pour la communication avec le header.component
   isLoggedIn$ = this.isLoggedInSubject.asObservable(); // Observable pour mettre à jour isLoggedIn dans le header.component
 
-  private BASEURL = 'http://localhost:8080';
   constructor(private http: HttpClient,
     private encryptservice: EncryptionService) { }
 
 
 //Fonctions pour inscription
 getVilleByCodePostal(codePostal: string): Observable<any> {
-  const URL = `${this.BASEURL}/geolocalisations/codes-postaux/${codePostal}`;
-  return this.http.get<any>(URL);
+  return this.http.get<any>(environment.url + '/geolocalisations/codes-postaux/' + codePostal);
 }
 
 getEntrepriseBySiren(siren : string){
@@ -36,24 +36,24 @@ createUtilisateur(utilisateur: Utilisateur): Observable<any> {
   console.log(utilisateur);
   utilisateur.mdp = this.encryptservice.encryption(utilisateur.mdp);
   console.log(utilisateur.mdp);
-  const url = `${this.BASEURL}/api/authentification/register`;
+  const url = environment.url + '/authentification/register';
   return this.http.post(url, utilisateur);
 }
 
 public utilisateursList() : Observable<Utilisateur[]>{
-  return this.http.get<Utilisateur[]>(this.BASEURL);
+  return this.http.get<Utilisateur[]>(environment.url); // a revoir l'endpoint
 }
 
 public getUtilisateur(id : number) : Observable<Utilisateur>{
-  return this.http.get<Utilisateur>(`${this.BASEURL}/${id}`);
+  return this.http.get<Utilisateur>(environment.url + '/' + id); // a revoir l'endpoint
 }
 
 public updateUtilisateur(utilisateur : Utilisateur, id : number) : Observable<Utilisateur>{
-  return this.http.put<Utilisateur>(`${this.BASEURL}/${id}`, utilisateur)
+  return this.http.put<Utilisateur>(environment.url + '/' + id, utilisateur) // a revoir l'endpoint
 }
 
 public deleteUtilisateur(id: number, utilisateur: Utilisateur): Observable<void> {
-  return this.http.delete<void>(`${this.BASEURL}/${id}`);
+  return this.http.delete<void>(environment.url + '/' + id); // a revoir l'endpoint
 }
 
 //Fonctions de connexion
