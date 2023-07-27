@@ -29,7 +29,7 @@ export class ContactFormComponent {
       message: this.messageControl.value
     };
 
-    this.http.post(environment.url + '/api/contact', formData).subscribe({
+    this.http.post(environment.url + '/contact', formData).subscribe({
       next: () => {
         this.openSuccessDialog();
       },
