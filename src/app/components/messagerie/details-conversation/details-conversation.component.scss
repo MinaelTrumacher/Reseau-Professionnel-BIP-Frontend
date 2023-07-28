@@ -1,0 +1,75 @@
+.message {
+  border: 2px solid rgba(0, 0, 0, 0.26);
+  border-left: none;
+  border-right: none;
+  padding: 0px 20px;
+  margin: auto;
+  background-color: #d9d9d97f;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .content {
+    position: relative;
+    button {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 100%;
+      transform: translate(-50%, 70%);
+    }
+  }
+  .message-droite:hover button {
+    background-color: rgba(240, 48, 48, 0.863);
+    display: block;
+  }
+}
+
+pre {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 20px;
+  font-family: inherit;
+  margin-bottom: 0;
+  white-space: pre-wrap;
+}
+
+img {
+  width: 40px;
+  border-radius: 50px;
+}
+
+.message-gauche {
+  display: flex;
+  align-items: center;
+  img {
+    margin-right: 10px;
+    border: 2px solid red;
+  }
+  span {
+    margin-left: 10px;
+  }
+  pre {
+    background-color: rgba(189, 187, 84, 0.527);
+  }
+}
+
+.message-droite {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  img {
+    margin-left: 10px;
+    border: 2px solid green;
+  }
+  span {
+    margin-right: 10px;
+  }
+  pre {
+    background-color: rgb(201, 226, 131);
+  }
+}
+
+.dateEnvoi {
+  font-size: 0.6rem;
+  white-space: nowrap;
+}

@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UtilisateurService {
- 
+
   private isLoggedInSubject = new Subject<boolean>(); // Subject pour la communication avec le header.component
   isLoggedIn$ = this.isLoggedInSubject.asObservable(); // Observable pour mettre à jour isLoggedIn dans le header.component
 
@@ -76,5 +76,5 @@ cleanUserLogged() {
   this.userSession = {userId: null, token: null};
   this.isLoggedInSubject.next(false); // Passage de la variable isLoggedIn dans le header.component à false
 }
-  
+
 }

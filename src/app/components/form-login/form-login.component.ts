@@ -3,8 +3,8 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthenticationUserService } from 'src/app/services/authentification-user.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { Router } from '@angular/router';
-import { FormPwdComponent } from '../form-pwd/form-pwd.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FormMdpComponent } from '../form-mdp/form-mdp.component';
 
 @Component({
   selector: 'app-form-login',
@@ -94,7 +94,7 @@ export class FormloginComponent implements OnInit {
 
   openPwdForgot() {
     this.dialog.closeAll();
-    this.dialog.open(FormPwdComponent);
+    this.dialog.open(FormMdpComponent);
   }
 
 }

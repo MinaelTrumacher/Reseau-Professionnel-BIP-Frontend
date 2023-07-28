@@ -1,0 +1,26 @@
+<div #elementDivMessages class="message"
+[style.height]="'calc(100vh - ' + (headerHeight + footerHeight + headerAndFooterHeightOfDetailsConversation + 30 + 16) + 'px)'">
+<!-- 16 est lié au app-details-conversation margin-bottom: 16px; dans composant messagerie
+ et 30 au header comosant css  margin-top: 30px;-->
+  <ng-container *ngFor="let message of conversation">
+    <ng-container *ngIf="message.expediteur_id == userId; else affichageMessageInterlocuteurADroit">
+      <div #elementDivContentMessage *ngIf="!(message.supprimerParUserId == userId)" class="message-droite">
+        <div class="content">
+          <pre>{{ message.contenu }}</pre>
+          <span class="dateEnvoi">Envoyé le: {{message.dateEnvoi | date:'dd/MM/yyyy'}}{{message.vu ? '- Vu':''}}</span>
+          <button *ngIf="!message.vu" mat-mini-fab aria-label="btn-delete" (click)="onDeleteMessage(message, elementDivContentMessage)"><mat-icon>delete-sweep</mat-icon></button>
+        </div>
+        <img src="https://thumbs.dreamstime.com/z/satisfait-centre-de-soutien-emoji-bot-avec-un-sourire-gentil-%C3%A9motic%C3%B4ne-bonne-humeur-isol%C3%A9-heureux-smiley-vue-du-profil-vecteur-213609670.jpg?w=768" alt="image de profil" title="image de profil">
+      </div>
+    </ng-container>
+    <ng-template #affichageMessageInterlocuteurADroit>
+      <div class="message-gauche">
+        <img src="https://thumbs.dreamstime.com/z/satisfait-centre-de-soutien-emoji-bot-avec-un-sourire-gentil-%C3%A9motic%C3%B4ne-bonne-humeur-isol%C3%A9-heureux-smiley-vue-du-profil-vecteur-213609670.jpg?w=768" alt="image de profil" title="image de profil">
+        <div>
+          <pre class="content">{{ message.contenu }}</pre>
+          <span class="dateEnvoi"> Reçu le : {{message.dateEnvoi | date:'dd/MM/yyyy'}}{{message.vu ? '- Vu':''}}</span>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

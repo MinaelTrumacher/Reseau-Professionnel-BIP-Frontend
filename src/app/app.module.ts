@@ -26,6 +26,10 @@ import { HomeComponent } from './components/home/home.component';
 import { IndexComponent } from './components/index/index.component';
 import { MessagerieComponent } from './components/messagerie/messagerie.component';
 import { ProfilComponent } from './components/profil/profil.component';
+import { ConversationComponent } from './components/messagerie/conversation/conversation.component';
+import { DetailsConversationComponent } from './components/messagerie/details-conversation/details-conversation.component';
+import { DialogMessagerieComponent } from './components/messagerie/dialogs/dialog-messagerie/dialog-messagerie.component';
+import { DialogAjoutConversationComponent } from './components/messagerie/dialogs/dialog-ajout-conversation/dialog-ajout-conversation.component';
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
 import { ModalCguContentComponent } from './components/modal-cgu-content/modal-cgu-content.component';
@@ -53,6 +57,10 @@ import { HttpClientModule } from '@angular/common/http';
     IndexComponent,
     MessagerieComponent,
     ProfilComponent,
+    ConversationComponent,
+    DetailsConversationComponent,
+    DialogMessagerieComponent,
+    DialogAjoutConversationComponent,
     ContactFormComponent,
     InscriptionComponent,
     ModalCguContentComponent,

@@ -36,7 +36,7 @@
 
     <mat-form-field>
       <mat-label>Email</mat-label>
-      <input matInput type="email" formControlName="email">
+      <input matInput type="email" formControlName="email" (paste)="(false)" (copy)="(false)">
       <mat-error *ngIf="formulaire?.get('email')?.invalid && formulaire?.get('email')?.touched">
         <ng-container *ngIf="formulaire?.get('email')?.hasError('required')">
           L'email est requis et doit être au format valide.
@@ -62,7 +62,7 @@
 
     <mat-form-field>
       <mat-label>Mot de passe</mat-label>
-      <input matInput type="password" [type]="hidePwd ? 'password' : 'text'" formControlName="mdp">
+      <input matInput type="password" [type]="hidePwd ? 'password' : 'text'" formControlName="mdp" (paste)="(false)" (copy)="(false)">
       <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{ hidePwd ? "visibility_off" : "visibility" }}</mat-icon>
       <mat-error *ngIf="formulaire.get('mdp')?.invalid && formulaire.get('mdp')?.touched">
         <ng-container *ngIf="formulaire.get('mdp')?.hasError('required')">
@@ -82,7 +82,7 @@
 
     <mat-form-field>
       <mat-label>Confirmation mot de passe</mat-label>
-      <input matInput type="password" [type]="hidePwdConfirm ? 'password' : 'text'" formControlName="mdpConfirm">
+      <input matInput type="password" [type]="hidePwdConfirm ? 'password' : 'text'" formControlName="mdpConfirm" (paste)="(false)" (copy)="(false)">
       <mat-icon matSuffix (click)="hidePwdConfirm = !hidePwdConfirm">{{ hidePwdConfirm ? "visibility_off" : "visibility" }}</mat-icon>
       <mat-error *ngIf="formulaire.get('mdpConfirm')?.invalid && formulaire.get('mdpConfirm')?.touched">
         <ng-container *ngIf="formulaire.get('mdpConfirm')?.hasError('required')">
