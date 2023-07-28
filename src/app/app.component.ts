@@ -12,12 +12,12 @@ export class AppComponent {
 
   ngOnInit() {
     window.addEventListener('scroll', () => {
-      this.windowScrolled = window.pageYOffset !== 0;
+      this.windowScrolled = window.scrollY !== 0;
     });
   }
 
   scrollToTop(): void {
     window.scrollTo(0, 0);
   }
-  
+
 }

@@ -1,3 +1,4 @@
+import { HeightService } from 'src/app/services/height.service';
 import { Component, ViewChild, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { MatMenuPanel, MatMenuTrigger } from '@angular/material/menu';
 import { InscriptionComponent } from '../inscription/inscription.component';
@@ -14,13 +15,20 @@ import { Subscription } from 'rxjs/internal/Subscription';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) menu!: MatMenuPanel<any>;
-  @ViewChild('logoElement', { static:true }) logoElement!: ElementRef;
+  @ViewChild('logoElement', { static: true }) logoElement!: ElementRef;
   isLoggedIn = false;
   private isLoggedInSubscription: Subscription | null = null;
 
-  constructor(private dialog: MatDialog, public utilisateurService: UtilisateurService, private router: Router,) {}
+  constructor(
+    private dialog: MatDialog,
+    public utilisateurService: UtilisateurService,
+    private router: Router,
+    private heightService: HeightService,
+    private elementRef: ElementRef) { }
 
   ngOnInit(): void {
+    this.heightService.setHeaderHeightSubject(this.getHeaderHeight());
+
     this.isLoggedInSubscription = this.utilisateurService.isLoggedIn$.subscribe((isLoggedIn: boolean) => {
       this.isLoggedIn = isLoggedIn;
       // Vous pouvez effectuer des actions supplémentaires en fonction de l'état de connexion ici
@@ -33,10 +41,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  getHeaderHeight() {
+    const elementHeader = this.elementRef.nativeElement.querySelector('#header');
+    return elementHeader.offsetHeight;
+  }
+
   ngOnDestroy(): void {
     if (this.isLoggedInSubscription) {
       this.isLoggedInSubscription.unsubscribe(); // Supprimer la souscription
     }
+  }
+
+  onClickMessage() {
+    this.router.navigate(['messagerie']);
   }
 
   openFormRegister() {

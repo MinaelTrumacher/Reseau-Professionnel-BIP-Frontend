@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Créer une conversation</h1>
+<form [formGroup]="form">
+  <div mat-dialog-content>
+    <p>Chercher une personne ?</p>
+    <mat-form-field>
+      <mat-label>Nom ou/et Prénom</mat-label>
+      <input matInput formControlName="nom" [(ngModel)]="utilisateurDtoMessage.nomDestination" (keyup)="onInputSearchChange()" cdkFocusInitial>
+    </mat-form-field>
+    <p>Votre message ?</p>
+    <mat-form-field>
+      <mat-label>Message</mat-label>
+      <textarea #textarea matInput  formControlName="contenu" [(ngModel)]="utilisateurDtoMessage.contenu"></textarea>
+    </mat-form-field>
+  </div>
+</form>
+<div class="list-container" *ngIf="listUtilisateurDtoMessages">
+  <table>
+    <ng-container *ngFor="let utilisateur of listUtilisateurDtoMessages">
+      <ul #ulElementUserSelected>
+        <li>
+          <a *ngIf="userId!==utilisateur.id" (click)="selectedDistinataire(utilisateur, ulElementUserSelected)">{{utilisateur.nomDestination}}</a>
+        </li>
+      </ul>
+    </ng-container>
+  </table>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onAnnuler()">Annuler</button>
+  <button mat-button [mat-dialog-close]="utilisateurDtoMessage" [disabled]="form.invalid">Valider</button>
+</div>

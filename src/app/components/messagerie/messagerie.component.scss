@@ -1,0 +1,114 @@
+.content-messagerie {
+  display: flex;
+  hr {
+    border-color: rgba(99, 94, 94, 0.247);
+  }
+}
+
+app-details-conversation,
+.header-details-conversation,
+.saisie-message {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content-conversations {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .header-conversations {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
+    p {
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.842);
+      text-align: center;
+      border-radius: 10px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 10px;
+      padding: 12px 20px;
+      background-color: #454545;
+      color: white;
+    }
+    .ajout-conversation {
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      button {
+        margin-right: 10px;
+        width: 40px;
+        height: 40px;
+        background-color: #d9d9d97f;
+      }
+      input {
+        padding: 5px;
+        margin-left: 10px;
+        width: 50%;
+        height: 14px;
+        border-radius: 20px;
+      }
+    }
+  }
+  .list-conversations {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 80%;
+    margin: auto;
+  }
+}
+
+.content-details-conversation {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .header-details-conversation {
+    p {
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.842);
+      text-align: center;
+      border-radius: 10px;
+      margin-top: 10px;
+      padding: 12px 20px;
+      background-color: #454545;
+      color: white;
+    }
+  }
+
+  app-details-conversation {
+    margin-bottom: 16px; // cette valeur est lié à une autre dans le htlm details conversation
+  }
+
+  .saisie-message {
+    display: flex;
+    border-radius: 20px;
+    align-items: center;
+    background-color: #d9d9d9;
+    // margin-bottom: 20px; n'a pas d'effet il faut voir pourquoi
+
+    button {
+      margin-right: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: rgb(201, 226, 131);
+    }
+  }
+
+  textarea#messageTosend {
+    scrollbar-color: rgba(138, 136, 136, 0.034) rgba(100, 100, 100, 0.027);
+    width: 80%;
+    margin: auto;
+    padding: 5px 0px;
+    border: none;
+    background-color: #d9d9d97f;
+    resize: none;
+    font-size: 16px;
+  }
+  textarea#messageTosend:focus {
+    outline: none;
+  }
+}

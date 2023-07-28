@@ -1,0 +1,44 @@
+div{
+  button{
+    margin: auto;
+  }
+  mat-form-field{
+    width: 100%;
+  }
+}
+
+.list-container {
+  max-height: 200px;
+  overflow-y: auto;
+  .selectedUser{
+    background-color: #0066cc;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    &:hover {
+      cursor: pointer;
+      background-color: #0066cc;
+    }
+  }
+
+  li {
+    border-bottom: 1px solid #ccc;
+  }
+
+  a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    text-align: center;
+    padding: 8px;
+  }
+}
