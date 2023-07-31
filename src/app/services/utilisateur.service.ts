@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Utilisateur } from '../models/Utilisateur_Inscription';
+import { Utilisateur } from '../models/Utilisateur';
 import { Observable, Subject } from 'rxjs';
 import { EncryptionService } from './encryption.service';
 import { environment } from 'src/environments/environment';
@@ -45,7 +45,14 @@ public utilisateursList() : Observable<Utilisateur[]>{
 }
 
 public getUtilisateur(id : number) : Observable<Utilisateur>{
-  return this.http.get<Utilisateur>(environment.url + '/' + id); // a revoir l'endpoint
+  var ENCODEDATA = ' Bearer ' + this.userSession.token;
+  var HEADEROPTIONS = { headers: new HttpHeaders({
+   'Content-Type' : 'application/json',
+   'Authorization' : ENCODEDATA
+   }),
+ responseType: 'json' as 'json'
+};
+  return this.http.get<Utilisateur>(environment.url + '/utilisateurs/' + id, HEADEROPTIONS); // a revoir l'endpoint
 }
 
 public updateUtilisateur(utilisateur : Utilisateur, id : number) : Observable<Utilisateur>{

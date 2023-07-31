@@ -4,53 +4,50 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { Publication } from 'src/app/models/Publication';
 import { Tile } from 'src/app/models/Tile';
 
+
+
 @Component({
-  selector: 'app-grid',
-  templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.scss']
+  selector: 'app-creationpublication',
+  templateUrl: './creationpublication.component.html',
+  styleUrls: ['./creationpublication.component.scss']
 })
-export class GridComponent implements OnInit {
-
-   constructor(private publicationService: PublicationService, private utilisateurService: UtilisateurService) { }
-
+export class CreationpublicationComponent implements OnInit{
   publicationList: Publication[] = [];
-  newPublicationContent: string = '';
   tiles: Tile[] = [];
+  newPublication: Publication = {
+    title: '',
+    categorie: '',
+    contenu: '', 
+    geolocalisation :{id:''},
+    utilisateur : {id:this.utilisateurService.userSession.userId}
+  };
+
+  constructor(private publicationService: PublicationService, private utilisateurService: UtilisateurService) { }
 
   ngOnInit() {
-      const userId = this.utilisateurService.userSession.userId;
-      if (userId !== null) {
-        this.getPublicationsList(userId);
-      }
-  }
-  
-  getPublicationsList(id: number) {
-    this.publicationService.getPublicationsList(id).subscribe({
-      next: (publications: Publication[]) => {
-        console.log(publications);
-        this.publicationList = publications;
-        this.generateTiles(publications);
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    });
   }
 
   addPublication() {
-    const newPublication: Publication = {
-      title: '',
-      categorie: '',
-      contenu: this.newPublicationContent,
-      geolocalisation :{id:''},
-      utilisateur :{id:this.utilisateurService.userSession.userId},
+    console.log(this.newPublication.geolocalisation);
+    var newPublication = {
+      title: this.newPublication.title,
+      categorie: this.newPublication.categorie,
+      contenu: this.newPublication.contenu, 
+      geolocalisation : {id:"1"},
+      utilisateur : {id:this.utilisateurService.userSession.userId}
     };
-
     this.publicationService.addPublication(newPublication).subscribe({
       next: (publication: Publication) => {
-        console.log(publication);
+       
         this.publicationList.push(publication);
-        this.newPublicationContent = '';
+        this.newPublication = {
+          title: '',
+          categorie: '',
+          contenu: '', 
+          geolocalisation : {id:''},
+          utilisateur : {id:this.utilisateurService.userSession.userId}
+        };
+        console.log(publication);
         this.generateTiles(this.publicationList); // Regenerate tiles after adding a new publication
       },
       error: (error) => {
@@ -67,6 +64,7 @@ export class GridComponent implements OnInit {
       'offre d\'emploi': '#ADD8E6',
       'recherche de stage':'lightyellow',
     };
+
     // Add a tile for each publication
     publications.forEach((publication) => {
       const color = categoryToColor[publication.categorie]
@@ -81,3 +79,4 @@ export class GridComponent implements OnInit {
     });
   }
 }
+

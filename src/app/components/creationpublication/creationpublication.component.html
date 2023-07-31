@@ -1,0 +1,19 @@
+<form (ngSubmit)="addPublication()">
+    <label for="titre">Titre :</label><br>
+    <input type="text" id="titre" name="titre" [(ngModel)]="newPublication.title" required><br><br>
+  
+    <label for="categorie">Catégorie :</label><br>
+    <select id="categorie" name="categorie" [(ngModel)]="newPublication.categorie" required>
+      <option value="" disabled selected>Choisir une catégorie</option>
+      <option value="afterwork">Afterwork</option>
+      <option value="jobdating">Jobdating</option>
+      <option value="recherche_stage">Recherche de stage</option>
+      <option value="proposition_emploi">Proposition d'emploi</option>
+    </select><br><br>
+  
+    <label for="contenu">Contenu :</label><br>
+    <textarea id="contenu" name="contenu" rows="4" cols="50" [(ngModel)]="newPublication.contenu" required></textarea><br><br>
+  
+    <input type="submit" value="Soumettre">
+  </form>
+  

@@ -4,6 +4,8 @@ import { HomeComponent } from './components/home/home.component';
 import { IndexComponent } from './components/index/index.component';
 import { MessagerieComponent } from './components/messagerie/messagerie.component';
 import { AuthGuard } from './services/auth-guard.service';
+import { GridComponent } from './components/grid/grid.component';
+import { ProfilComponent } from './components/profil/profil.component';
 
 const routes: Routes = [
   {
@@ -23,6 +25,14 @@ const routes: Routes = [
   {
     path: 'messagerie',
     component: MessagerieComponent
+  },
+  {
+    path: 'profil',
+    component: ProfilComponent
+  },
+  {
+    path: 'profil',
+    component: GridComponent
   },
 ];
 

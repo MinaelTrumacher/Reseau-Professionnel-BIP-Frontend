@@ -1,1 +1,17 @@
-<p>profil works!</p>
+<section *ngIf="utilisateur">
+    <div class="profil">
+      <div class="banniere"> 
+        <img [src]="utilisateur.urlBanniere" alt="">
+      </div>
+      <div class="pp-container">
+        <img class="pp" [src]="utilisateur.urlPhoto" alt="Photo de profil">
+      </div>
+      <div class="name-container">
+        <h1 id="name" class="name">{{ " " + utilisateur.prenom + " " + utilisateur.nom }}</h1>
+      </div>
+    </div>
+  </section>
+  <section>
+    <app-creationpublication></app-creationpublication>
+  </section>
+  <app-grid></app-grid>

@@ -58,6 +58,7 @@ import { AuthGuard } from './services/auth-guard.service'
 
 //HTTP
 import { HttpClientModule } from '@angular/common/http';
+import { CreationpublicationComponent } from './components/creationpublication/creationpublication.component';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { HttpClientModule } from '@angular/common/http';
     ConversationComponent,
     DetailsConversationComponent,
     DialogAjoutConversationComponent,
-    DialogMessagerieComponent
+    DialogMessagerieComponent,
+    CreationpublicationComponent
   ],
   imports: [
     BrowserModule,
