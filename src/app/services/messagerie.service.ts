@@ -54,6 +54,6 @@ export class MessagerieService {
   }
 
   getUsersByFirstnameOrLastname(nomOrPrenom: string): Observable<UtilisateurDtoMessage[]> {
-    return this.http.get<UtilisateurDtoMessage[]>(environment.url+`/api/utilisateurs/filtreBynameOrPrenom/${nomOrPrenom}`, { headers: this.headers });
+    return this.http.get<UtilisateurDtoMessage[]>(environment.url+`/utilisateurs/filtreBynameOrPrenom/${nomOrPrenom}`, { headers: this.headers });
   }
 }

@@ -1,10 +1,8 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { HeightService } from 'src/app/services/height.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactFormComponent } from '../contact-form/contact-form.component';
-import { ModalCguComponent } from '../modal-cgu/modal-cgu.component';
 import { ModalCguContentComponent } from '../modal-cgu-content/modal-cgu-content.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { HeightService } from 'src/app/services/height.service';
 
 @Component({
   selector: 'app-footer',
@@ -44,7 +42,7 @@ export class FooterComponent {
     this.isFooterExpanded = false;
   }
 
-  openContactForm(): void {
+  openContactForm(): void{
     this.dialog.open(ContactFormComponent, {
       width: '400px'
     });

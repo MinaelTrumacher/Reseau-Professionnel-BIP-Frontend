@@ -1,18 +1,12 @@
-header{
+@import 'src/afpa-palette.scss';
+
+.filter, header{
     border-bottom: 1rem solid;
     border-color: #86BD24;
-    margin-top: 20px; // cette valeur est liée à un calcul qui se fait dans le composant messagerie.html et conversation détails
+    margin-top: 20px;
     display: flex;
     align-items:center;
     justify-content:center;
-}
-
-a{
-    color:black;
-}
-
-a:hover{
-    color:#007BFF;
 }
 
 mat-toolbar {
@@ -28,11 +22,52 @@ mat-toolbar {
     width: 800px;
     border-radius: 10px;
 }
+mat-form-field {
+    border-radius: 40px;
+}
 
+/* BOUTON ICON */
 .icon{
     font-size: 25px;
 }
 
-mat-form-field {
-    border-radius: 40px;
+a{
+    color:black;
 }
+
+a:hover{
+    color:#007BFF;
+}
+
+/* FILTRE */
+
+.filter{
+    height: 3.5rem;
+}
+
+.dataFilter{
+    width: 100%;
+    margin: 0 5% 0 5%;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mat-chip {    
+    height: 3rem !important;
+}
+
+/* CHIP COLOR */
+
+.mat-chip.selectedJobDating {
+    background-color: map-get($afpa-palette, 500) !important;
+}
+
+.mat-chip.selectedAfterwork {
+    background-color: map-get($afpa-palette, 400)  !important;
+}
+  
+.mat-chip {
+    background-color: rgba(224, 224, 224, 1);
+}
+

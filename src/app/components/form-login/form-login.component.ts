@@ -50,6 +50,12 @@ export class FormloginComponent implements OnInit {
         Validators.maxLength(50),
       ]),
     });
+
+    //Default value
+    this.logForm.setValue({
+      email: "",
+      mdp : ""
+    });
   }
 
   //Fonction de renvoi des données du formulaire et du traitement de la réponse
