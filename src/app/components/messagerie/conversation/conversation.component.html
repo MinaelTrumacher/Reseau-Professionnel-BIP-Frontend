@@ -1,21 +1,22 @@
 <div id="conversation" #elementDivConversation *ngIf="conversation.supprimerParUserId!=userId" class="conversation" [ngClass]="{'message-no-lu':messageVu == false, 'selectedConversation': isSelectedConversation}">
- <a (click)="clickConversation(conversation); ">
-    <img src="https://thumbs.dreamstime.com/z/satisfait-centre-de-soutien-emoji-bot-avec-un-sourire-gentil-%C3%A9motic%C3%B4ne-bonne-humeur-isol%C3%A9-heureux-smiley-vue-du-profil-vecteur-213609670.jpg?w=768" alt="image de profil" title="image de profil">
-    <div>
-      <ng-container *ngIf="conversation.expediteur_id != userId; else affichageNomInterlocuteur">
-        <h4>{{ conversation.nomExpediteur }}</h4>
-      </ng-container>
-      <ng-template #affichageNomInterlocuteur>
-        <h4>{{ conversation.nomDestination }}</h4>
-      </ng-template>
-      <p>{{( conversation.contenu.length > 20 ) ? (conversation.contenu | slice:0:20) : conversation.contenu}}</p>
-    </div>
-  </a>
-  <div class="delete-conversation">
-    <div class="delete-btn">
-      <button mat-mini-fab aria-label="btn delete" (click)="deleteConversation(conversation)">
-        <mat-icon>delete-sweep</mat-icon>
-      </button>
-    </div>
-  </div>
-</div>
+    <a (click)="clickConversation(conversation); ">
+       <img src="https://thumbs.dreamstime.com/z/satisfait-centre-de-soutien-emoji-bot-avec-un-sourire-gentil-%C3%A9motic%C3%B4ne-bonne-humeur-isol%C3%A9-heureux-smiley-vue-du-profil-vecteur-213609670.jpg?w=768" alt="image de profil" title="image de profil">
+       <div>
+         <ng-container *ngIf="conversation.expediteur_id != userId; else affichageNomInterlocuteur">
+           <h4>{{ conversation.nomExpediteur }}</h4>
+         </ng-container>
+         <ng-template #affichageNomInterlocuteur>
+           <h4>{{ conversation.nomDestination }}</h4>
+         </ng-template>
+         <p>{{( conversation.contenu.length > 20 ) ? (conversation.contenu | slice:0:20) : conversation.contenu}}</p>
+       </div>
+     </a>
+     <div class="delete-conversation">
+       <div class="delete-btn">
+         <button mat-mini-fab aria-label="btn delete" (click)="deleteConversation(conversation)">
+           <mat-icon>delete-sweep</mat-icon>
+         </button>
+       </div>
+     </div>
+   </div>
+   

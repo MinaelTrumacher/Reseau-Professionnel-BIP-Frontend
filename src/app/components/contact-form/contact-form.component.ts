@@ -6,8 +6,6 @@ import { SuccessDialogComponent } from '../success-dialog/success-dialog.compone
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { environment } from 'src/environments/environment';
 
-
-
 @Component({
   selector: 'app-contact-form',
   templateUrl: './contact-form.component.html',
@@ -35,7 +33,7 @@ export class ContactFormComponent {
       },
       error: (error) => {
         this.openErrorDialog();
-        console.error("Erreur lors de l'envoi du formulaire", error);
+        console.log("Erreur lors de l'envoi du formulaire", error);
       }
     });
   };

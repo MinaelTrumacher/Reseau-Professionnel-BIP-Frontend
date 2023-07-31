@@ -1,40 +1,41 @@
 <!--la valeur 30 fait reference au header comosant css  margin-top: 30px;-->
 
 <div class="content-messagerie" [style.height]="'calc(100vh - ' + (headerHeight + footerHeight + 20) + 'px)'">
-  <div class="content-conversations">
-    <div #divHeaderConversations class="header-conversations">
-      <p>Vos discussions</p>
-     <div class="ajout-conversation">
-       <button mat-fab aria-label="add conversation" (click)="onClickCreateConversation()">
-         <mat-icon>add</mat-icon>
-       </button>
-       <input type="text" name="searchConversation" id="searchConversation" placeholder="Recherche par nom ou prénom..." [(ngModel)]="valueSearchConversation"
-       (input)="searchConversation()">
-     </div>
+    <div class="content-conversations">
+      <div #divHeaderConversations class="header-conversations">
+        <p>Vos discussions</p>
+       <div class="ajout-conversation">
+         <button mat-fab aria-label="add conversation" (click)="onClickCreateConversation()">
+           <mat-icon>add</mat-icon>
+         </button>
+         <input type="text" name="searchConversation" id="searchConversation" placeholder="Recherche par nom ou prénom..." [(ngModel)]="valueSearchConversation"
+         (input)="searchConversation()">
+       </div>
+      </div>
+      <div class="list-conversations" *ngIf="lastMessageForAnyConversations"
+      [style.height]="'calc(100vh - ' + (headerHeight + footerHeight + headerConversationsHeight + 20 ) + 'px)'">
+        <ng-container *ngFor="let lastMessage of lastMessageForAnyConversations; index as i ; first as isSelected">
+          <app-conversation #appconversation [id]="'conversation-'+i" [conversation]="lastMessage" [isSelectedConversation]="isSelected" [isSearchConversation]="isSearchConversation"
+          (onVoirConversation)="viewConversation(lastMessage)"
+          (onDeleteConversation)="displayConversationIfExistAfterDelete($event)">
+          </app-conversation>
+        </ng-container>
+      </div>
     </div>
-    <div class="list-conversations" *ngIf="lastMessageForAnyConversations"
-    [style.height]="'calc(100vh - ' + (headerHeight + footerHeight + headerConversationsHeight + 20 ) + 'px)'">
-      <ng-container *ngFor="let lastMessage of lastMessageForAnyConversations; index as i ; first as isSelected">
-        <app-conversation #appconversation [id]="'conversation-'+i" [conversation]="lastMessage" [isSelectedConversation]="isSelected" [isSearchConversation]="isSearchConversation"
-        (onVoirConversation)="viewConversation(lastMessage)"
-        (onDeleteConversation)="displayConversationIfExistAfterDelete($event)">
-        </app-conversation>
-      </ng-container>
+    <hr>
+    <div  class="content-details-conversation">
+      <div #divHeaderDetailsConversation class="header-details-conversation">
+        <p>Détail discussion</p>
+      </div>
+      <app-details-conversation  #appDetailsConversation *ngIf="conversation" [conversation]="conversation" [headerAndFooterHeightOfDetailsConversation]="headerAndFooterHeightOfDetailsConversation"></app-details-conversation>
+      <div #divFooterDetailsConversation class="saisie-message">
+        <textarea #elementTextAreaMessage type="text" name="messageTosend" id="messageTosend"  placeholder="Votre message ..." [(ngModel)]="valueMessageTextAreaToSend"
+        (keydown.enter)="sendMessage($event)" (input)="handleTextAreaResize()"></textarea>
+        <button  mat-fab aria-label="send conversation" (click)="sendMessage()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
-  <hr>
-  <div  class="content-details-conversation">
-    <div #divHeaderDetailsConversation class="header-details-conversation">
-      <p>Détail discussion</p>
-    </div>
-    <app-details-conversation  #appDetailsConversation *ngIf="conversation" [conversation]="conversation" [headerAndFooterHeightOfDetailsConversation]="headerAndFooterHeightOfDetailsConversation"></app-details-conversation>
-    <div #divFooterDetailsConversation class="saisie-message">
-      <textarea #elementTextAreaMessage type="text" name="messageTosend" id="messageTosend"  placeholder="Votre message ..." [(ngModel)]="valueMessageTextAreaToSend"
-      (keydown.enter)="sendMessage($event)" (input)="handleTextAreaResize()"></textarea>
-      <button  mat-fab aria-label="send conversation" (click)="sendMessage()">
-        <mat-icon>send</mat-icon>
-      </button>
-    </div>
-  </div>
-</div>
-<!-- [ngStyle]="{'max-height': 'calc(100% - 57'+'px)'}" -->
+  <!-- [ngStyle]="{'max-height': 'calc(100% - 57'+'px)'}" -->
+  

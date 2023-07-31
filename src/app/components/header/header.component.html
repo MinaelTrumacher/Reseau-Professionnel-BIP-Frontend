@@ -7,33 +7,48 @@
         </a>
         <div class="header-links">
             <form>
-                <mat-form-field appearance="outline" class="search-bar" *ngIf="(utilisateurService.isLoggedIn$ | async)">
+                <mat-form-field class="search-bar" *ngIf="(utilisateurService.isLoggedIn$ | async)">
                   <mat-label>Recherche</mat-label>
-                  <input matInput placeholder="Recherche">
+                  <mat-chip-grid #chipGrid aria-label="Filtre">
+                    <mat-chip-row *ngFor="let filter of filters" (removed)="remove(filter)">
+                      {{filter}}
+                      <button matChipRemove [attr.aria-label]="'remove ' + filter">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip-row>
+                  </mat-chip-grid>
+                  <input placeholder="Filtre..." #filterInput [formControl]="filterCtrl"
+                    [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="add($event)"/>
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let filter of filtered | async" [value]="filter">
+                      {{filter}}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
-                <a href="#" *ngIf="(utilisateurService.isLoggedIn$ | async)">
-                    <mat-icon>arrow_downward</mat-icon>
-                </a>
-            </form>
+                <button mat-button color="primary" (click)="search()" class="searchBut"><mat-icon *ngIf="(utilisateurService.isLoggedIn$ | async)">search</mat-icon></button>
+                <mat-icon (click)="filtrer()" *ngIf="(utilisateurService.isLoggedIn$ | async)">arrow_downward</mat-icon>
+              </form>
         </div>
         <div class="menu-bouton">
             <!-- Le bouton mail doit être actif seulement lorsque l'utilisateur est connecté -->
             <button mat-button *ngIf="(utilisateurService.isLoggedIn$ | async)" (click)="onClickMessage()">
                 <mat-icon class="icon">email</mat-icon>
             </button>
-
+            
             <!-- Le bouton du menu avec l'icône person -->
             <button mat-button *ngIf="(utilisateurService.isLoggedIn$ | async)" [matMenuTriggerFor]="menu">
                 <mat-icon class="icon">person</mat-icon>
             </button>
-
+            
             <!-- Le menu déroulant -->
             <mat-menu #menu="matMenu">
                 <button mat-menu-item>Ma page</button>
                 <button mat-menu-item>Paramètres</button>
                 <button mat-menu-item (click)="logoutRequest()">Deconnexion</button>
             </mat-menu>
-
+            
             <!-- Les boutons connexion et inscription doivent être actifs seulement avant la connexion de l'utilisateur et après sa déconnexion -->
             <ng-container *ngIf="!(utilisateurService.isLoggedIn$ | async)">
                 <button mat-button color="primary" (click)="openFormLogin()">Se connecter</button>
@@ -41,4 +56,17 @@
             </ng-container>
         </div>
     </mat-toolbar>
+    <div class="border"></div>
 </header>
+<div class="filter" *ngIf="this.isFilterVisible">
+    <div class="dataFilter">
+        <span>
+            Filtre : <BR>
+            <button mat-button color="primary">Recherche par ville</button>
+        </span>
+          <mat-chip-option class="mat-chip" color="primary" #demandStage>Demande stage</mat-chip-option>
+          <mat-chip-option class="mat-chip" color="accent" #propStage>Proposition stage</mat-chip-option>
+          <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedJobDating': isJobDatingSelected }" (click)="toggleSelected(1)" #jobDating>Job dating</mat-chip-option>
+          <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedAfterwork': isAfterworkSelected }" (click)="toggleSelected(2)" #afterwork>Afterwork</mat-chip-option>
+        </div>
+  </div>
