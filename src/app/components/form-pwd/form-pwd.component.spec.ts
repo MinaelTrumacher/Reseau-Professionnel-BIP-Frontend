@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormMdpComponent } from './form-mdp.component';
+import { FormPwdComponent } from './form-pwd.component';
 
-describe('FormMdpComponent', () => {
-  let component: FormMdpComponent;
-  let fixture: ComponentFixture<FormMdpComponent>;
+describe('FormPwdComponent', () => {
+  let component: FormPwdComponent;
+  let fixture: ComponentFixture<FormPwdComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormMdpComponent ]
+      declarations: [ FormPwdComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FormMdpComponent);
+    fixture = TestBed.createComponent(FormPwdComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

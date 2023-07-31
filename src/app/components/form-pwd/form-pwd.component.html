@@ -1,0 +1,58 @@
+<h1>Récupération du mot de passe</h1>
+<form [formGroup]="renewMdpForm1" class="renewMdpForm1">
+  <div><p class="step">Etape 1</p></div>
+  <div>
+    <mat-form-field>
+        <mat-label>email</mat-label>
+        <input matInput placeholder="example@vd.com" type="text" formControlName="email"/>
+        <mat-error *ngIf="renewMdpForm1?.get('email')?.invalid && renewMdpForm1?.get('email')?.touched">Format de l'email non valide.</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-error *ngIf="error_404">Utilisateur introuvable.</mat-error>
+    <mat-error *ngIf="error_others">Service indisponible, veuillez réessayer plus tard.</mat-error>
+    <p *ngIf="isvalidatedEmail" class="info_green">Un code de sécurité vient de vous être envoyer par mail.</p>
+  </div>
+  <div>
+    <button *ngIf="!isvalidatedEmail" mat-raised-button color="primary" (click)="sendEmail()">Reinitialiser</button>
+    <button *ngIf="!isvalidatedEmail" mat-raised-button (click)="closeFormRenewPwd()">Quitter</button>
+  </div>
+</form>
+
+<form [formGroup]="renewMdpForm2" class="renewMdpForm2">
+  <div *ngIf="isvalidatedEmail"><p class="step">Etape 2</p></div>
+  <div *ngIf="isvalidatedEmail">
+    <mat-form-field>
+      <mat-label>code secret</mat-label>
+      <input matInput placeholder="code secret" type="text" formControlName="PINcode"/>
+      <mat-error *ngIf="renewMdpForm2?.get('PINcode')?.invalid && renewMdpForm2?.get('PINcode')?.touched">Format du code invalide.</mat-error>
+    </mat-form-field>
+  </div>
+  <div *ngIf="isvalidatedEmail">
+    <mat-form-field class="mdp">
+      <mat-label>mot de passe</mat-label>
+      <input matInput placeholder="mot de passe" [type]="hide ? 'password' : 'text'" formControlName="mdp"/>
+      <mat-icon matSuffix (click)="hide = !hide">{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      <mat-error *ngIf="renewMdpForm2?.get('mdp')?.invalid && renewMdpForm2?.get('mdp')?.touched"
+      >Au moins 8 caractères dont un chiffre, une minuscule, une majuscule, un caractère spécial.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="mdp">
+      <mat-label>mot de passe</mat-label>
+      <input matInput placeholder="mot de passe" [type]="hide ? 'password' : 'text'" formControlName="mdp2"/>
+      <mat-icon matSuffix (click)="hide = !hide">{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      <mat-error *ngIf="renewMdpForm2?.get('mdp2')?.invalid && renewMdpForm2?.get('mdp2')?.touched"
+      >Veuillez taper deux fois le même mot de passe.</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-error *ngIf="error_400_PINcode">Code incorrect</mat-error>
+    <mat-error *ngIf="error_400_expired">Code expiré</mat-error>
+    <p *ngIf="ischangedPwd" class="info_green">Votre mot de passe vient d'être réinitialisé.<br>
+                                               Veuillez cliquer sur 'se connecter' pour accèder au site.</p>
+  </div>
+  <div>
+    <button *ngIf="isvalidatedEmail && !ischangedPwd" mat-raised-button color="primary" (click)="renewPwd()">Valider</button>
+    <button *ngIf="isvalidatedEmail" mat-raised-button (click)="closeFormRenewPwd()">Quitter</button>
+  </div>
+</form>
