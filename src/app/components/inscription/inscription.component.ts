@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Utilisateur } from 'src/app/models/Utilisateur_Inscription';
+import { Utilisateur } from 'src/app/models/Utilisateur';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { ModalCguComponent } from '../modal-cgu/modal-cgu.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
