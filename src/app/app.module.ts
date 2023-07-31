@@ -35,7 +35,7 @@ import { InscriptionComponent } from './components/inscription/inscription.compo
 import { ModalCguContentComponent } from './components/modal-cgu-content/modal-cgu-content.component';
 import { ModalCguComponent } from './components/modal-cgu/modal-cgu.component';
 import { FormloginComponent } from './components/form-login/form-login.component';
-import { FormMdpComponent } from './components/form-mdp/form-mdp.component';
+import { FormPwdComponent } from './components/form-pwd/form-pwd.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
@@ -66,7 +66,7 @@ import { HttpClientModule } from '@angular/common/http';
     ModalCguContentComponent,
     ModalCguComponent,
     FormloginComponent,
-    FormMdpComponent,
+    FormPwdComponent,
     HeaderComponent,
     FooterComponent,
     SuccessDialogComponent,
