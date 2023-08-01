@@ -1,8 +1,11 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormContactComponent } from '../form-contact/form-contact.component';
-import { CguDialogContentComponent } from '../cgu-dialog-content/cgu-dialog-content.component';
+import { CguDialogComponent } from '../cgu-dialog/cgu-dialog.component';
 import { HeightService } from 'src/app/services/height.service';
+import { CreditsDialogComponent } from '../credits-dialog/credits-dialog.component';
+import { MentionsLegalesDialogComponent } from '../mentions-legal-dialog/mentions-legal-dialog.component';
+import { ProtectionDesDonneesDialogComponent } from '../protection-des-donnees-dialog/protection-des-donnees-dialog.component';
 
 @Component({
   selector: 'app-footer',
@@ -42,16 +45,25 @@ export class FooterComponent {
     this.isFooterExpanded = false;
   }
 
+ /*--------------------Gestion des liens du Footer------------------ */
   openContactForm(): void{
     this.dialog.open(FormContactComponent, {
       width: '400px'
     });
   }
-
   openCgu() {
-    const dialogRef = this.dialog.open(CguDialogContentComponent);
+    const dialogRef = this.dialog.open(CguDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       console.log('Fermeture de la boite de dialogue');
     })
+  }
+  openModalCredit() {
+      this.dialog.open(CreditsDialogComponent);   
+  }
+  openModalMentionsLegales() {
+    this.dialog.open(MentionsLegalesDialogComponent);
+  }
+  openModalProtectionDesDonnees() {
+    this.dialog.open(ProtectionDesDonneesDialogComponent);
   }
 }
