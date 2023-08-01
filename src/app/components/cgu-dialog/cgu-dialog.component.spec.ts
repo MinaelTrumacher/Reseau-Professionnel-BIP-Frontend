@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CguDialogComponent } from './cgu-dialog.component';
 
-describe('ModalCguComponent', () => {
+describe('CguDialogContentComponent', () => {
   let component: CguDialogComponent;
   let fixture: ComponentFixture<CguDialogComponent>;
 
