@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { Message } from 'src/app/models/message';
+import { Message } from 'src/app/models/Message';
 import { MessagerieService } from 'src/app/services/messagerie.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { DialogMessagerieComponent } from '../dialogs/dialog-messagerie/dialog-messagerie.component';

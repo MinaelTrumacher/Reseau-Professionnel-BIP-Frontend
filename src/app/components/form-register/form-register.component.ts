@@ -3,16 +3,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Utilisateur } from 'src/app/models/Utilisateur';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
-import { ModalCguComponent } from '../modal-cgu/modal-cgu.component';
+import { CguDialogComponent } from '../cgu-dialog/cgu-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { matchValues } from 'src/app/functions/matchTo';
 
 @Component({
-  selector: 'app-inscription',
-  templateUrl: './inscription.component.html',
-  styleUrls: ['./inscription.component.scss']
+  selector: 'app-form-register',
+  templateUrl: './form-register.component.html',
+  styleUrls: ['./form-register.component.scss']
 })
-export class InscriptionComponent{
+export class FormRegisterComponent{
 
   formulaire!: FormGroup;
   raison_social: any;
@@ -54,9 +54,6 @@ export class InscriptionComponent{
     });
 
   }
-  openCgu(event: Event){
-    this.dialog.open(ModalCguComponent);
-  }
 
   register() {
     // Récupérer les valeurs du formulaire
@@ -97,11 +94,7 @@ export class InscriptionComponent{
         }
       });
   }
-
-  cancel(): void {
-    this.dialog.closeAll();
-  }
-
+  
   getVille(codePostal: string): void {
     if(codePostal.length == 5 )
       this.utilisateurservice.getVilleByCodePostal(codePostal).subscribe({
@@ -116,5 +109,13 @@ export class InscriptionComponent{
           console.error(error);
         }
       });
+  }
+
+  openCgu(event: Event){
+    this.dialog.open(CguDialogComponent);
+  }
+
+  cancel(): void {
+    this.dialog.closeAll();
   }
 }

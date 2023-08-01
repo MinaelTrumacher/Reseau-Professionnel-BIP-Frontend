@@ -5,13 +5,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { environment } from 'src/environments/environment';
+import { Contact } from 'src/app/models/Contact';
 
 @Component({
-  selector: 'app-contact-form',
-  templateUrl: './contact-form.component.html',
-  styleUrls: ['./contact-form.component.scss']
+  selector: 'app-form-contact',
+  templateUrl: './form-contact.component.html',
+  styleUrls: ['./form-contact.component.scss']
 })
-export class ContactFormComponent {
+export class FormContactComponent {
   nomControl = new FormControl('', Validators.required);
   emailControl = new FormControl('', [Validators.required, Validators.email]);
   messageControl = new FormControl('', Validators.required);
@@ -20,7 +21,7 @@ export class ContactFormComponent {
   constructor(private http: HttpClient, private dialog: MatDialog) {}
 
   submitForm(): void {
-      const formData = {
+      const formData : Contact = {
       nom: this.nomControl.value,
       prenom: this.prenomControl.value,
       email: this.emailControl.value,

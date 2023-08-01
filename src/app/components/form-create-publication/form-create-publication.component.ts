@@ -4,14 +4,12 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { Publication } from 'src/app/models/Publication';
 import { Tile } from 'src/app/models/Tile';
 
-
-
 @Component({
-  selector: 'app-creationpublication',
-  templateUrl: './creationpublication.component.html',
-  styleUrls: ['./creationpublication.component.scss']
+  selector: 'app-form-create-publication',
+  templateUrl: './form-create-publication.component.html',
+  styleUrls: ['./form-create-publication.component.scss']
 })
-export class CreationpublicationComponent implements OnInit{
+export class FormCreatePublicationComponent implements OnInit{
   publicationList: Publication[] = [];
   tiles: Tile[] = [];
   newPublication: Publication = {
@@ -55,14 +53,16 @@ export class CreationpublicationComponent implements OnInit{
       }
     });
   }
-
+  
   generateTiles(publications: Publication[]) {
     this.tiles = [];
     const categoryToColor: { [key: string]: string } = {
-      'afterwork': 'lightpink', // Light Blue
-      'jobdating': '#303030', // Green
-      'offre d\'emploi': '#ADD8E6',
-      'recherche de stage':'lightyellow',
+      'jobDating': '#86BB24', 
+      'offreStage': '#FFD500',
+      'offreEmploi': '#CF0043',
+      'afterwork':'#E3007E',
+      'rechercheStage':'#23BCEC',
+      'rechercheEmploi':'#596392'
     };
 
     // Add a tile for each publication

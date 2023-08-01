@@ -43,11 +43,15 @@ export class HomeComponent implements OnInit {
     this.tiles = [];
 
     const categoryToColor: { [key: string]: string } = {
-      'afterwork': 'lightpink', // Light Blue
-      'jobdating': '#303030', // Green
-      'offre d\'emploi': '#ADD8E6',
-      'recherche de stage':'lightyellow',
+      'jobDating': '#86BB24',
+      'offreStage': '#FFD500',
+      'offreEmploi': '#596392',
+      'afterwork':'#E3007E',
+      'rechercheStage':'#23BCEC',
+      'rechercheEmploi':'#19647E'
     };
+   
+    
     publications.forEach((publication) => {
       const color = categoryToColor[publication.categorie]
       this.tiles.push({

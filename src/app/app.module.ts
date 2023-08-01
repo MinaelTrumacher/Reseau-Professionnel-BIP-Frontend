@@ -35,11 +35,11 @@ import { HomeComponent } from './components/home/home.component';
 import { IndexComponent } from './components/index/index.component';
 import { MessagerieComponent } from './components/messagerie/messagerie.component';
 import { ProfilComponent } from './components/profil/profil.component';
-import { ContactFormComponent } from './components/contact-form/contact-form.component';
-import { InscriptionComponent } from './components/inscription/inscription.component';
-import { ModalCguContentComponent } from './components/modal-cgu-content/modal-cgu-content.component';
-import { ModalCguComponent } from './components/modal-cgu/modal-cgu.component';
-import { FormloginComponent } from './components/form-login/form-login.component';
+import { FormContactComponent } from './components/form-contact/form-contact.component'; 
+import { FormRegisterComponent } from './components/form-register/form-register.component';
+import { CguDialogContentComponent } from './components/cgu-dialog-content/cgu-dialog-content.component';
+import { CguDialogComponent } from './components/cgu-dialog/cgu-dialog.component';
+import { FormLoginComponent } from './components/form-login/form-login.component';
 import { FormPwdComponent } from './components/form-pwd/form-pwd.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -58,7 +58,7 @@ import { AuthGuard } from './services/auth-guard.service'
 
 //HTTP
 import { HttpClientModule } from '@angular/common/http';
-import { CreationpublicationComponent } from './components/creationpublication/creationpublication.component';
+import { FormCreatePublicationComponent } from './components/form-create-publication/form-create-publication.component';
 
 
 @NgModule({
@@ -68,11 +68,11 @@ import { CreationpublicationComponent } from './components/creationpublication/c
     IndexComponent,
     MessagerieComponent,
     ProfilComponent,
-    ContactFormComponent,
-    InscriptionComponent,
-    ModalCguContentComponent,
-    ModalCguComponent,
-    FormloginComponent,
+    FormContactComponent,
+    FormRegisterComponent,
+    CguDialogContentComponent,
+    CguDialogComponent,
+    FormLoginComponent,
     HeaderComponent,
     FooterComponent,
     SuccessDialogComponent,
@@ -84,7 +84,7 @@ import { CreationpublicationComponent } from './components/creationpublication/c
     DetailsConversationComponent,
     DialogAjoutConversationComponent,
     DialogMessagerieComponent,
-    CreationpublicationComponent
+    FormCreatePublicationComponent
   ],
   imports: [
     BrowserModule,

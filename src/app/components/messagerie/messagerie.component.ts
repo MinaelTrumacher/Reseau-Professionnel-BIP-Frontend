@@ -1,7 +1,7 @@
 
 import { Component, ElementRef, HostListener, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Message, UtilisateurDtoMessage } from 'src/app/models/message';
+import { Message, UtilisateurDtoMessage } from 'src/app/models/Message';
 import { HeightService } from 'src/app/services/height.service';
 import { MessagerieService } from 'src/app/services/messagerie.service';
 import { DialogMessagerieComponent } from './dialogs/dialog-messagerie/dialog-messagerie.component';
