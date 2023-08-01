@@ -3,13 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-success-dialog',
-  template: `
-    <h2 mat-dialog-title>Succès</h2>
-    <mat-dialog-content>{{ data }}</mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-button [mat-dialog-close]="true">OK</button>
-    </mat-dialog-actions>
-  `,
+  templateUrl: './success-dialog.component.html',
+  styleUrls: ['./success-dialog.component.scss']
 })
 export class SuccessDialogComponent {
   constructor(

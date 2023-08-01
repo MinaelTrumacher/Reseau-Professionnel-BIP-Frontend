@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Message, UtilisateurDtoMessage } from '../models/message';
+import { Message, UtilisateurDtoMessage } from '../models/Message';
 import { Observable, Subject, lastValueFrom } from 'rxjs';
 import { UtilisateurService } from './utilisateur.service';
 import { environment } from 'src/environments/environment';

@@ -1,7 +1,7 @@
 
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { Message } from 'src/app/models/message';
+import { Message } from 'src/app/models/Message';
 import { HeightService } from 'src/app/services/height.service';
 import { MessagerieService } from 'src/app/services/messagerie.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';

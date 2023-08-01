@@ -62,13 +62,17 @@ export class GridComponent implements OnInit {
   generateTiles(publications: Publication[]) {
     this.tiles = [];
     const categoryToColor: { [key: string]: string } = {
-      'afterwork': 'lightpink', // Light Blue
-      'jobdating': '#303030', // Green
-      'offre d\'emploi': '#ADD8E6',
-      'recherche de stage':'lightyellow',
+      'jobDating': '#86BB24',
+      'offreStage': '#FFD500',
+      'offreEmploi': '#CF0043',
+      'afterwork':'#E3007E',
+      'rechercheStage':'#23BCEC',
+      'rechercheEmploi':'#596392'
     };
     // Add a tile for each publication
+    
     publications.forEach((publication) => {
+      console.log(publication.categorie)
       const color = categoryToColor[publication.categorie]
       this.tiles.push({
         text: publication.contenu,

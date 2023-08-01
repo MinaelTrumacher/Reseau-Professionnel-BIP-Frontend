@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject, catchError, debounceTime, of, switchMap, takeUntil } from 'rxjs';
-import { UtilisateurDtoMessage } from 'src/app/models/message';
+import { UtilisateurDtoMessage } from 'src/app/models/Message';
 import { MessagerieService } from 'src/app/services/messagerie.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 

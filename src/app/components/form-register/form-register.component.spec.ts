@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalCguComponent } from './modal-cgu.component';
+import { FormRegisterComponent } from './form-register.component';
 
-describe('ModalCguComponent', () => {
-  let component: ModalCguComponent;
-  let fixture: ComponentFixture<ModalCguComponent>;
+describe('InscriptionComponent', () => {
+  let component: FormRegisterComponent;
+  let fixture: ComponentFixture<FormRegisterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalCguComponent ]
+      declarations: [ FormRegisterComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ModalCguComponent);
+    fixture = TestBed.createComponent(FormRegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

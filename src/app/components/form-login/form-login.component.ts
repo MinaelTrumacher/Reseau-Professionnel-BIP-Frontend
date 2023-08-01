@@ -13,7 +13,7 @@ import { FormPwdComponent } from '../form-pwd/form-pwd.component';
   providers: [AuthenticationUserService],
 })
 
-export class FormloginComponent implements OnInit {
+export class FormLoginComponent implements OnInit {
   //Instanciation et Declaration de variable
   logForm: FormGroup;           //Objet de stockage de l'email et du mdp
   hide = true;                  //Variable pour masquer le champs password
@@ -53,8 +53,8 @@ export class FormloginComponent implements OnInit {
 
     //Default value
     this.logForm.setValue({
-      email: "",
-      mdp : ""
+      email: "chnaifw@gmail.com",
+      mdp : "123456aB/"
     });
   }
 

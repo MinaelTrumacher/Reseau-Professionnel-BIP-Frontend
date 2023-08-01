@@ -1,19 +1,18 @@
 @import 'src/afpa-palette.scss';
 
+/* HEADER */
 .filter, header{
     border-bottom: 1rem solid;
-    border-color: #86BD24;
+    border-color: map-get($afpa-palette, 50);
     margin-top: 20px;
-    display: flex;
-    align-items:center;
-    justify-content:center;
+    display: block;
 }
 
 mat-toolbar {
     display:flex;
     align-items: center;
     justify-content: space-between;
-    height: 3.5rem;
+    height: 5rem;
     width: 100%;
     background-color: white;
 }
@@ -42,14 +41,22 @@ a:hover{
 /* FILTRE */
 
 .filter{
-    height: 3.5rem;
+    height: 8rem;
 }
 
-.dataFilter{
-    width: 100%;
+.typeFilter{
+    width: 90%;
     margin: 0 5% 0 5%;
     display:flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.villeFilter{
+    width: 42.5%;
+    margin: 0 57.5% 0 5%;
+    display:flex;
+    align-items: baseline;
     justify-content: space-between;
 }
 
@@ -60,13 +67,31 @@ a:hover{
 /* CHIP COLOR */
 
 .mat-chip.selectedJobDating {
-    background-color: map-get($afpa-palette, 500) !important;
+    background-color: map-get($afpa-palette, 50) !important;
+}
+
+.mat-chip.selectedOffreStage {
+    background-color: map-get($afpa-palette, 100)  !important;
+}
+
+.mat-chip.selectedOffreEmploi {
+    background-color: map-get($afpa-palette, 900) !important;
 }
 
 .mat-chip.selectedAfterwork {
-    background-color: map-get($afpa-palette, 400)  !important;
+    background-color: map-get($afpa-palette, 300)  !important;
+}
+
+.mat-chip.selectedRechercheStage {
+    background-color: map-get($afpa-palette, 400) !important;
+}
+
+
+.mat-chip.selectedRechercheEmploi {
+    background-color: map-get($afpa-palette, 500)  !important;
 }
   
+
 .mat-chip {
     background-color: rgba(224, 224, 224, 1);
 }

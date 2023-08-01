@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ContactFormComponent } from '../contact-form/contact-form.component';
-import { ModalCguContentComponent } from '../modal-cgu-content/modal-cgu-content.component';
+import { FormContactComponent } from '../form-contact/form-contact.component';
+import { CguDialogContentComponent } from '../cgu-dialog-content/cgu-dialog-content.component';
 import { HeightService } from 'src/app/services/height.service';
 
 @Component({
@@ -43,13 +43,13 @@ export class FooterComponent {
   }
 
   openContactForm(): void{
-    this.dialog.open(ContactFormComponent, {
+    this.dialog.open(FormContactComponent, {
       width: '400px'
     });
   }
 
   openCgu() {
-    const dialogRef = this.dialog.open(ModalCguContentComponent);
+    const dialogRef = this.dialog.open(CguDialogContentComponent);
     dialogRef.afterClosed().subscribe(result => {
       console.log('Fermeture de la boite de dialogue');
     })
