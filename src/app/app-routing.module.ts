@@ -6,6 +6,7 @@ import { MessagerieComponent } from './components/messagerie/messagerie.componen
 import { AuthGuard } from './services/auth-guard.service';
 import { GridComponent } from './components/grid/grid.component';
 import { ProfilComponent } from './components/profil/profil.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'profil',
     component: GridComponent
+  },
+  {
+    path: 'search',
+    component: SearchComponent
   },
 ];
 

@@ -4,7 +4,7 @@ import { FormRegisterComponent } from '../form-register/form-register.component'
 import { MatDialog } from '@angular/material/dialog';
 import { FormLoginComponent } from '../form-login/form-login.component';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
@@ -15,7 +15,8 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatChipInputEvent, MatChipOption } from '@angular/material/chips';
 import { PublicationService } from 'src/app/services/publication.service';
 import { HeightService } from 'src/app/services/height.service';
-import { MatSelect } from '@angular/material/select';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-header',
@@ -30,7 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private isLoggedInSubscription: Subscription | null = null;
 
   constructor(private dialog: MatDialog, public utilisateurService: UtilisateurService, 
-              private router: Router, private publicationService: PublicationService, 
+              private router: Router, private route: ActivatedRoute, private publicationService: PublicationService, 
               private heightService: HeightService, private elementRef: ElementRef,
               private utilisateurservice : UtilisateurService) {
     this.filtered = this.filterCtrl.valueChanges.pipe(
@@ -51,7 +52,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
       }
     });
-  }
+    
+    this.route.queryParams.subscribe(params => {
+      console.log(params)
+      if(params['keywords'] !== undefined)
+        this.filters = Array.isArray(params['keywords']) ? params['keywords'] : [params['keywords']] ;
+
+      if(params['types'] !== undefined)
+        if( !(!params['types'].includes('job_dating') && !params['types'].includes('offre_stage') && !params['types'].includes('offre_emploi') && !params['types'].includes('afterwork') && !params['types'].includes('recherche_stage') && !params['types'].includes('recherche_emploi'))){
+          this.isJobDatingSelected.value = params['types'].includes('job_dating')  ? true: false;
+          this.isOffreStageSelected.value = params['types'].includes('offre_stage')  ? true: false;
+          this.isOffreEmploiSelected.value = params['types'].includes('offre_emploi')  ? true: false;
+          this.isAfterworkSelected.value = params['types'].includes('afterwork')  ? true: false;
+          this.isRechercheStageSelected.value = params['types'].includes('recherche_stage')  ? true: false;
+          this.isRechercheEmploiSelected.value = params['types'].includes('recherche_emploi')  ? true: false;
+      }
+
+      if(params['villes'] !== undefined)
+        this.villes = Array.isArray(params['villes']) ? params['villes'] : [params['villes']] ;
+
+      this.codePostal = params['codePostal'] != undefined ? params['codePostal'] : this.codePostal ;
+    });
+}
 
   ngOnDestroy(): void {
     if (this.isLoggedInSubscription) {
@@ -69,44 +91,46 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dialog.open(FormLoginComponent);
   }
 
-  onClickMessage() {
-    this.router.navigate(['messagerie']);
-  }
-
   //Nettoyage token et Id user
   logoutRequest() {
     this.utilisateurService.cleanUserLogged();
     this.utilisateurService.updateIsLoggedInStatus(false); // Mettre à jour l'état de connexion
     console.log("userSession après deconnexion", this.utilisateurService.userSession)
+    this.isFilterVisible = false;
     this.router.navigate([""]);            //Reroutage vers index
   }
 
-  /* CHIP */
-  @ViewChild('jobDating') jobDating!: MatChipOption ;
-  @ViewChild('offreStage') offreStage!: MatChipOption ;
-  @ViewChild('offreEmploi') offreEmploi!: MatChipOption ;
-  @ViewChild('afterwork') afterwork!: MatChipOption ;
-  @ViewChild('rechercheStage') rechercheStage!: MatChipOption ;
-  @ViewChild('rechercheEmploi') rechercheEmploi!: MatChipOption ;
-   
-   /* SELECT VILLE */
-   @ViewChild('idVille') idVille!: MatSelect;
-
-  
-  /* MOTS CLÉS */
-
-  //Afficher ou non les filtres
+  /* AFFICHER FILTRE */
   isFilterVisible = false;
+
+  toggleShowFilter(){
+    this.isFilterVisible = !this.isFilterVisible;
+    if(this.isFilterVisible && this.codePostal.length == 5){
+      this.getVille(this.codePostal);
+    }
+  }
+  
+  /* Value Filtre */
+  filters: string[] = [];
+  isJobDatingSelected: any = {value : false};
+  isOffreStageSelected: any = {value : false};
+  isOffreEmploiSelected: any = {value : false};
+  isAfterworkSelected: any = {value : false};
+  isRechercheStageSelected: any = {value : false};
+  isRechercheEmploiSelected: any = {value : false};
+  villesSelect = new FormControl('');
+  codePostal:string = "";
+  
+  /* FILTRE AVEC MOTS CLÉS */
 
   @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filterCtrl = new FormControl('');
   filtered: Observable<string[]>;
-  filters: string[] = [];
+  
   allFilters: string[] = ['Java EE','C#','Spring boot','Angular','Javascript','CSS','PHP','Symfony'];
   announcer = inject(LiveAnnouncer);
-
-  /* FILTRE AVEC MOTS CLÉS */
+  
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {
@@ -140,85 +164,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return elementHeader.offsetHeight;
   }
 
-  /* COULEUR CHIP */
-  isJobDatingSelected: any = {value : false};
-  isOffreStageSelected: any = {value : false};
-  isOffreEmploiSelected: any = {value : false};
-  isAfterworkSelected: any = {value : false};
-  isRechercheStageSelected: any = {value : false};
-  isRechercheEmploiSelected: any = {value : false};
+  /*FILTRE par type */
 
-  toggleSelected(isChipSelected:any) {
+  toggleSelectedChip(isChipSelected:any) {
     isChipSelected.value = !isChipSelected.value;
   }
 
-  /* AFFICHER FILTRE */
-  filtrer(){
-    this.isFilterVisible = !this.isFilterVisible;
-    this.isJobDatingSelected.value = false;
-    this.isOffreStageSelected.value = false;
-    this.isOffreEmploiSelected.value = false;
-    this.isAfterworkSelected.value = false;
-    this.isRechercheStageSelected.value = false;
-    this.isRechercheEmploiSelected.value = false;
-  }
-
-  /* RECHERCHER */
-  search(){
-    var filtre = { types : {},keywords : {},ville : {}};
-
-    //Recuperation des types de publications
-    if(!this.isFilterVisible || (!this.jobDating.selected && !this.offreStage.selected && !this.offreEmploi.selected && !this.afterwork.selected && !this.rechercheStage.selected && !this.rechercheEmploi.selected)){
-      filtre["types"] = [
-        "jobDating",
-        "offreStage",
-        "offreEmploi",
-        "afterwork",
-        "rechercheStage",
-        "rechercheEmploi",
-      ];
-    }else{
-      filtre["types"] = [
-      this.jobDating.selected ? "jobDating" : null,
-      this.offreStage.selected ? "offreStage" : null,
-      this.offreEmploi.selected ? "offreEmploi" : null,
-      this.afterwork.selected ? "afterwork" : null,
-      this.rechercheStage.selected ? "rechercheStage" : null,
-      this.rechercheEmploi.selected ? "rechercheEmploi" : null,
-      ].filter(item => item !== null);
-    }
-
-    //Recuperation des mots-clés
-    filtre["keywords"] = this.filters;
-
-    //Recuperation de la ville
-    filtre["ville"] = this.idVille !== undefined && this.idVille.value !== undefined ? [this.idVille.value] : [0];
-
-    /*
-    { "type" : 
-        ["demandStage","propStage"],
-      "keyword" : 
-        ["Pain","Boulangerie"],
-      "ville" :
-        1
-    }
-    */
-
-    console.log(filtre);
-    this.publicationService.getPublicationWithFiltre(filtre)
-    .subscribe({
-    next: (data) => {
-      console.log(data);
-    },
-    error: (error) => {
-      console.log(error);
-    }
-    });
-  }
-
   /*FILTRE avec ville */
-
   villes: { id: string, ville: string }[] = [];
+  nbVille!:number;
 
   getVille(codePostal: string): void {
     if(codePostal.length == 5 )
@@ -229,11 +183,63 @@ export class HeaderComponent implements OnInit, OnDestroy {
             id: ville.id,
             ville: ville.ville
           }));
+          this.nbVille = this.villes.length;
         },
         error: (error: any) => {
           console.error(error);
         }
       });
   }
+
+  resetVille($event:Event){
+    $event.stopPropagation();
+    this.villesSelect.setValue('');
+    this.codePostal = "";
+    this.nbVille = 0;
+    this.villes = [];
+  }
+
+  updateCodePostal($event:Event,newCodePostal:string){
+    $event.stopPropagation();
+    this.codePostal = newCodePostal;
+    this.villesSelect.setValue('');
+  }
+
+  updateVille($event:MatSelectChange,newIdVille:string){
+    this.villesSelect.setValue(newIdVille);
+  }
+
+  /* RECHERCHER */
+  search(){
+
+    
+    //Recuperation des types de publications
+   var types = [
+      this.isJobDatingSelected.value ? 'job_dating' : null,
+      this.isOffreStageSelected.value ? 'offre_stage' : null,
+      this.isOffreEmploiSelected.value ? 'offre_emploi' : null,
+      this.isAfterworkSelected.value ? 'afterwork' : null,
+      this.isRechercheStageSelected.value ? 'recherche_stage' : null,
+      this.isRechercheEmploiSelected.value ? 'recherche_emploi' : null
+      ].filter(item => item !== null);
+    
+    /*
+    { "type" : 
+        ['jobDating','offreStage'],
+      "keyword" : 
+        ['C#','Java'],
+      "ville" :
+        ['1']
+    }
+    */
+
+    this.router.navigate(['/search'], { queryParams: { 
+                                                      "types": types,
+                                                      "keywords": this.filters,
+                                                      "villes": this.villesSelect.value !== "" ? this.villesSelect.value : [],
+                                                      "codePostal": this.codePostal  !== "" ? this.codePostal : null,
+                                                     } });
+  }
+
 }
 

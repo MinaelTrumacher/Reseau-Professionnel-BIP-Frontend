@@ -61,6 +61,7 @@ import { AuthGuard } from './services/auth-guard.service'
 //HTTP
 import { HttpClientModule } from '@angular/common/http';
 import { FormCreatePublicationComponent } from './components/form-create-publication/form-create-publication.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { FormCreatePublicationComponent } from './components/form-create-publica
     CreditsDialogComponent,
     MentionsLegalesDialogComponent,
     ProtectionDesDonneesDialogComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

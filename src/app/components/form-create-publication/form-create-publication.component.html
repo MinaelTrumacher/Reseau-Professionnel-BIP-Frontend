@@ -5,16 +5,15 @@
     <label for="categorie">Catégorie :</label><br>
     <select id="categorie" name="categorie" [(ngModel)]="newPublication.categorie" required>
       <option value="" disabled selected>Choisir une catégorie</option>
-      <option value="jobDating">JobDating</option>
-      <option value="offreStage">Offre de stage</option>
-      <option value="offreEmploi">Offre d'emploi</option>
+      <option value="job_dating">JobDating</option>
+      <option value="offre_stage">Offre de stage</option>
+      <option value="offre_emploi">Offre d'emploi</option>
       <option value="afterwork">Afterwork</option>
-      <option value="rechercheStage">Recherche de stage</option>
-      <option value="rechercheEmploi">Recherche d'emploi</option>
+      <option value="recherche_stage">Recherche de stage</option>
+      <option value="recherche_emploi">Recherche d'emploi</option>
     </select><br><br>
     <label for="contenu">Contenu :</label><br>
     <textarea id="contenu" name="contenu" rows="4" cols="50" [(ngModel)]="newPublication.contenu" required></textarea><br><br>
   
     <input type="submit" value="Soumettre">
   </form>
-  

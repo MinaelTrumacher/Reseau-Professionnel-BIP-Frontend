@@ -28,12 +28,12 @@
                 </mat-autocomplete>
               </mat-form-field>
               <button mat-button color="primary" (click)="search()" class="searchBut"><mat-icon *ngIf="(utilisateurService.isLoggedIn$ | async)">search</mat-icon></button>
-              <mat-icon (click)="filtrer()" *ngIf="(utilisateurService.isLoggedIn$ | async)">arrow_downward</mat-icon>
+              <mat-icon (click)="toggleShowFilter()" *ngIf="(utilisateurService.isLoggedIn$ | async)">arrow_downward</mat-icon>
             </form>
       </div>
       <div class="menu-bouton">
           <!-- Le bouton mail doit être actif seulement lorsque l'utilisateur est connecté -->
-          <button mat-button *ngIf="(utilisateurService.isLoggedIn$ | async)" (click)="onClickMessage()">
+          <button mat-button *ngIf="(utilisateurService.isLoggedIn$ | async)" routerLink="/messagerie" routerLinkActive="active" >
               <mat-icon class="icon">email</mat-icon>
           </button>
           
@@ -44,7 +44,7 @@
           
           <!-- Le menu déroulant -->
           <mat-menu #menu="matMenu">
-              <button mat-menu-item>Ma page</button>
+              <button mat-menu-item routerLink="/profil" routerLinkActive="active">Ma page</button>
               <button mat-menu-item>Paramètres</button>
               <button mat-menu-item (click)="logoutRequest()">Deconnexion</button>
           </mat-menu>
@@ -63,12 +63,12 @@
       <span>
           Type :
       </span>
-      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedJobDating': isJobDatingSelected.value }" (click)="toggleSelected(isJobDatingSelected)" #jobDating>Job dating</mat-chip-option>
-      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedOffreStage': isOffreStageSelected.value }" (click)="toggleSelected(isOffreStageSelected)" #offreStage>Offre stage</mat-chip-option>
-      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedOffreEmploi': isOffreEmploiSelected.value }" (click)="toggleSelected(isOffreEmploiSelected)" #offreEmploi>Offre Emploi</mat-chip-option>
-      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedAfterwork': isAfterworkSelected.value }" (click)="toggleSelected(isAfterworkSelected)" #afterwork>Afterwork</mat-chip-option>
-      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedRechercheStage': isRechercheStageSelected.value }" (click)="toggleSelected(isRechercheStageSelected)" #rechercheStage>Recherche stage</mat-chip-option>
-      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedRechercheEmploi': isRechercheEmploiSelected.value }" (click)="toggleSelected(isRechercheEmploiSelected)" #rechercheEmploi>Recherche Emploi</mat-chip-option>      
+      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedJobDating': isJobDatingSelected.value }" (click)="toggleSelectedChip(isJobDatingSelected)" [selected]="isJobDatingSelected.value" #jobDating>Job dating</mat-chip-option>
+      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedOffreStage': isOffreStageSelected.value }" (click)="toggleSelectedChip(isOffreStageSelected)" [selected]="isOffreStageSelected.value" #offreStage>Offre stage</mat-chip-option>
+      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedOffreEmploi': isOffreEmploiSelected.value }" (click)="toggleSelectedChip(isOffreEmploiSelected)" [selected]="isOffreEmploiSelected.value" #offreEmploi>Offre Emploi</mat-chip-option>
+      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedAfterwork': isAfterworkSelected.value }" (click)="toggleSelectedChip(isAfterworkSelected)" [selected]="isAfterworkSelected.value" #afterwork>Afterwork</mat-chip-option>
+      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedRechercheStage': isRechercheStageSelected.value }" (click)="toggleSelectedChip(isRechercheStageSelected)" [selected]="isRechercheStageSelected.value" #rechercheStage>Recherche stage</mat-chip-option>
+      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedRechercheEmploi': isRechercheEmploiSelected.value }" (click)="toggleSelectedChip(isRechercheEmploiSelected)" [selected]="isRechercheEmploiSelected.value" #rechercheEmploi>Recherche Emploi</mat-chip-option>      
   </div>
   <BR>
   <div class="villeFilter">
@@ -77,14 +77,21 @@
     </span>
     <mat-form-field>
       <mat-label>Code Postal</mat-label>
-      <input matInput (input)="getVille(codePostal.value)" #codePostal>
+      <input matInput (input)="updateCodePostal($event,inputCodePostal.value);getVille(codePostal);" [value]="codePostal" #inputCodePostal>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Ville</mat-label>
-      <mat-select #idVille>
+      <mat-label>Ville(s)</mat-label>
+      <mat-select [formControl]="villesSelect" multiple>
+        <mat-select-trigger>
+            {{villesSelect.value?.length || 0}} {{villesSelect.value?.length === 0 || villesSelect.value?.length === 1 ? 'selectionnée' : 'selectionnées'}}
+        </mat-select-trigger>
         <mat-option *ngFor="let ville of villes" [value]="ville.id">{{ ville.ville | titlecase }}</mat-option>
       </mat-select>
+      <button mat-icon-button matSuffix (click)="resetVille($event)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <mat-hint align="end" *ngIf="codePostal.length == 5">{{ nbVille }} ville<span *ngIf="nbVille>1">s</span> trouvée<span *ngIf="nbVille>1">s</span></mat-hint>
     </mat-form-field>
 
   </div>

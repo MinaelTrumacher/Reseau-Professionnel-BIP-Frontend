@@ -57,12 +57,12 @@ export class FormCreatePublicationComponent implements OnInit{
   generateTiles(publications: Publication[]) {
     this.tiles = [];
     const categoryToColor: { [key: string]: string } = {
-      'jobDating': '#86BB24', 
-      'offreStage': '#FFD500',
-      'offreEmploi': '#CF0043',
+      'job_dating': '#86BB24',
+      'offre_stage': '#FFD500',
+      'offre_emploi': '#596392',
       'afterwork':'#E3007E',
-      'rechercheStage':'#23BCEC',
-      'rechercheEmploi':'#596392'
+      'recherche_stage':'#23BCEC',
+      'recherche_emploi':'#19647E'
     };
 
     // Add a tile for each publication
