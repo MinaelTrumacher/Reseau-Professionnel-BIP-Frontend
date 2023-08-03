@@ -43,12 +43,12 @@ export class HomeComponent implements OnInit {
     this.tiles = [];
 
     const categoryToColor: { [key: string]: string } = {
-      'jobDating': '#86BB24',
-      'offreStage': '#FFD500',
-      'offreEmploi': '#596392',
+      'job_dating': '#86BB24',
+      'offre_stage': '#FFD500',
+      'offre_emploi': '#596392',
       'afterwork':'#E3007E',
-      'rechercheStage':'#23BCEC',
-      'rechercheEmploi':'#19647E'
+      'recherche_stage':'#23BCEC',
+      'recherche_emploi':'#19647E'
     };
    
     

@@ -1,0 +1,16 @@
+<mat-grid-list cols="3" rowHeight="100px" gutterSize="20px" class="center-tiles">
+    <ng-container *ngFor="let publication of publicationList; let i = index">
+      <mat-grid-tile
+        [colspan]="tiles[i].cols"
+        [rowspan]="tiles[i].rows"
+        [style.background]="tiles[i].color">
+        <a routerLink="/profil"><img src="{{publication.utilisateur.urlPhoto}}" alt=""></a>
+        <a routerLink="/profil"> <p>{{ publication.utilisateur.prenom  }} {{ publication.utilisateur.nom }}</p></a>
+        
+        <p>{{ publication.title }}</p> 
+        <p>{{ publication.categorie }}</p> <!-- Display the category from the Tile object -->
+        <p>{{ publication.contenu }}</p> <!-- Display the contenu of the publication -->
+    </mat-grid-tile>
+    </ng-container>
+  </mat-grid-list>
+  
