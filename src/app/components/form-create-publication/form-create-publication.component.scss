@@ -1,0 +1,125 @@
+@import url("https://unpkg.com/boxicons@latest/css/boxicons.min.css");
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  /* Styling des labels */
+  label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Styling des champs de saisie */
+  input[type="text"],
+  select,
+  textarea {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+  }
+  
+  /* Styling du bouton de soumission */
+  input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Styling du bouton de soumission au survol */
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  /* Styling du select pour ressembler à un bouton déroulant */
+  select {
+    appearance: none;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z' fill='%23000'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px 15px;
+  }
+  
+  /* Styling du textarea */
+  textarea {
+    resize: vertical;
+  }
+  
+  /* Styling du texte pour simuler une publication */
+  #titre {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  #categorie {
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+  }
+  
+  #contenu {
+    font-size: 18px;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  .category-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .category-buttons button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f7f7f7;
+    cursor: pointer;
+  }
+  
+  /* Styling des boutons actifs (sélectionnés) */
+  .category-buttons button.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .form-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .form-container.expanded {
+    max-height: 1000px; /* Set an appropriate height to accommodate the form */
+  }
+
+  .plus-icon {
+    font-size: 48px; /* Change the font-size to make the icon larger */
+    cursor: pointer;
+  }
+  
+  /* Center the icon container both horizontally and vertically */
+  .center-container {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  

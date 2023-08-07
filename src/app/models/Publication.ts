@@ -1,4 +1,7 @@
+import { Interaction } from "./Interaction";
+
 export interface Publication {
+    id?:number,
     title: string;
     categorie: string;
     contenu: string;
@@ -22,4 +25,6 @@ export interface Publication {
       };
       date_creation? : Date
       date_inscription?: Date;
-    } }
+    }; 
+    interactions? :Interaction[];
+   }

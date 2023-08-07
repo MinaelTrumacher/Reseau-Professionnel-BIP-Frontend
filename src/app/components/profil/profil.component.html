@@ -14,4 +14,8 @@
   <section>
     <app-form-create-publication></app-form-create-publication>
   </section>
-  <app-grid></app-grid>
+  <ng-container *ngFor="let publication of publicationList; let i = index">
+    <app-publication [publication]="publication"></app-publication>
+  </ng-container>
+  
+  

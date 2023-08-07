@@ -8,8 +8,10 @@ import { Publication } from '../models/Publication';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class PublicationService {
-  private baseUrl = 'http://localhost:8080/api';
+   url = environment.url+'/publications';
 
   constructor(private http: HttpClient,private utilisateurService : UtilisateurService) { }
 
@@ -21,8 +23,7 @@ export class PublicationService {
                             }),
                           responseType: 'json' as 'json'
                         };
-    const url = environment.url + `/publications/search`;
-    return this.http.post<any>(url, filtre, HEADEROPTIONS);
+    return this.http.post<any>(this.url+'/search', filtre, HEADEROPTIONS);
   }
   
   public getAllPublications(): Observable<Publication[]> {
@@ -34,7 +35,7 @@ export class PublicationService {
                           responseType: 'json' as 'json'
                         };
     console.log(this.getAllPublications)
-    return this.http.get<Publication[]>(`${this.baseUrl}/publications`, HEADEROPTIONS);
+    return this.http.get<Publication[]>(this.url, HEADEROPTIONS);
   }
 
   public getPublicationsList(id: number): Observable<Publication[]> {
@@ -45,7 +46,7 @@ export class PublicationService {
                             }),
                           responseType: 'json' as 'json'
                         };
-    return this.http.get<Publication[]>(`${this.baseUrl}/publications/${id}`, HEADEROPTIONS);
+    return this.http.get<Publication[]>(this.url+'/'+id, HEADEROPTIONS);
   }
 
   public addPublication (publication : Publication) : Observable<Publication>{
@@ -57,7 +58,7 @@ export class PublicationService {
                           responseType: 'json' as 'json'
                         };
                         console.log(publication)
-    return this.http.post<Publication>(`${this.baseUrl}/publications`, publication, HEADEROPTIONS);
+    return this.http.post<Publication>(this.url, publication, HEADEROPTIONS);
   }
 
   public updatePublication(publication : Publication, id : number) : Observable<Publication>{
@@ -68,7 +69,7 @@ export class PublicationService {
                             }),
                           responseType: 'json' as 'json'
                         };
-    return this.http.put<Publication>(`${this.baseUrl}/${id}`, publication, HEADEROPTIONS)
+    return this.http.put<Publication>(this.url+'/'+id, publication, HEADEROPTIONS)
   }
 
   public deletePublication(id: number, publication: Publication): Observable<void> {
@@ -79,7 +80,7 @@ export class PublicationService {
                             }),
                           responseType: 'json' as 'json'
                         };
-    return this.http.delete<void>(`${this.baseUrl}/${id}`, HEADEROPTIONS);
+    return this.http.delete<void>(this.url + '/'+ id, HEADEROPTIONS);
   }
   
 }

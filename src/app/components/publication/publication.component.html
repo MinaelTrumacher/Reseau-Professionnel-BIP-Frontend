@@ -1,0 +1,38 @@
+<div class="publication-card" *ngIf="publication">
+  <div class="publication-card-title" [ngClass]="getTabClass(publication.categorie)">
+    <h2>{{ publication.title }}</h2>
+  </div>
+  <div class="publication-card-content">
+    <div class="circle-image">
+      <a routerLink="/profil">
+        <img src="{{ publication.utilisateur!.urlPhoto }}" alt="">
+      </a>
+    </div>
+    <a routerLink="/profil">
+      <p class="publication-author">{{ publication.utilisateur!.prenom }} {{ publication.utilisateur!.nom }}</p>
+    </a>
+    <h3>Catégorie : {{ publication.categorie }}</h3>
+    <p class="publication-content">{{ publication.contenu }}</p>
+  </div>
+  <div class="publication-actions">
+    <div class="publication-icons">
+      <span class="icon" (click)="toggleInteraction(isFavoris)" [class.active]="isFavoris.value" title="Favoris">
+        <i class="bx" [class.bx-star]="!isFavoris.value" [class.bxs-star]="isFavoris.value"></i>
+      </span>
+      <span class="icon" (click)="toggleInteraction(isSignaler)" [class.active]="isSignaler.value" title="Signaler">
+        <i class="bx" [class.ri-error-warning-line]="!isSignaler.value" [class.ri-error-warning-fill]="isSignaler.value"></i>
+      </span>
+      <span class="icon" (click)="toggleInteraction(isPartager)" [class.active]="isPartager.value" title="Partager">
+        <i class="bx" [class.ri-send-plane-line]="!isPartager.value" [class.ri-send-plane-fill]="isPartager.value"></i>
+      </span>
+      <a routerLink="/messagerie">
+        <span class="icon" (click)="toggleInteraction(isContacter)" [class.active]="isContacter.value" title="Contacter">
+          <i class="bx" [class.ri-chat-1-line]="!isContacter.value" [class.ri-chat-1-fill]="isContacter.value"></i>
+        </span>
+      </a>
+      <span class="icon" (click)="toggleInteraction(isPostuler)" [class.active]="isPostuler.value" title="Postuler">
+        <i class="bx" [class.ri-briefcase-line]="!isPostuler.value" [class.ri-briefcase-fill]="isPostuler.value"></i>
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,19 +1,24 @@
-<form (ngSubmit)="addPublication()">
-    <label for="titre">Titre :</label><br>
-    <input type="text" id="titre" name="titre" [(ngModel)]="newPublication.title" required><br><br>
-  
-    <label for="categorie">Catégorie :</label><br>
-    <select id="categorie" name="categorie" [(ngModel)]="newPublication.categorie" required>
-      <option value="" disabled selected>Choisir une catégorie</option>
-      <option value="job_dating">JobDating</option>
-      <option value="offre_stage">Offre de stage</option>
-      <option value="offre_emploi">Offre d'emploi</option>
-      <option value="afterwork">Afterwork</option>
-      <option value="recherche_stage">Recherche de stage</option>
-      <option value="recherche_emploi">Recherche d'emploi</option>
-    </select><br><br>
-    <label for="contenu">Contenu :</label><br>
-    <textarea id="contenu" name="contenu" rows="4" cols="50" [(ngModel)]="newPublication.contenu" required></textarea><br><br>
-  
-    <input type="submit" value="Soumettre">
+<div class="center-container">
+  <i class='bx bx-plus-circle plus-icon' (click)="toggleForm()"></i>
+</div>
+<div class="form-container" [ngClass]="{'expanded': isFormExpanded}">
+  <form (ngSubmit)="addPublication()">
+      <label for="titre">Titre :</label><br>
+      <input type="text" id="titre" name="titre" [(ngModel)]="newPublication.title" required><br><br>
+    
+      <div class="category-buttons">
+        <button type="button" (click)="selectCategory('jobDating')" [class.active]="newPublication.categorie === 'jobDating'">JobDating</button>
+        <button type="button" (click)="selectCategory('offreStage')" [class.active]="newPublication.categorie === 'offreStage'">Offre de stage</button>
+        <button type="button" (click)="selectCategory('offreEmploi')" [class.active]="newPublication.categorie === 'offreEmploi'">Offre d'emploi</button>
+        <button type="button" (click)="selectCategory('afterwork')" [class.active]="newPublication.categorie === 'afterwork'">Afterwork</button>
+        <button type="button" (click)="selectCategory('rechercheStage')" [class.active]="newPublication.categorie === 'rechercheStage'">Recherche de stage</button>
+        <button type="button" (click)="selectCategory('rechercheEmploi')" [class.active]="newPublication.categorie === 'rechercheEmploi'">Recherche d'emploi</button>
+      </div><br><br>
+    
+      <label for="contenu">Contenu :</label><br>
+      <textarea id="contenu" name="contenu" rows="4" cols="50" [(ngModel)]="newPublications.contenu" required></textarea><br><br>
+    
+      <input type="submit" value="Soumettre">
   </form>
+</div>
+  
