@@ -1,0 +1,99 @@
+@import url("https://unpkg.com/boxicons@latest/css/boxicons.min.css");
+
+/* For regular icons (e.g., far fa-star) */
+@import url("https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css");  
+  
+  a{
+    text-decoration: none;
+    color: black;
+  }
+
+  a :hover{
+    color:blue;
+  }
+
+  /* CSS pour les cartes de publication */
+  .publication-card {
+    display: flex;
+    flex-direction: column;  
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    width: 60%; /* Largeur de la publication à 50% */
+  }
+  
+  .publication-card-title{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px; 
+   
+  }
+
+  .publication-card-content{
+    padding-left: 10px;
+  }
+
+  .publication-author{
+    margin-bottom: 0;
+  }
+  
+  /* CSS pour le contenu de la publication */
+  .publication-content {
+    margin-top: 0;
+  }
+
+  .publication-actions{
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+
+  .categorie{
+    display: flex;
+    float: left;
+  }
+  
+  /* CSS pour la photo de profil */
+  .circle-image {
+    margin-top: 10px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .circle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* CSS pour les détails de la publication */
+  .publication-details {
+    flex: 1;
+  }
+
+  .publication-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .icon {
+    margin-left: 10px;
+    font-size: 20px;
+  }
+
+.tab-job-dating { background-color: #4f4caf; }
+.tab-offre-stage { background-color: #FF9800; }
+.tab-offre-emploi { background-color: #E91E63; }
+.tab-afterwork {background-color: #E91E63;}
+.tab-recherche-stage{background-color: #E91E63;}
+.tab-recherche-emploi{background-color: #E91E63;} 

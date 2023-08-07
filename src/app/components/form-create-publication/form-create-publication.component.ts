@@ -20,6 +20,17 @@ export class FormCreatePublicationComponent implements OnInit{
     utilisateur : {id:this.utilisateurService.userSession.userId}
   };
 
+  isFormExpanded = false;
+  newPublications = {
+    title: '',
+    categorie: '',
+    contenu: ''
+  };
+
+  toggleForm() {
+    this.isFormExpanded = !this.isFormExpanded;
+  }
+
   constructor(private publicationService: PublicationService, private utilisateurService: UtilisateurService) { }
 
   ngOnInit() {
@@ -53,16 +64,20 @@ export class FormCreatePublicationComponent implements OnInit{
       }
     });
   }
+
+  selectCategory(category: string) {
+    this.newPublication.categorie = category;
+  }
   
   generateTiles(publications: Publication[]) {
     this.tiles = [];
     const categoryToColor: { [key: string]: string } = {
-      'job_dating': '#86BB24',
-      'offre_stage': '#FFD500',
-      'offre_emploi': '#596392',
+      'jobDating': '#86BB24', 
+      'offreStage': '#FFD500',
+      'offreEmploi': '#CF0043',
       'afterwork':'#E3007E',
-      'recherche_stage':'#23BCEC',
-      'recherche_emploi':'#19647E'
+      'rechercheStage':'#23BCEC',
+      'rechercheEmploi':'#596392'
     };
 
     // Add a tile for each publication

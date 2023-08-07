@@ -4,7 +4,6 @@ import { HomeComponent } from './components/home/home.component';
 import { IndexComponent } from './components/index/index.component';
 import { MessagerieComponent } from './components/messagerie/messagerie.component';
 import { AuthGuard } from './services/auth-guard.service';
-import { GridComponent } from './components/grid/grid.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { SearchComponent } from './components/search/search.component';
 
@@ -30,10 +29,6 @@ const routes: Routes = [
   {
     path: 'profil',
     component: ProfilComponent
-  },
-  {
-    path: 'profil',
-    component: GridComponent
   },
   {
     path: 'search',

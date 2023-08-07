@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Utilisateur } from 'src/app/models/Utilisateur';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { Observer } from 'rxjs';
+import { Publication } from 'src/app/models/Publication';
+import { PublicationService } from 'src/app/services/publication.service';
 
 @Component({
   selector: 'app-profil',
@@ -11,15 +13,17 @@ import { Observer } from 'rxjs';
 
 export class ProfilComponent implements OnInit{
   
-  constructor(private utilisateurService  : UtilisateurService) { }
+  constructor(private utilisateurService  : UtilisateurService ,private publicationService : PublicationService) { }
 
    utilisateur : Utilisateur | undefined;
+   publicationList: Publication[] = [];
 
   ngOnInit() {
     const userId = this.utilisateurService.userSession.userId;
 
     if (userId !== null) {
       this.getUtilisateur(userId);
+      this.getPublicationsList(userId);
     }
 
     function adjustNameMargin(){
@@ -62,6 +66,19 @@ export class ProfilComponent implements OnInit{
       }
     } as Observer<Utilisateur>);
   }
+
+  getPublicationsList(id: number) {
+    this.publicationService.getPublicationsList(id).subscribe({
+      next: (publications: Publication[]) => {
+        console.log(publications);
+        this.publicationList = publications;
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+
 }
 
 

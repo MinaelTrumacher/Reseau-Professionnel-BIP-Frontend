@@ -44,7 +44,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
-import { GridComponent } from './components/grid/grid.component';
 import { ConversationComponent } from './components/messagerie/conversation/conversation.component';
 import { DetailsConversationComponent } from './components/messagerie/details-conversation/details-conversation.component';
 import { DialogAjoutConversationComponent } from './components/messagerie/dialogs/dialog-ajout-conversation/dialog-ajout-conversation.component';
@@ -52,6 +51,7 @@ import { DialogMessagerieComponent } from './components/messagerie/dialogs/dialo
 import { CreditsDialogComponent } from './components/credits-dialog/credits-dialog.component'; 
 import { MentionsLegalesDialogComponent } from './components/mentions-legal-dialog/mentions-legal-dialog.component';
 import { ProtectionDesDonneesDialogComponent } from './components/protection-des-donnees-dialog/protection-des-donnees-dialog.component';
+import { InteractionsComponent } from './components/publication/publication.component';
 
 //SERVICES
 import { AuthenticationUserService } from './services/authentification-user.service';
@@ -79,7 +79,6 @@ import { SearchComponent } from './components/search/search.component';
     FooterComponent,
     SuccessDialogComponent,
     ErrorDialogComponent,
-    GridComponent,
     FormPwdComponent,
     MessagerieComponent,
     ConversationComponent,
@@ -91,6 +90,7 @@ import { SearchComponent } from './components/search/search.component';
     MentionsLegalesDialogComponent,
     ProtectionDesDonneesDialogComponent,
     SearchComponent,
+    InteractionsComponent,
   ],
   imports: [
     BrowserModule,
