@@ -51,7 +51,8 @@ import { DialogMessagerieComponent } from './components/messagerie/dialogs/dialo
 import { CreditsDialogComponent } from './components/credits-dialog/credits-dialog.component'; 
 import { MentionsLegalesDialogComponent } from './components/mentions-legal-dialog/mentions-legal-dialog.component';
 import { ProtectionDesDonneesDialogComponent } from './components/protection-des-donnees-dialog/protection-des-donnees-dialog.component';
-import { InteractionsComponent } from './components/publication/publication.component';
+import { PublicationComponent } from './components/publication/publication.component';
+import { FormCreatePublicationComponent } from './components/form-create-publication/form-create-publication.component';
 
 //SERVICES
 import { AuthenticationUserService } from './services/authentification-user.service';
@@ -60,7 +61,6 @@ import { AuthGuard } from './services/auth-guard.service'
 
 //HTTP
 import { HttpClientModule } from '@angular/common/http';
-import { FormCreatePublicationComponent } from './components/form-create-publication/form-create-publication.component';
 import { SearchComponent } from './components/search/search.component';
 
 
@@ -90,7 +90,7 @@ import { SearchComponent } from './components/search/search.component';
     MentionsLegalesDialogComponent,
     ProtectionDesDonneesDialogComponent,
     SearchComponent,
-    InteractionsComponent,
+    PublicationComponent,
   ],
   imports: [
     BrowserModule,

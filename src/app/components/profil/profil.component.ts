@@ -53,7 +53,6 @@ export class ProfilComponent implements OnInit{
     });
     
   }
-  
 
   getUtilisateur(id: number) {
     this.utilisateurService.getUtilisateur(id).subscribe({
@@ -78,7 +77,6 @@ export class ProfilComponent implements OnInit{
       }
     });
   }
-
 }
 
 

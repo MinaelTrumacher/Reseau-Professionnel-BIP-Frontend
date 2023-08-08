@@ -1,0 +1,67 @@
+<div *ngIf="utilisateur && infoForm && mdpForm">
+    <!-- Affichage des informations de l'utilisateur -->
+    <form [formGroup]="infoForm">
+      <mat-dialog-content>
+        <h1>Paramètres du compte</h1>
+        <mat-form-field>
+          <mat-label for="nom">Nom</mat-label>
+          <input matInput type="text" id="nom" value="{{ utilisateur.nom }}" [attr.disabled]="isEditing ? null : ''" formControlName="nom">
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-label for="prenom">Prénom</mat-label>
+          <input matInput type="text" id="prenom" value="{{ utilisateur.prenom }}" [attr.disabled]="isEditing ? null : ''" formControlName="prenom">
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-label for="codePostal">Code Postal</mat-label>
+          <input matInput type="text" id="codePostal" formControlName="codePostal" (input)="getVille(infoForm.get('codePostal')?.value)" [attr.disabled]="isEditing ? null : ''">
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label for="ville">Ville</mat-label>
+          <mat-select formControlName="ville" [attr.disabled]="isEditing ? null : ''">
+            <mat-option *ngFor="let ville of villes" [value]="ville.id">{{ ville.ville | titlecase }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-label for="email">Email</mat-label>
+          <input matInput type="email" id="email" value="{{ utilisateur.email }}" [attr.disabled]="isEditing ? null : ''" formControlName="email">
+        </mat-form-field>
+      
+        <!-- Bouton pour activer le mode édition -->
+        <button mat-raised-button color="primary" (click)="startEditing()" *ngIf="!isEditing">Modifier</button>
+        <button mat-raised-button color="primary" (click)="saveChangesNoPwd()" *ngIf="isEditing">Confirmer</button>
+
+      </mat-dialog-content>
+    </form>
+
+    <button mat-button type="submit" (click)="startEditingPwd()">Changer le mot de passe</button>
+
+  <div *ngIf="displayChangePasswordForm == true && isEditing == true">
+  
+    <form [formGroup]="mdpForm">
+      <mat-dialog-content>
+        <mat-form-field>
+          <mat-label for="ancienMdp">Ancien mot de passe</mat-label>
+          <input matInput type="password" id="ancienMdp" [attr.disabled]="isEditing ? null : ''" formControlName="ancienMdp">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label for="nouveauMdp">Nouveau mot de passe</mat-label>
+          <input matInput type="password" id="nouveauMdp" [attr.disabled]="isEditing ? null : ''" formControlName="nouveauMdp">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label for="confirmerNouveauMdp">Confirmation du nouveau mot de passe</mat-label>
+          <input matInput type="password" id="confirmerNouveauMdp" [attr.disabled]="isEditing ? null : ''" formControlName="confirmerNouveauMdp">
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="saveChangesPwd()" *ngIf="isEditing">Confirmer</button>
+        </mat-dialog-content>
+
+    </form>
+  </div>
+  <button mat-button type="submit" (click)="deleteAccount()">Supprimer votre compte</button>
+</div>

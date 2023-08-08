@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PublicationComponent } from './publication.component';
+import { ModalChangePwdComponent } from './modal-change-pwd.component';
 
-describe('PublicationComponent', () => {
-  let component: PublicationComponent;
-  let fixture: ComponentFixture<PublicationComponent>;
+describe('ModalChangePwdComponent', () => {
+  let component: ModalChangePwdComponent;
+  let fixture: ComponentFixture<ModalChangePwdComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PublicationComponent ]
+      declarations: [ ModalChangePwdComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PublicationComponent);
+    fixture = TestBed.createComponent(ModalChangePwdComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
