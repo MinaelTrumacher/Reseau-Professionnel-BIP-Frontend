@@ -3,7 +3,6 @@ import { PublicationService } from 'src/app/services/publication.service';
 import { OnInit } from '@angular/core';
 import { Publication } from 'src/app/models/Publication';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

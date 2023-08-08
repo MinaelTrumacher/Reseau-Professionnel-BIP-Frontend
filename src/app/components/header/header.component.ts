@@ -17,6 +17,9 @@ import { PublicationService } from 'src/app/services/publication.service';
 import { HeightService } from 'src/app/services/height.service';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { MatInput } from '@angular/material/input';
+import { ParametreCompteComponent } from '../parametre-compte/parametre-compte.component';
+import { EventEmitter } from '@angular/core';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-header',
@@ -28,12 +31,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) menu!: MatMenuPanel<any>;
   @ViewChild('logoElement', { static:true }) logoElement!: ElementRef;
   isLoggedIn = false;
+  accountDeleted = new EventEmitter<void>();
   private isLoggedInSubscription: Subscription | null = null;
 
-  constructor(private dialog: MatDialog, public utilisateurService: UtilisateurService, 
-              private router: Router, private route: ActivatedRoute, private publicationService: PublicationService, 
-              private heightService: HeightService, private elementRef: ElementRef,
-              private utilisateurservice : UtilisateurService) {
+  constructor(private dialog: MatDialog, 
+              public utilisateurService: UtilisateurService, 
+              private router: Router, 
+              private route: ActivatedRoute, 
+              private publicationService: PublicationService, 
+              private heightService: HeightService, 
+              private elementRef: ElementRef,
+              private modalService: ModalService) {
     this.filtered = this.filterCtrl.valueChanges.pipe(
       startWith(null),
       map((filter: string | null) => (filter ? this._filter(filter) : this.allFilters.slice()))
@@ -90,6 +98,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     console.log('Open FormLoginComponent');
     this.dialog.open(FormLoginComponent);
   }
+
+  onClickMessage() {
+    this.router.navigate(['messagerie']);
+  }
+
+  openParametreCompte() {
+    console.log("Open Paramètre du compte");
+    const dialogRef: MatDialogRef<ParametreCompteComponent> = this.dialog.open(ParametreCompteComponent);
+    this.modalService.setDialogRef(dialogRef); // Enregistrez la référence de la modal dans le service
+    console.log(this.utilisateurService.userSession.userId);
+  }  
 
   //Nettoyage token et Id user
   logoutRequest() {

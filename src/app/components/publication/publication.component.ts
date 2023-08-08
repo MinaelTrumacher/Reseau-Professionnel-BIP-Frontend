@@ -12,7 +12,7 @@ import { PublicationService } from 'src/app/services/publication.service';
   templateUrl: './publication.component.html',
   styleUrls: ['./publication.component.scss']
 })
-export class InteractionsComponent implements OnInit {
+export class PublicationComponent implements OnInit {
   @Input() publication?: Publication;
   @Input() utilisateur?: Utilisateur;
   publicationList: Publication[] = [];
