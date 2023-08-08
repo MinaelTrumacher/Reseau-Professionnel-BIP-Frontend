@@ -7,12 +7,12 @@
       <input type="text" id="titre" name="titre" [(ngModel)]="newPublication.title" required><br><br>
     
       <div class="category-buttons">
-        <button type="button" (click)="selectCategory('jobDating')" [class.active]="newPublication.categorie === 'jobDating'">JobDating</button>
-        <button type="button" (click)="selectCategory('offreStage')" [class.active]="newPublication.categorie === 'offreStage'">Offre de stage</button>
-        <button type="button" (click)="selectCategory('offreEmploi')" [class.active]="newPublication.categorie === 'offreEmploi'">Offre d'emploi</button>
+        <button type="button"  *ngIf="role !== 'PADAWAN'" (click)="selectCategory('job_dating')" [class.active]="newPublication.categorie === 'job_dating'">JobDating</button>
+        <button type="button"  *ngIf="role !== 'PADAWAN'" (click)="selectCategory('offre_stage')" [class.active]="newPublication.categorie === 'offre_stage'">Offre de stage</button>
+        <button type="button"  *ngIf="role !== 'PADAWAN'" (click)="selectCategory('offre_emploi')" [class.active]="newPublication.categorie === 'offre_emploi'">Offre d'emploi</button>
         <button type="button" (click)="selectCategory('afterwork')" [class.active]="newPublication.categorie === 'afterwork'">Afterwork</button>
-        <button type="button" (click)="selectCategory('rechercheStage')" [class.active]="newPublication.categorie === 'rechercheStage'">Recherche de stage</button>
-        <button type="button" (click)="selectCategory('rechercheEmploi')" [class.active]="newPublication.categorie === 'rechercheEmploi'">Recherche d'emploi</button>
+        <button type="button" (click)="selectCategory('recherche_stage')" [class.active]="newPublication.categorie === 'recherche_stage'">Recherche de stage</button>
+        <button type="button" (click)="selectCategory('recherche_emploi')" [class.active]="newPublication.categorie === 'recherche_emploi'">Recherche d'emploi</button>
       </div><br><br>
     
       <label for="contenu">Contenu :</label><br>

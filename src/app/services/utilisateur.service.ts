@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { EncryptionService } from './encryption.service';
 import { environment } from 'src/environments/environment';
 import { changeMdp } from '../models/changeMdp.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,9 @@ export class UtilisateurService {
   isLoggedIn$ = this.isLoggedInSubject.asObservable(); // Observable pour mettre à jour isLoggedIn dans le header.component
 
   constructor(private http: HttpClient,
-    private encryptService: EncryptionService) { }
+    private encryptService: EncryptionService,
+    private cookieService: CookieService,
+    ) { }
 
 
 //Fonctions pour inscription
@@ -96,7 +99,7 @@ deleteUtilisateur(id: number, utilisateur: Utilisateur): Observable<void> {
 }
 //Fonctions de connexion
 //Variable de stockage id et token de l'utilisateur après connexion
-userSession : { userId: number|null, token: string|null} = { userId: null, token: null};
+userSession : { userId: number|null, token: string|null, role: string|null} = { userId: null, token: null,role: null};
 
 //Methode Mise à jour Variable isLoggedIn
 updateIsLoggedInStatus(isLoggedIn: boolean) {
@@ -104,15 +107,20 @@ updateIsLoggedInStatus(isLoggedIn: boolean) {
 }
 
 //Methode Mise à jour Variable UserSession
-setUserLogged(Response : {userId: number|null, token: string|null}) {
+setUserLogged(Response : {userId: number|null, token: string|null, role: string|null}) {
   this.userSession = Response;
   this.isLoggedInSubject.next(true); // Passage de la variable isLoggedIn dans le header.component à true
 }
 
 //Methode de nettoyage de la variable UserSession
 cleanUserLogged() {
-  this.userSession = {userId: null, token: null};
+  this.userSession = { userId: null, token: null, role: null};
   this.isLoggedInSubject.next(false); // Passage de la variable isLoggedIn dans le header.component à false
+
+  // Supprimer tous les cookies
+  this.cookieService.delete('token');
+  this.cookieService.delete('userId');
+  this.cookieService.delete('role');
 }
 
 }
