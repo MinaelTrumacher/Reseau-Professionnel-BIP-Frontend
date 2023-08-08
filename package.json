@@ -24,7 +24,6 @@
     "crypto-js": "^4.1.1",
     "@types/cookie": "^0.4.1",
     "cookie": "~0.4.1",
-    //"cookie-signature" : "^1.0.6",
     "material": "^0.5.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
