@@ -4,13 +4,17 @@
   </div>
   <div class="publication-card-content">
     <div class="circle-image">
+      <div *ngIf="publication.utilisateur; else utilisateur_supprimer">  
       <a routerLink="/profil">
         <img src="{{ publication.utilisateur!.urlPhoto }}" alt="">
       </a>
     </div>
-    <a routerLink="/profil">
-      <p class="publication-author">{{ publication.utilisateur!.prenom }} {{ publication.utilisateur!.nom }}</p>
-    </a>
+    </div>
+    <div *ngIf="publication.utilisateur; else utilisateur_supprimer">
+      <a routerLink="/profil">
+        <p class="publication-author">{{ publication.utilisateur!.prenom }} {{ publication.utilisateur!.nom }}</p>
+      </a>
+    </div>
     <h3>Catégorie : {{ publication.categorie }}</h3>
     <p class="publication-content">{{ publication.contenu }}</p>
   </div>
@@ -36,3 +40,5 @@
     </div>
   </div>
 </div>
+
+<ng-template #utilisateur_supprimer> Utilisateur supprimé.</ng-template>

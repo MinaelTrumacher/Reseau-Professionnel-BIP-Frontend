@@ -15,7 +15,10 @@ export interface Utilisateur {
     region? : string;
     latitude? : string;
     longitude? : string;
+    codePostal? : string;
   };
+  embauches? : any[];
+  stages? : any[];
   date_creation? : Date
   date_inscription?: Date;
 }

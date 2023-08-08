@@ -1,25 +1,26 @@
-import { Component, ViewChild, OnInit, OnDestroy, ElementRef, inject } from '@angular/core';
-import { MatMenuPanel, MatMenuTrigger } from '@angular/material/menu';
-import { FormRegisterComponent } from '../form-register/form-register.component';
-import { MatDialog } from '@angular/material/dialog';
-import { FormLoginComponent } from '../form-login/form-login.component';
-import { UtilisateurService } from 'src/app/services/utilisateur.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Component, ViewChild, OnInit, OnDestroy, ElementRef, inject, EventEmitter } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { MatMenuPanel, MatMenuTrigger } from '@angular/material/menu';
+import { MatSelectChange } from '@angular/material/select';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+
+import { Subscription } from 'rxjs/internal/Subscription'
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatChipInputEvent, MatChipOption } from '@angular/material/chips';
-import { PublicationService } from 'src/app/services/publication.service';
-import { HeightService } from 'src/app/services/height.service';
-import { MatSelect, MatSelectChange } from '@angular/material/select';
-import { MatInput } from '@angular/material/input';
+
+import { FormRegisterComponent } from '../form-register/form-register.component';
+import { FormLoginComponent } from '../form-login/form-login.component';
 import { ParametreCompteComponent } from '../parametre-compte/parametre-compte.component';
-import { EventEmitter } from '@angular/core';
+
 import { ModalService } from 'src/app/services/modal.service';
+import { HeightService } from 'src/app/services/height.service';
+import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
 @Component({
   selector: 'app-header',
@@ -38,7 +39,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
               public utilisateurService: UtilisateurService, 
               private router: Router, 
               private route: ActivatedRoute, 
-              private publicationService: PublicationService, 
               private heightService: HeightService, 
               private elementRef: ElementRef,
               private modalService: ModalService) {
@@ -97,10 +97,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   openFormLogin() {
     console.log('Open FormLoginComponent');
     this.dialog.open(FormLoginComponent);
-  }
-
-  onClickMessage() {
-    this.router.navigate(['messagerie']);
   }
 
   openParametreCompte() {
@@ -195,7 +191,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   getVille(codePostal: string): void {
     if(codePostal.length == 5 )
-      this.utilisateurservice.getVilleByCodePostal(codePostal).subscribe({
+      this.utilisateurService.getVilleByCodePostal(codePostal).subscribe({
         next: (response: any) => {
           console.log(response);
           this.villes = response.map((ville: any) => ({
