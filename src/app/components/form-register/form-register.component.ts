@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { Utilisateur } from 'src/app/models/Utilisateur';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { CguDialogComponent } from '../cgu-dialog/cgu-dialog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { matchValues } from 'src/app/functions/matchTo';
 
 @Component({

@@ -53,6 +53,8 @@ import { MentionsLegalesDialogComponent } from './components/mentions-legal-dial
 import { ProtectionDesDonneesDialogComponent } from './components/protection-des-donnees-dialog/protection-des-donnees-dialog.component';
 import { PublicationComponent } from './components/publication/publication.component';
 import { FormCreatePublicationComponent } from './components/form-create-publication/form-create-publication.component';
+import { ParametreCompteComponent } from './components/parametre-compte/parametre-compte.component';
+import { ModalChangePwdComponent } from './components/modal-change-pwd/modal-change-pwd.component';
 
 //SERVICES
 import { AuthenticationUserService } from './services/authentification-user.service';
@@ -91,6 +93,8 @@ import { SearchComponent } from './components/search/search.component';
     ProtectionDesDonneesDialogComponent,
     SearchComponent,
     PublicationComponent,
+    ParametreCompteComponent,
+    ModalChangePwdComponent,
   ],
   imports: [
     BrowserModule,

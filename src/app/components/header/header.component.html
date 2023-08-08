@@ -45,7 +45,7 @@
           <!-- Le menu déroulant -->
           <mat-menu #menu="matMenu">
               <button mat-menu-item routerLink="/profil" routerLinkActive="active">Ma page</button>
-              <button mat-menu-item>Paramètres</button>
+              <button mat-menu-item (click)="openParametreCompte()">Paramètres</button>
               <button mat-menu-item (click)="logoutRequest()">Deconnexion</button>
           </mat-menu>
           

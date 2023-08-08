@@ -4,6 +4,7 @@ import { Utilisateur } from '../models/Utilisateur';
 import { Observable, Subject } from 'rxjs';
 import { EncryptionService } from './encryption.service';
 import { environment } from 'src/environments/environment';
+import { changeMdp } from '../models/changeMdp.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class UtilisateurService {
   isLoggedIn$ = this.isLoggedInSubject.asObservable(); // Observable pour mettre à jour isLoggedIn dans le header.component
 
   constructor(private http: HttpClient,
-    private encryptservice: EncryptionService) { }
+    private encryptService: EncryptionService) { }
 
 
 //Fonctions pour inscription
@@ -34,17 +35,14 @@ getEntrepriseBySiren(siren : string){
 //Fonctions pour CRUD user
 createUtilisateur(utilisateur: Utilisateur): Observable<any> {
   console.log(utilisateur);
-  utilisateur.mdp = this.encryptservice.encryption(utilisateur.mdp);
+  utilisateur.mdp = this.encryptService.encryption(utilisateur.mdp);
   console.log(utilisateur.mdp);
   const url = environment.url + '/authentification/register';
   return this.http.post(url, utilisateur);
 }
 
-public utilisateursList() : Observable<Utilisateur[]>{
-  return this.http.get<Utilisateur[]>(environment.url); // a revoir l'endpoint
-}
-
-public getUtilisateur(id : number) : Observable<Utilisateur>{
+changePassword(changeMdp: changeMdp): Observable<any> {
+  const url = environment.url + '/reset/updatePwd/' + this.userSession.userId;
   var ENCODEDATA = ' Bearer ' + this.userSession.token;
   var HEADEROPTIONS = { headers: new HttpHeaders({
    'Content-Type' : 'application/json',
@@ -52,17 +50,50 @@ public getUtilisateur(id : number) : Observable<Utilisateur>{
    }),
  responseType: 'json' as 'json'
 };
-  return this.http.get<Utilisateur>(environment.url + '/utilisateurs/' + id, HEADEROPTIONS); // a revoir l'endpoint
+  return this.http.put<void>(url, changeMdp, HEADEROPTIONS);
+}
+
+public utilisateursList() : Observable<Utilisateur[]>{
+  return this.http.get<Utilisateur[]>(environment.url); // a revoir l'endpoint
+}
+
+getUtilisateur(id : number) : Observable<Utilisateur>{
+  const url = environment.url + '/utilisateurs/' + id;
+  var ENCODEDATA = ' Bearer ' + this.userSession.token;
+  var HEADEROPTIONS = { headers: new HttpHeaders({
+   'Content-Type' : 'application/json',
+   'Authorization' : ENCODEDATA
+   }),
+ responseType: 'json' as 'json'
+};
+  return this.http.get<Utilisateur>(url, HEADEROPTIONS); // a revoir l'endpoint
 }
 
 public updateUtilisateur(utilisateur : Utilisateur, id : number) : Observable<Utilisateur>{
-  return this.http.put<Utilisateur>(environment.url + '/' + id, utilisateur) // a revoir l'endpoint
+  const url = environment.url + '/utilisateurs/' + id;
+  var ENCODEDATA = ' Bearer ' + this.userSession.token;
+  var HEADEROPTIONS = { headers: new HttpHeaders({
+   'Content-Type' : 'application/json',
+   'Authorization' : ENCODEDATA
+   }),
+ responseType: 'json' as 'json'
+};
+  return this.http.put<Utilisateur>(url, utilisateur, HEADEROPTIONS) // a revoir l'endpoint
 }
 
-public deleteUtilisateur(id: number, utilisateur: Utilisateur): Observable<void> {
-  return this.http.delete<void>(environment.url + '/' + id); // a revoir l'endpoint
-}
+deleteUtilisateur(id: number, utilisateur: Utilisateur): Observable<void> {
+  const url = environment.url + '/utilisateurs/' + id;
+  const ENCODEDATA = `Bearer ${this.userSession.token}`;
+  const HEADEROPTIONS = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': ENCODEDATA
+    }),
+    responseType: 'json' as 'json'
+  };
 
+  return this.http.delete<void>(url, HEADEROPTIONS);
+}
 //Fonctions de connexion
 //Variable de stockage id et token de l'utilisateur après connexion
 userSession : { userId: number|null, token: string|null} = { userId: null, token: null};

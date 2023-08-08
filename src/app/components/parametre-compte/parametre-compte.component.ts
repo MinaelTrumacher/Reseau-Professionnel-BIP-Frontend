@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Utilisateur } from 'src/app/models/utilisateur';
+import { Utilisateur } from 'src/app/models/Utilisateur';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { Subscription, catchError } from 'rxjs';
 import { matchValues } from 'src/app/functions/matchTo';
@@ -64,6 +64,8 @@ export class ParametreCompteComponent implements OnInit {
       this.utilisateurService.getUtilisateur(userId).subscribe({
         next: (user: Utilisateur) => {
           this.utilisateur = user;
+          if(this.utilisateur.geolocalisation.codePostal)
+            this.getVille(this.utilisateur.geolocalisation.codePostal);
           this.infoForm = this.formBuilder.group({
             nom: [this.utilisateur?.nom || '', Validators.required],
             prenom: [this.utilisateur?.prenom || '', Validators.required],
