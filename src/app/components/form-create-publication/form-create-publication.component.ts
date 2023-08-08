@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { PublicationService } from 'src/app/services/publication.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { Publication } from 'src/app/models/Publication';
-import { Tile } from 'src/app/models/Tile';
 
 @Component({
   selector: 'app-form-create-publication',
@@ -11,7 +10,6 @@ import { Tile } from 'src/app/models/Tile';
 })
 export class FormCreatePublicationComponent implements OnInit{
   publicationList: Publication[] = [];
-  tiles: Tile[] = [];
   newPublication: Publication = {
     title: '',
     categorie: '',
@@ -19,6 +17,7 @@ export class FormCreatePublicationComponent implements OnInit{
     geolocalisation :{id:''},
     utilisateur : {id:this.utilisateurService.userSession.userId}
   };
+  role = this.utilisateurService.userSession.role;
 
   isFormExpanded = false;
   newPublications = {
@@ -27,13 +26,13 @@ export class FormCreatePublicationComponent implements OnInit{
     contenu: ''
   };
 
-  toggleForm() {
-    this.isFormExpanded = !this.isFormExpanded;
-  }
-
   constructor(private publicationService: PublicationService, private utilisateurService: UtilisateurService) { }
 
   ngOnInit() {
+  }
+
+  toggleForm() {
+    this.isFormExpanded = !this.isFormExpanded;
   }
 
   addPublication() {
@@ -57,7 +56,6 @@ export class FormCreatePublicationComponent implements OnInit{
           utilisateur : {id:this.utilisateurService.userSession.userId}
         };
         console.log(publication);
-        this.generateTiles(this.publicationList); // Regenerate tiles after adding a new publication
       },
       error: (error) => {
         console.error(error);
@@ -68,30 +66,8 @@ export class FormCreatePublicationComponent implements OnInit{
   selectCategory(category: string) {
     this.newPublication.categorie = category;
   }
-  
-  generateTiles(publications: Publication[]) {
-    this.tiles = [];
-    const categoryToColor: { [key: string]: string } = {
-      'jobDating': '#86BB24', 
-      'offreStage': '#FFD500',
-      'offreEmploi': '#CF0043',
-      'afterwork':'#E3007E',
-      'rechercheStage':'#23BCEC',
-      'rechercheEmploi':'#596392'
-    };
 
-    // Add a tile for each publication
-    publications.forEach((publication) => {
-      const color = categoryToColor[publication.categorie]
-      this.tiles.push({
-        text: publication.contenu,
-        cols: 3, // Adjust the number of columns as per your requirement
-        rows: 3, // Adjust the number of rows as per your requirement
-        color: color,
-        title: publication.title,         // Set the title property
-      category: publication.categorie,  // Set the category property
-      });
-    });
-  }
+  
+  
 }
 

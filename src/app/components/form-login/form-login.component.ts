@@ -5,6 +5,7 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { FormPwdComponent } from '../form-pwd/form-pwd.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-form-login',
@@ -26,7 +27,8 @@ export class FormLoginComponent implements OnInit {
       private authenticationUserService: AuthenticationUserService,
       private utilisateurService: UtilisateurService,
       private router: Router,
-      private dialog: MatDialog
+      private dialog: MatDialog,
+      private cookieService: CookieService
     ) {
     this.logForm = this.formBuilder.group({
       email: '',
@@ -73,6 +75,13 @@ export class FormLoginComponent implements OnInit {
           this.utilisateurService.setUserLogged(HttpResponse);
           console.log("Sauvegarde id et token user:",this.utilisateurService.userSession);
 
+           // Après une connexion réussie
+           var expirationDate = new Date();
+           expirationDate.setHours(expirationDate.getHours() + 1);
+           this.cookieService.set('token', `${this.utilisateurService.userSession.token}`, expirationDate, '/', '', true, 'Strict');
+           this.cookieService.set('userId', `${this.utilisateurService.userSession.userId}`, expirationDate, '/', '', true, 'Strict');
+           this.cookieService.set('role', `${this.utilisateurService.userSession.role}`, expirationDate, '/', '', true, 'Strict');
+           
           ////Reroutage vers page principal
           this.router.navigate(["home"]);
 
