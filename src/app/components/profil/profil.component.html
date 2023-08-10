@@ -1,21 +1,34 @@
 <section *ngIf="utilisateur">
-    <div class="profil">
-      <div class="banniere"> 
-        <img [src]="utilisateur.urlBanniere" alt="">
-      </div>
-      <div class="pp-container">
-        <img class="pp" [src]="utilisateur.urlPhoto" alt="Photo de profil">
-      </div>
-      <div class="name-container">
-        <h1 id="name" class="name">{{ " " + utilisateur.prenom + " " + utilisateur.nom }}</h1>
-      </div>
+  <div class="profil">
+    <div class="banniere"> 
+      <img [src]="utilisateur.urlBanniere" alt="">
     </div>
-  </section>
-  <section>
-    <app-form-create-publication></app-form-create-publication>
-  </section>
-  <ng-container *ngFor="let publication of publicationList; let i = index">
-    <app-publication [publication]="publication"></app-publication>
+    <div class="pp-container">
+      <img class="pp" [src]="utilisateur.urlPhoto" alt="Photo de profil">
+    </div>
+    <div class="name-container">
+      <h1 id="name" class="name">{{ " " + utilisateur.prenom + " " + utilisateur.nom }}</h1>
+    </div>
+  </div>
+</section>
+<section>
+  <app-form-create-publication></app-form-create-publication>
+  
+  <!-- Ajoutez les onglets ici -->
+  <div class="tabs">
+    <div class="tab" (click)="showPosts()" [class.active]="selectedTab === 'posts'">Mes Publications</div>
+    <div class="tab" (click)="showFavoris()" [class.active]="selectedTab === 'favoris'">Mes Favoris</div>
+  </div>
+
+  <!-- Affichez les publications ou les favoris en fonction de l'onglet sélectionné -->
+  <ng-container *ngIf="selectedTab === 'posts'">
+    <ng-container *ngFor="let publication of publicationList; let i = index">
+      <app-publication [publication]="publication"></app-publication>
+    </ng-container>
   </ng-container>
-  
-  
+  <ng-container *ngIf="selectedTab === 'favoris'">
+    <ng-container *ngFor="let favori of favorisList; let i = index">
+      <app-publication [publication]="favori"></app-publication>
+    </ng-container>
+  </ng-container>
+</section>

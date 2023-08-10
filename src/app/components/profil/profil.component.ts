@@ -17,6 +17,8 @@ export class ProfilComponent implements OnInit{
 
    utilisateur : Utilisateur | undefined;
    publicationList: Publication[] = [];
+   favorisList: Publication[] = [];
+   selectedTab: 'posts' | 'favoris' = 'posts'; 
 
   ngOnInit() {
     const userId = this.utilisateurService.userSession.userId;
@@ -24,6 +26,7 @@ export class ProfilComponent implements OnInit{
     if (userId !== null) {
       this.getUtilisateur(userId);
       this.getPublicationsList(userId);
+      this.getFavoris(userId);
     }
 
     function adjustNameMargin(){
@@ -54,6 +57,14 @@ export class ProfilComponent implements OnInit{
     
   }
 
+  showPosts() {
+    this.selectedTab = 'posts';
+  }
+
+  showFavoris() {
+    this.selectedTab = 'favoris';
+  }
+
   getUtilisateur(id: number) {
     this.utilisateurService.getUtilisateur(id).subscribe({
       next: (utilisateur: Utilisateur) => {
@@ -77,6 +88,19 @@ export class ProfilComponent implements OnInit{
       }
     });
   }
+
+  getFavoris(id: number) {
+    this.publicationService.getAllFavoris(id).subscribe({
+      next: (publications: Publication[]) => {
+        console.log(publications);
+        this.favorisList = publications; 
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+  
 }
 
 

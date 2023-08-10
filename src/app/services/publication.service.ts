@@ -38,6 +38,18 @@ export class PublicationService {
     return this.http.get<Publication[]>(this.url, HEADEROPTIONS);
   }
 
+  public getAllFavoris(id : number): Observable<Publication[]> {
+    var ENCODEDATA = ' Bearer ' + this.utilisateurService.userSession.token;
+    var HEADEROPTIONS = { headers: new HttpHeaders({
+                            'Content-Type' : 'application/json',
+                            'Authorization' : ENCODEDATA
+                            }),
+                          responseType: 'json' as 'json'
+                        };
+    console.log(this.getAllFavoris)
+    return this.http.get<Publication[]>(this.url+'/favoris/'+id, HEADEROPTIONS);
+  }
+
   public getPublicationsList(id: number): Observable<Publication[]> {
     var ENCODEDATA = ' Bearer ' + this.utilisateurService.userSession.token;
     var HEADEROPTIONS = { headers: new HttpHeaders({
@@ -46,7 +58,7 @@ export class PublicationService {
                             }),
                           responseType: 'json' as 'json'
                         };
-    return this.http.get<Publication[]>(this.url+'/'+id, HEADEROPTIONS);
+    return this.http.get<Publication[]>(this.url+'/utilisateur/'+id, HEADEROPTIONS);
   }
 
   public addPublication (publication : Publication) : Observable<Publication>{

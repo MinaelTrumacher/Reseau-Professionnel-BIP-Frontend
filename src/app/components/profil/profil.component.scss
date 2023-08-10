@@ -1,3 +1,31 @@
+.tabs{
+  display: flex;
+  justify-content: center; /* Centrer les onglets horizontalement */
+  align-items: center;
+  padding: 20px; /* Ajustez le padding selon vos préférences */
+  margin-left: auto;
+  margin-right: auto ;
+  cursor: pointer;
+}
+
+.tab {
+  padding: 10px; /* Ajustez le padding selon vos préférences */
+  transition: box-shadow 0.3s; /* Ajoutez une transition pour l'effet d'ombre */
+  position: relative; /* Ajoutez une position relative */
+}
+
+.tab.active::before {
+  content: '';
+  position: absolute;
+  bottom: -2px; /* Ajustez la valeur selon vos préférences */
+  left: 50%; /* Centrer le trait sous la tab active */
+  transform: translateX(-50%); /* Centrer horizontalement */
+  width: 70%; /* Largeur du trait (70% de la largeur de la tab) */
+  height: 5px; /* Hauteur du trait */
+  background-color: rgba(0, 0, 0, 0.5); /* Couleur du trait avec une opacité */
+  border-radius: 5px; /* Ajoutez des bords arrondis */
+}
+
 .profil {
     overflow-x: hidden;
     text-align: center;
