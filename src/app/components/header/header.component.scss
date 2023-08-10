@@ -4,7 +4,7 @@
 .filter, header{
     border-bottom: 1rem solid;
     border-color: map-get($afpa-palette, 50);
-    margin-top: 20px;
+    margin-top: 20px; // cette valeur est liée à un calcul qui se fait dans le composant messagerie.html et conversation détails
     display: block;
 }
 
@@ -60,7 +60,7 @@ a:hover{
     justify-content: space-between;
 }
 
-.mat-chip {    
+.mat-chip {
     height: 3rem !important;
 }
 
@@ -90,7 +90,7 @@ a:hover{
 .mat-chip.selectedRechercheEmploi {
     background-color: map-get($afpa-palette, 500)  !important;
 }
-  
+
 
 .mat-chip {
     background-color: rgba(224, 224, 224, 1);

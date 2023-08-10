@@ -30,16 +30,16 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) menu!: MatMenuPanel<any>;
-  @ViewChild('logoElement', { static:true }) logoElement!: ElementRef;
+  @ViewChild('logoElement', { static: true }) logoElement!: ElementRef;
   isLoggedIn = false;
   accountDeleted = new EventEmitter<void>();
   private isLoggedInSubscription: Subscription | null = null;
 
-  constructor(private dialog: MatDialog, 
-              public utilisateurService: UtilisateurService, 
-              private router: Router, 
-              private route: ActivatedRoute, 
-              private heightService: HeightService, 
+  constructor(private dialog: MatDialog,
+              public utilisateurService: UtilisateurService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private heightService: HeightService,
               private elementRef: ElementRef,
               private modalService: ModalService) {
     this.filtered = this.filterCtrl.valueChanges.pipe(
@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
       }
     });
-    
+
     this.route.queryParams.subscribe(params => {
       console.log(params)
       if(params['keywords'] !== undefined)
@@ -83,12 +83,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 }
 
+  // getHeaderHeight() {
+  //   const elementHeader = this.elementRef.nativeElement.querySelector('#header');
+  //   return elementHeader.offsetHeight;
+  // }
+
   ngOnDestroy(): void {
     if (this.isLoggedInSubscription) {
       this.isLoggedInSubscription.unsubscribe(); // Supprimer la souscription
     }
   }
-
+  
   openFormRegister() {
     console.log('Open FormRegisterComponent');
     this.dialog.open(FormRegisterComponent);
@@ -104,7 +109,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const dialogRef: MatDialogRef<ParametreCompteComponent> = this.dialog.open(ParametreCompteComponent);
     this.modalService.setDialogRef(dialogRef); // Enregistrez la référence de la modal dans le service
     console.log(this.utilisateurService.userSession.userId);
-  }  
+  }
 
   //Nettoyage token et Id user
   logoutRequest() {
@@ -124,7 +129,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.getVille(this.codePostal);
     }
   }
-  
+
   /* Value Filtre */
   filters: string[] = [];
   isJobDatingSelected: any = {value : false};
@@ -135,17 +140,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isRechercheEmploiSelected: any = {value : false};
   villesSelect = new FormControl('');
   codePostal:string = "";
-  
+
   /* FILTRE AVEC MOTS CLÉS */
 
   @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filterCtrl = new FormControl('');
   filtered: Observable<string[]>;
-  
+
   allFilters: string[] = ['Java EE','C#','Spring boot','Angular','Javascript','CSS','PHP','Symfony'];
   announcer = inject(LiveAnnouncer);
-  
+
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {
@@ -227,7 +232,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   /* RECHERCHER */
   search(){
 
-    
+
     //Recuperation des types de publications
    var types = [
       this.isJobDatingSelected.value ? 'job_dating' : null,
@@ -237,18 +242,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isRechercheStageSelected.value ? 'recherche_stage' : null,
       this.isRechercheEmploiSelected.value ? 'recherche_emploi' : null
       ].filter(item => item !== null);
-    
+
     /*
-    { "type" : 
+    { "type" :
         ['jobDating','offreStage'],
-      "keyword" : 
+      "keyword" :
         ['C#','Java'],
       "ville" :
         ['1']
     }
     */
 
-    this.router.navigate(['/search'], { queryParams: { 
+    this.router.navigate(['/search'], { queryParams: {
                                                       "types": types,
                                                       "keywords": this.filters,
                                                       "villes": this.villesSelect.value !== "" ? this.villesSelect.value : [],

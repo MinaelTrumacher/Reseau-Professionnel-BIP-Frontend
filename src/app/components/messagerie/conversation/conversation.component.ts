@@ -1,10 +1,11 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { Message } from 'src/app/models/Message';
+import { Message } from 'src/app/models/message';
 import { MessagerieService } from 'src/app/services/messagerie.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { DialogMessagerieComponent } from '../dialogs/dialog-messagerie/dialog-messagerie.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MessagerieComponent } from '../messagerie.component';
 
 @Component({
   selector: 'app-conversation',
@@ -13,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ConversationComponent {
 
-  @Input() isSearchConversation!: boolean;
+  @Input() isSearchingConversation!: boolean;
   @Input() isSelectedConversation!: boolean;
   @Input() conversation!: Message;
 
@@ -34,7 +35,7 @@ export class ConversationComponent {
   ) { }
 
   ngOnChanges() {
-    if (this.isSearchConversation) this.isSelectedConversation = false;
+    if (this.isSearchingConversation) this.isSelectedConversation = false;
   }
 
   ngOnInit() {

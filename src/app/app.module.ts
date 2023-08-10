@@ -35,7 +35,7 @@ import { HomeComponent } from './components/home/home.component';
 import { IndexComponent } from './components/index/index.component';
 import { MessagerieComponent } from './components/messagerie/messagerie.component';
 import { ProfilComponent } from './components/profil/profil.component';
-import { FormContactComponent } from './components/form-contact/form-contact.component'; 
+import { FormContactComponent } from './components/form-contact/form-contact.component';
 import { FormRegisterComponent } from './components/form-register/form-register.component';
 import { CguDialogComponent } from './components/cgu-dialog/cgu-dialog.component';
 import { FormLoginComponent } from './components/form-login/form-login.component';
@@ -48,7 +48,7 @@ import { ConversationComponent } from './components/messagerie/conversation/conv
 import { DetailsConversationComponent } from './components/messagerie/details-conversation/details-conversation.component';
 import { DialogAjoutConversationComponent } from './components/messagerie/dialogs/dialog-ajout-conversation/dialog-ajout-conversation.component';
 import { DialogMessagerieComponent } from './components/messagerie/dialogs/dialog-messagerie/dialog-messagerie.component';
-import { CreditsDialogComponent } from './components/credits-dialog/credits-dialog.component'; 
+import { CreditsDialogComponent } from './components/credits-dialog/credits-dialog.component';
 import { MentionsLegalesDialogComponent } from './components/mentions-legal-dialog/mentions-legal-dialog.component';
 import { ProtectionDesDonneesDialogComponent } from './components/protection-des-donnees-dialog/protection-des-donnees-dialog.component';
 import { PublicationComponent } from './components/publication/publication.component';

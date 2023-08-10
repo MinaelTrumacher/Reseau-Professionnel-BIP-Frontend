@@ -4,18 +4,18 @@
     <p>Chercher une personne ?</p>
     <mat-form-field>
       <mat-label>Nom ou/et Prénom</mat-label>
-      <input matInput formControlName="nom" [(ngModel)]="utilisateurDtoMessage.nomDestination" (keyup)="onInputSearchChange()" cdkFocusInitial>
+      <input matInput formControlName="nom" (input)="onInputSearchChange()" cdkFocusInitial>
     </mat-form-field>
     <p>Votre message ?</p>
     <mat-form-field>
       <mat-label>Message</mat-label>
-      <textarea #textarea matInput  formControlName="contenu" [(ngModel)]="utilisateurDtoMessage.contenu"></textarea>
+      <textarea #textarea matInput  formControlName="contenu"></textarea>
     </mat-form-field>
   </div>
 </form>
-<div class="list-container" *ngIf="listUtilisateurDtoMessages">
+<div class="list-container" *ngIf="listUtilisateurDestinataireMessage">
   <table>
-    <ng-container *ngFor="let utilisateur of listUtilisateurDtoMessages">
+    <ng-container *ngFor="let utilisateur of listUtilisateurDestinataireMessage">
       <ul #ulElementUserSelected>
         <li>
           <a *ngIf="userId!==utilisateur.id" (click)="selectedDistinataire(utilisateur, ulElementUserSelected)">{{utilisateur.nomDestination}}</a>
@@ -26,5 +26,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onAnnuler()">Annuler</button>
-  <button mat-button [mat-dialog-close]="utilisateurDtoMessage" [disabled]="form.invalid">Valider</button>
+  <button mat-button [mat-dialog-close]="utilisateurDestinataireMessage" [disabled]="form.invalid">Envoyer</button>
 </div>
