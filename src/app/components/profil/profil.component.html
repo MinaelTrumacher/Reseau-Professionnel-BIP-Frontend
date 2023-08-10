@@ -15,20 +15,15 @@
   <app-form-create-publication></app-form-create-publication>
   
   <!-- Ajoutez les onglets ici -->
-  <div class="tabs">
-    <div class="tab" (click)="showPosts()" [class.active]="selectedTab === 'posts'">Mes Publications</div>
-    <div class="tab" (click)="showFavoris()" [class.active]="selectedTab === 'favoris'">Mes Favoris</div>
-  </div>
-
-  <!-- Affichez les publications ou les favoris en fonction de l'onglet sélectionné -->
-  <ng-container *ngIf="selectedTab === 'posts'">
-    <ng-container *ngFor="let publication of publicationList; let i = index">
-      <app-publication [publication]="publication"></app-publication>
-    </ng-container>
-  </ng-container>
-  <ng-container *ngIf="selectedTab === 'favoris'">
-    <ng-container *ngFor="let favori of favorisList; let i = index">
-      <app-publication [publication]="favori"></app-publication>
-    </ng-container>
-  </ng-container>
-</section>
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" fitInkBarToContent>
+    <mat-tab label="Mes Publications">
+      <ng-container *ngFor="let publication of publicationList; let i = index">
+        <app-publication [publication]="publication"></app-publication>
+      </ng-container>
+    </mat-tab>
+    <mat-tab label="Mes Favoris">
+      <ng-container *ngFor="let favori of favorisList; let i = index">
+        <app-publication [publication]="favori"></app-publication>
+      </ng-container>
+    </mat-tab>
+  </mat-tab-group>

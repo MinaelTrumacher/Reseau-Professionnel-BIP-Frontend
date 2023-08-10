@@ -21,18 +21,19 @@ export class SearchComponent {
  ngOnInit() {
   this.route.queryParams.subscribe(params => {
     const types = params['types'];
-    const keywords = params['keywords'];
-    const villes = params['villes'];
+    const keywords = params['keywords'] !== undefined ? params['keywords']  : [];
+    const villes = params['villes'] !== undefined ? params['villes']  : [];
+    
     this.getPublicationByFiltre({
-                                  "types": types == undefined || types.length > 0 ? types : ['job_dating',
+                                  "types": types !== undefined && types.length > 0 ? types : ['job_dating',
                                                                        'offre_stage',
                                                                        'offre_emploi',
                                                                        'afterwork',
                                                                        'recherche_stage',
                                                                        'recherche_emploi'
                                                                       ],
-                                  "keywords":keywords,
-                                  "villes":villes
+                                  "keywords":Array.isArray(keywords) ? keywords : [keywords],
+                                  "villes": villes
                                 });
   });
 }

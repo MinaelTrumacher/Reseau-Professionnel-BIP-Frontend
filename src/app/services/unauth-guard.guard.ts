@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { UtilisateurService } from './utilisateur.service';
+import { CanActivate, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-
+import { UtilisateurService } from './utilisateur.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard {
+export class UnauthGuardGuard implements CanActivate {
 
   private isLoggedInSubscription: Subscription | null = null;
 
@@ -16,10 +15,11 @@ export class AuthGuard {
   canActivate(): boolean {
     const logged = this.utilisateurService.userSession.token === null ? false : true;
     if (logged) {
-      return true;
-    } else {
-      this.router.navigate(['/index']);
+      this.router.navigate(['/home']);
       return false;
+    } else {
+      return true;
     }
   }
+  
 }

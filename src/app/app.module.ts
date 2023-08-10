@@ -29,6 +29,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCommonModule } from '@angular/material/core';
+import { MatTabsModule } from '@angular/material/tabs';
 
 // COMPONENTS
 import { HomeComponent } from './components/home/home.component';
@@ -55,11 +56,13 @@ import { PublicationComponent } from './components/publication/publication.compo
 import { FormCreatePublicationComponent } from './components/form-create-publication/form-create-publication.component';
 import { ParametreCompteComponent } from './components/parametre-compte/parametre-compte.component';
 import { ModalChangePwdComponent } from './components/modal-change-pwd/modal-change-pwd.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 //SERVICES
 import { AuthenticationUserService } from './services/authentification-user.service';
 import { UtilisateurService } from './services/utilisateur.service';
 import { AuthGuard } from './services/auth-guard.service'
+import { UnauthGuardGuard } from './services/unauth-guard.guard';
 
 //HTTP
 import { HttpClientModule } from '@angular/common/http';
@@ -95,6 +98,7 @@ import { SearchComponent } from './components/search/search.component';
     PublicationComponent,
     ParametreCompteComponent,
     ModalChangePwdComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -123,9 +127,10 @@ import { SearchComponent } from './components/search/search.component';
     MatDividerModule,
     MatCardModule,
     MatAutocompleteModule,
-    MatCommonModule
+    MatCommonModule,
+    MatTabsModule
   ],
-  providers: [AuthenticationUserService, MatIconRegistry, MatDialog, UtilisateurService, AuthGuard],
+  providers: [AuthenticationUserService, MatIconRegistry, MatDialog, UtilisateurService, AuthGuard,UnauthGuardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

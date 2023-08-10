@@ -6,35 +6,34 @@ import { MessagerieComponent } from './components/messagerie/messagerie.componen
 import { AuthGuard } from './services/auth-guard.service';
 import { ProfilComponent } from './components/profil/profil.component';
 import { SearchComponent } from './components/search/search.component';
+import { UnauthGuardGuard } from './services/unauth-guard.guard';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/index',
-    pathMatch: 'full'
+    canActivate: [UnauthGuardGuard],
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: '/index' },
+      { path: 'index', component: IndexComponent }
+    ]
   },
   {
-    path: 'index',
-    component: IndexComponent
-  },
-  {
-    path: 'home',
+    path: '',
     canActivate: [AuthGuard],
-    component: HomeComponent,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: '/home' },
+      { path: 'home', component: HomeComponent },
+      { path: 'messagerie', component: MessagerieComponent },
+      { path: 'profil', component: ProfilComponent },
+      { path: 'search', component: SearchComponent }
+    ]
   },
   {
-    path: 'messagerie', component: MessagerieComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'profil',
+    path: '**',
     canActivate: [AuthGuard],
-    component: ProfilComponent
-  },
-  {
-    path: 'search',
-    canActivate: [AuthGuard],
-    component: SearchComponent
-  },
+    component: NotFoundComponent
+  }
 ];
 
 @NgModule({

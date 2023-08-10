@@ -1,6 +1,9 @@
 <app-form-create-publication></app-form-create-publication>
-<ng-container *ngFor="let publication of publicationList; let i = index">
-  <app-publication [publication]="publication"></app-publication>
-</ng-container>
-
-
+<mat-card>
+  <mat-card-content>
+    <ng-container *ngFor="let publication of publicationList; let i = index">
+      <app-publication [publication]="publication"></app-publication>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
+ 

@@ -27,6 +27,7 @@ footer {
     border-color: #86BD24;
     transition: height 0.3s ease;
     background-color: #FFFFFF;
+    z-index:1;
 }
 
 footer.expanded {
