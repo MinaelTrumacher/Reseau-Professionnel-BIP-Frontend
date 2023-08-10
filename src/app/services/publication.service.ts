@@ -23,6 +23,7 @@ export class PublicationService {
                             }),
                           responseType: 'json' as 'json'
                         };
+                        console.log(filtre)
     return this.http.post<any>(this.url+'/search', filtre, HEADEROPTIONS);
   }
   

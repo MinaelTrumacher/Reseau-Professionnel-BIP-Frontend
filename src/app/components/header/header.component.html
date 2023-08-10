@@ -93,6 +93,6 @@
       </button>
       <mat-hint align="end" *ngIf="codePostal.length == 5">{{ nbVille }} ville<span *ngIf="nbVille>1">s</span> trouvée<span *ngIf="nbVille>1">s</span></mat-hint>
     </mat-form-field>
-
+    <button mat-button color="primary" (click)="search()" class="searchBut"><mat-icon>search</mat-icon></button>
   </div>
 </div>

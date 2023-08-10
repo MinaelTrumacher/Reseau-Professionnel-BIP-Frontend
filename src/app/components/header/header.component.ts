@@ -42,24 +42,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private heightService: HeightService,
               private elementRef: ElementRef,
               private modalService: ModalService) {
-    this.filtered = this.filterCtrl.valueChanges.pipe(
-      startWith(null),
-      map((filter: string | null) => (filter ? this._filter(filter) : this.allFilters.slice()))
-    );
   }
 
   ngOnInit(): void {
     this.heightService.setHeaderHeightSubject(this.getHeaderHeight());
     this.isLoggedInSubscription = this.utilisateurService.isLoggedIn$.subscribe((isLoggedIn: boolean) => {
-      this.isLoggedIn = isLoggedIn;
-      // Vous pouvez effectuer des actions supplémentaires en fonction de l'état de connexion ici
-      if (isLoggedIn) {
+    this.isLoggedIn = isLoggedIn;
+
+    // Vous pouvez effectuer des actions supplémentaires en fonction de l'état de connexion ici
+    if (isLoggedIn) {
+      var href = this.router.url;
+      if(href == "")
         this.router.navigate(['/home']);
-        this.logoElement.nativeElement.addEventListener('click', () => {
-          console.log('Logo cliqué');
-        });
-      }
+
+      this.logoElement.nativeElement.addEventListener('click', () => {
+        console.log('Logo cliqué');
+      });
+    }
+
     });
+
+    this.filtered = this.filterCtrl.valueChanges.pipe(
+      startWith(null),
+      map((filter: string | null) => (filter ? this._filter(filter) : this.allFilters.slice()))
+    );
 
     this.route.queryParams.subscribe(params => {
       console.log(params)
@@ -75,18 +81,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.isRechercheStageSelected.value = params['types'].includes('recherche_stage')  ? true: false;
           this.isRechercheEmploiSelected.value = params['types'].includes('recherche_emploi')  ? true: false;
       }
+      
+      this.codePostal = params['codePostal'] != undefined ? params['codePostal'] : this.codePostal ;
+      
+      if(this.codePostal !== undefined)
+        this.getVille(this.codePostal);
 
       if(params['villes'] !== undefined)
-        this.villes = Array.isArray(params['villes']) ? params['villes'] : [params['villes']] ;
+        this.villesSelect.setValue(params['villes'].map((ville:string) => Number(ville)));
 
-      this.codePostal = params['codePostal'] != undefined ? params['codePostal'] : this.codePostal ;
+      if(params['nbRecherche'] !== undefined)
+        this.nbRecherche = Number(params['nbRecherche']) + 1;
+      else
+        this.nbRecherche = 1;     
+    
     });
-}
-
-  // getHeaderHeight() {
-  //   const elementHeader = this.elementRef.nativeElement.querySelector('#header');
-  //   return elementHeader.offsetHeight;
-  // }
+  }
 
   ngOnDestroy(): void {
     if (this.isLoggedInSubscription) {
@@ -117,7 +127,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.utilisateurService.updateIsLoggedInStatus(false); // Mettre à jour l'état de connexion
     console.log("userSession après deconnexion", this.utilisateurService.userSession)
     this.isFilterVisible = false;
-    this.router.navigate([""]);            //Reroutage vers index
+    this.router.navigate(["/index"]);            //Reroutage vers index
   }
 
   /* AFFICHER FILTRE */
@@ -146,7 +156,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filterCtrl = new FormControl('');
-  filtered: Observable<string[]>;
+  filtered!: Observable<string[]>;
 
   allFilters: string[] = ['Java EE','C#','Spring boot','Angular','Javascript','CSS','PHP','Symfony'];
   announcer = inject(LiveAnnouncer);
@@ -230,6 +240,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   /* RECHERCHER */
+  nbRecherche! : number;
   search(){
 
 
@@ -245,7 +256,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     /*
     { "type" :
-        ['jobDating','offreStage'],
+        ['job_dating','offre_stage'],
       "keyword" :
         ['C#','Java'],
       "ville" :
@@ -253,9 +264,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     */
 
-    this.router.navigate(['/search'], { queryParams: {
-                                                      "types": types,
+    this.router.navigate(['/search'], { queryParams: {                                                  
                                                       "keywords": this.filters,
+                                                      "nbRecherche" : this.nbRecherche,
+                                                      "types": types,
                                                       "villes": this.villesSelect.value !== "" ? this.villesSelect.value : [],
                                                       "codePostal": this.codePostal  !== "" ? this.codePostal : null,
                                                      } });
