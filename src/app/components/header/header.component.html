@@ -36,19 +36,19 @@
           <button mat-button *ngIf="(utilisateurService.isLoggedIn$ | async)" routerLink="/messagerie" routerLinkActive="active" >
               <mat-icon class="icon">email</mat-icon>
           </button>
-          
+
           <!-- Le bouton du menu avec l'icône person -->
           <button mat-button *ngIf="(utilisateurService.isLoggedIn$ | async)" [matMenuTriggerFor]="menu">
               <mat-icon class="icon">person</mat-icon>
           </button>
-          
+
           <!-- Le menu déroulant -->
           <mat-menu #menu="matMenu">
               <button mat-menu-item routerLink="/profil" routerLinkActive="active">Ma page</button>
               <button mat-menu-item (click)="openParametreCompte()">Paramètres</button>
               <button mat-menu-item (click)="logoutRequest()">Deconnexion</button>
           </mat-menu>
-          
+
           <!-- Les boutons connexion et inscription doivent être actifs seulement avant la connexion de l'utilisateur et après sa déconnexion -->
           <ng-container *ngIf="!(utilisateurService.isLoggedIn$ | async)">
               <button mat-button color="primary" (click)="openFormLogin()">Se connecter</button>
@@ -68,7 +68,7 @@
       <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedOffreEmploi': isOffreEmploiSelected.value }" (click)="toggleSelectedChip(isOffreEmploiSelected)" [selected]="isOffreEmploiSelected.value" #offreEmploi>Offre Emploi</mat-chip-option>
       <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedAfterwork': isAfterworkSelected.value }" (click)="toggleSelectedChip(isAfterworkSelected)" [selected]="isAfterworkSelected.value" #afterwork>Afterwork</mat-chip-option>
       <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedRechercheStage': isRechercheStageSelected.value }" (click)="toggleSelectedChip(isRechercheStageSelected)" [selected]="isRechercheStageSelected.value" #rechercheStage>Recherche stage</mat-chip-option>
-      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedRechercheEmploi': isRechercheEmploiSelected.value }" (click)="toggleSelectedChip(isRechercheEmploiSelected)" [selected]="isRechercheEmploiSelected.value" #rechercheEmploi>Recherche Emploi</mat-chip-option>      
+      <mat-chip-option class="mat-chip" [ngClass]="{ 'selectedRechercheEmploi': isRechercheEmploiSelected.value }" (click)="toggleSelectedChip(isRechercheEmploiSelected)" [selected]="isRechercheEmploiSelected.value" #rechercheEmploi>Recherche Emploi</mat-chip-option>
   </div>
   <BR>
   <div class="villeFilter">

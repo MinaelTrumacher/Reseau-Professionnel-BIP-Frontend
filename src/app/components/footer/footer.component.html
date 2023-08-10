@@ -1,21 +1,21 @@
 <footer #footer [ngClass]="{ 'expanded': isFooterExpanded }" (mouseenter)="expandFooter()" (mouseleave)="collapseFooter()">
     <div class="content">
-        <div>	
+        <div>
             <div class="colonne">
                 <div style="text-align: center">
                     <img alt="" src="/assets/images/logo-afpa.jpg" title="logo-afpa" />
-                    <img alt="" src="/assets/images/logo_Synofdes.png" title="logo-synofdes" /> 
-                    <img alt="" src="/assets/images/logo_france_relance.png" style="margin-right: 10px; height: 101px; width: 100px;" title="logo-france-relance" /> 
+                    <img alt="" src="/assets/images/logo_Synofdes.png" title="logo-synofdes" />
+                    <img alt="" src="/assets/images/logo_france_relance.png" style="margin-right: 10px; height: 101px; width: 100px;" title="logo-france-relance" />
                 </div>
-    
+
                 <nav style="text-align: center;clear:both;padding-top:18px;">
                     <div style="float:center">
                         &nbsp; <a (click)="openContactForm()">Nous contacter</a> |
                         <a (click)="openModalProtectionDesDonnees()">Politique de protection des données </a> |
                         <a (click)="openCgu()">CGU</a> |
                         <a (click)="openModalCredit()">Crédits</a> |
-                        <a (click)="openModalMentionsLegales()">Mentions légales</a> 
-                    </div>    
+                        <a (click)="openModalMentionsLegales()">Mentions légales</a>
+                    </div>
                 </nav>
             </div>
         </div>

@@ -1,7 +1,7 @@
 
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, HostListener, SimpleChanges } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { Message } from 'src/app/models/Message';
+import { Message } from 'src/app/models/message';
 import { HeightService } from 'src/app/services/height.service';
 import { MessagerieService } from 'src/app/services/messagerie.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
@@ -19,10 +19,11 @@ export class DetailsConversationComponent {
   userId!: number | null;
   headerHeight!: number;
   footerHeight!: number;
-  @Input() conversation!: Message[];
+  @Input() messages!: Message[];
   @Input() headerAndFooterHeightOfDetailsConversation!: number;
   @ViewChild('elementDivMessages') elementDivMessages!: ElementRef;
-
+  isUserScrolling = false;
+  
   constructor(
     private messagerieService: MessagerieService,
     private heightService: HeightService,
@@ -30,6 +31,10 @@ export class DetailsConversationComponent {
     public dialog: MatDialog
   ) { }
 
+  @HostListener('scroll', ['$event'])
+  onScroll(event: Event) {
+    this.isUserScrolling = true;
+  }
 
   ngOnInit() {
     this.userId = this.utilisateurService.userSession.userId;
@@ -45,12 +50,28 @@ export class DetailsConversationComponent {
     });
   }
 
-  ngAfterViewChecked() {
+  ngOnChanges(changes: SimpleChanges) {
+    console.log("Fonction ngOnChanges appelée");
+    console.log(changes);
+    if (!this.isUserScrolling) {
+      setTimeout(() => {
+        this.scrollToBottom();
+      })
+      console.log(this.isUserScrolling);
+    }
+  }
+
+  scrollToBottom() {
     let div = this.elementDivMessages.nativeElement as HTMLDivElement;
-
-    // console.log(div.scrollTop ,div.scrollHeight, div.clientHeight, (div.scrollHeight- div.clientHeight));
-
+    this.isUserScrolling = false;
     div.scrollTo(0, div.scrollHeight - div.clientHeight);
+  }
+
+  ngAfterViewInit() {
+    if(!this.isUserScrolling) {
+      this.scrollToBottom();
+      console.log(this.isUserScrolling);
+    }
   }
 
   onDeleteMessage(message: Message, elementDivContentMessage: HTMLDivElement) {

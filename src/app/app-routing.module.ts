@@ -23,9 +23,7 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'messagerie',
-    canActivate: [AuthGuard],
-    component: MessagerieComponent
+    path: 'messagerie', component: MessagerieComponent, canActivate: [AuthGuard]
   },
   {
     path: 'profil',
