@@ -1,0 +1,28 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    overflow: hidden;
+  }
+  
+  .center-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    width: 400px;
+  }
+  
+  .center-form mat-form-field {
+    width: 100%;
+    margin-bottom: 9px;
+  }
+  
+  .center-form button[type="submit"] {
+    margin-top: 12px;
+    align-self: center;
+    background-color: #86BB24;
+    color: #FFFFFF;
+  }
+  

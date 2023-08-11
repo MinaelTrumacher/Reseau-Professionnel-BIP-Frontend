@@ -44,7 +44,7 @@
     height: 200px;
     overflow: hidden;
   }
-  
+ 
   .banniere img {
     max-width: 100%;
     max-height: auto;
@@ -97,7 +97,6 @@
   }
   
   .container {
-    
     margin-right: 50px;
     margin-left: 50px;
     flex-basis: 70%; /* Ajustez la largeur selon vos besoins */
@@ -120,3 +119,35 @@
     background-color: #9BABB8; /* Couleur du conteneur inférieur */
   }
   
+  .change-banniere {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 27px;
+    color: rgb(245, 245, 245);
+    z-index: 2;
+  }
+
+  .change-pp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 27px;
+    color: rgb(245, 245, 245);
+    z-index: 2;
+  }
+
+  .filterGray{
+    filter: grayscale(80%);
+  }
+
+  .icon-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    left: calc(7rem + 100px); /* Décalage de 7rem depuis le bord de l'écran à gauche */
+    z-index: 1;
+  }

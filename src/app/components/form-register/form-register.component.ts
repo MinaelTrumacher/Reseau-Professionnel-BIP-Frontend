@@ -16,7 +16,7 @@ import { matchValues } from 'src/app/functions/matchTo';
 export class FormRegisterComponent{
 
   formulaire!: FormGroup;
-  raison_social: any;
+  //raison_social: any;
   utilisateur! : Utilisateur ;
   villes: { id: string, ville: string }[] = [];
   errorMessage = '';

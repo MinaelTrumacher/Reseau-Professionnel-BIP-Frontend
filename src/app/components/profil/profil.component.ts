@@ -4,6 +4,9 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { Observer } from 'rxjs';
 import { Publication } from 'src/app/models/Publication';
 import { PublicationService } from 'src/app/services/publication.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FormChangePpComponent } from 'src/app/components/form-change-pp/form-change-pp.component';
+import { FormChangeBanniereComponent } from '../form-change-banniere/form-change-banniere.component';
 
 @Component({
   selector: 'app-profil',
@@ -13,7 +16,11 @@ import { PublicationService } from 'src/app/services/publication.service';
 
 export class ProfilComponent implements OnInit{
   
-  constructor(private utilisateurService  : UtilisateurService ,private publicationService : PublicationService) { }
+  constructor(
+              private utilisateurService  : UtilisateurService ,
+              private publicationService : PublicationService,
+              private dialog: MatDialog
+              ){}
 
    utilisateur : Utilisateur | undefined;
    publicationList: Publication[] = [];
@@ -29,7 +36,7 @@ export class ProfilComponent implements OnInit{
       this.getFavoris(userId);
     }
 
-    function adjustNameMargin(){
+    /*function adjustNameMargin(){
       const nameElement = document.getElementById("name");
       if (!nameElement) return;
     
@@ -53,18 +60,10 @@ export class ProfilComponent implements OnInit{
       adjustNameMargin();
     
       window.addEventListener("resize", adjustNameMargin);
-    });
+    });*/
     
   }
-
-  showPosts() {
-    this.selectedTab = 'posts';
-  }
-
-  showFavoris() {
-    this.selectedTab = 'favoris';
-  }
-
+  
   getUtilisateur(id: number) {
     this.utilisateurService.getUtilisateur(id).subscribe({
       next: (utilisateur: Utilisateur) => {
@@ -97,6 +96,56 @@ export class ProfilComponent implements OnInit{
       },
       error: (error) => {
         console.error(error);
+      }
+    });
+  }
+
+  /* Gestion de la modification de profil */
+  isBanniereHovered: boolean = false;
+  isPPHovered: boolean = false;
+
+  // Méthodes pour gérer le survol de la bannière
+  onBanniereMouseEnter() {
+    this.isBanniereHovered = true;
+  }
+
+  onBanniereMouseLeave() {
+    this.isBanniereHovered = false;
+  }
+
+  // Méthodes pour gérer le survol de la PP
+  onPPMouseEnter() {
+    this.isPPHovered = true;
+  }
+
+  onPPMouseLeave() {
+    this.isPPHovered = false;
+  }
+
+
+  openPPForm(): void{
+    const dialogRef = this.dialog.open(FormChangePpComponent);
+
+    dialogRef.afterClosed().subscribe(urlPP => {
+      if (urlPP) {
+        this.utilisateur!.urlPhoto = urlPP;
+        const userId = this.utilisateurService.userSession.userId;
+
+        if (userId !== null) {
+          this.getUtilisateur(userId);
+          this.getPublicationsList(userId);
+          this.getFavoris(userId);
+        }
+      }
+    });
+  }
+
+  openBanniereForm(): void{
+    const dialogRef = this.dialog.open(FormChangeBanniereComponent);
+
+    dialogRef.afterClosed().subscribe(urlBanniere => {
+      if (urlBanniere) {
+        this.utilisateur!.urlBanniere = urlBanniere;
       }
     });
   }

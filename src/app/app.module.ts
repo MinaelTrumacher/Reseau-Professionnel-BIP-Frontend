@@ -67,6 +67,8 @@ import { UnauthGuardGuard } from './services/unauth-guard.guard';
 //HTTP
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './components/search/search.component';
+import { FormChangePpComponent } from './components/form-change-pp/form-change-pp.component';
+import { FormChangeBanniereComponent } from './components/form-change-banniere/form-change-banniere.component';
 
 
 @NgModule({
@@ -98,7 +100,9 @@ import { SearchComponent } from './components/search/search.component';
     PublicationComponent,
     ParametreCompteComponent,
     ModalChangePwdComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    FormChangePpComponent,
+    FormChangeBanniereComponent
   ],
   imports: [
     BrowserModule,

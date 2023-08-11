@@ -1,17 +1,29 @@
 <section *ngIf="utilisateur">
   <div class="profil">
-    <div class="banniere"> 
-      <img [src]="utilisateur.urlBanniere" alt="">
+    <div class="banniere"
+         (click)="openBanniereForm()"
+         [ngStyle]="{ 'background-image': 'url(' + utilisateur.urlBanniere + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat' }"
+         (mouseenter)="onBanniereMouseEnter()" (mouseleave)="onBanniereMouseLeave()"
+         [ngClass]="{'filterGray': isBanniereHovered}">
+      <!-- Le contenu de la bannière -->
+      <mat-icon *ngIf="isBanniereHovered" class="change-banniere">image_search</mat-icon>
     </div>
     <div class="pp-container">
-      <img class="pp" [src]="utilisateur.urlPhoto" alt="Photo de profil">
+      <!-- Image de profil -->
+      <div class="pp-wrapper" (click)="openPPForm()" (mouseenter)="onPPMouseEnter()" (mouseleave)="onPPMouseLeave()" >
+        <img class="pp" [src]="utilisateur.urlPhoto" alt="Photo de profil"          
+      [ngClass]="{'filterGray': isPPHovered}">
+        <!-- Icône au milieu de l'image de profil -->
+        <div class="icon-overlay">
+          <mat-icon *ngIf="isPPHovered" class="change-pp">image_search</mat-icon>
+        </div>
+      </div>
     </div>
     <div class="name-container">
       <h1 id="name" class="name">{{ " " + utilisateur.prenom + " " + utilisateur.nom }}</h1>
     </div>
   </div>
 </section>
-<section>
   <app-form-create-publication></app-form-create-publication>
   
   <!-- Ajoutez les onglets ici -->

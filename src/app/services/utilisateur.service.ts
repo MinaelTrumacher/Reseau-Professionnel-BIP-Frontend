@@ -57,7 +57,7 @@ changePassword(changeMdp: changeMdp): Observable<any> {
 }
 
 public utilisateursList() : Observable<Utilisateur[]>{
-  return this.http.get<Utilisateur[]>(environment.url); // a revoir l'endpoint
+  return this.http.get<Utilisateur[]>(environment.url);
 }
 
 getUtilisateur(id : number) : Observable<Utilisateur>{
@@ -69,7 +69,7 @@ getUtilisateur(id : number) : Observable<Utilisateur>{
    }),
  responseType: 'json' as 'json'
 };
-  return this.http.get<Utilisateur>(url, HEADEROPTIONS); // a revoir l'endpoint
+  return this.http.get<Utilisateur>(url, HEADEROPTIONS);
 }
 
 public updateUtilisateur(utilisateur : Utilisateur, id : number) : Observable<Utilisateur>{
@@ -81,7 +81,25 @@ public updateUtilisateur(utilisateur : Utilisateur, id : number) : Observable<Ut
    }),
  responseType: 'json' as 'json'
 };
-  return this.http.put<Utilisateur>(url, utilisateur, HEADEROPTIONS) // a revoir l'endpoint
+  return this.http.put<Utilisateur>(url, utilisateur, HEADEROPTIONS);
+}
+
+updateUtilisateurElement(newUrlPhoto: string | null, newUrlBanniere: string | null, newDescription: string | null, id : number): Observable<any> {
+  const url = environment.url + '/utilisateurs/' + id+'/modifier-infos';
+  var ENCODEDATA = ' Bearer ' + this.userSession.token;
+    var HEADEROPTIONS = { headers: new HttpHeaders({
+    'Content-Type' : 'application/json',
+    'Authorization' : ENCODEDATA
+    }),
+  responseType: 'json' as 'json'
+  };
+  const body = {
+    newUrlPhoto,
+    newUrlBanniere,
+    newDescription
+  };
+  
+  return this.http.put<any>(url, body, HEADEROPTIONS );
 }
 
 deleteUtilisateur(id: number, utilisateur: Utilisateur): Observable<void> {
