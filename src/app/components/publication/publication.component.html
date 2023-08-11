@@ -4,11 +4,11 @@
   </div>
   <div class="publication-card-content">
     <div class="circle-image">
-      <div *ngIf="publication.utilisateur; else utilisateur_supprimer">  
-      <a routerLink="/profil">
-        <img src="{{ publication.utilisateur!.urlPhoto }}" alt="">
-      </a>
-    </div>
+      <div class="circle-image">
+        <a routerLink="/profil" *ngIf="publication.utilisateur; else utilisateur_supprimer">
+          <img class="circle-image-img" [src]="publication.utilisateur!.urlPhoto" alt="">
+        </a>
+      </div>       
     </div>
     <div *ngIf="publication.utilisateur; else utilisateur_supprimer">
       <a routerLink="/profil">
