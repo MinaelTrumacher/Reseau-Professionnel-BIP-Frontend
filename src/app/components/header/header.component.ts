@@ -21,6 +21,7 @@ import { ParametreCompteComponent } from '../parametre-compte/parametre-compte.c
 import { ModalService } from 'src/app/services/modal.service';
 import { HeightService } from 'src/app/services/height.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
+import { Utilisateur } from 'src/app/models/Utilisateur';
 
 @Component({
   selector: 'app-header',
@@ -34,6 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   accountDeleted = new EventEmitter<void>();
   private isLoggedInSubscription: Subscription | null = null;
+  public utilisateur: Utilisateur | undefined;
 
   constructor(private dialog: MatDialog,
               public utilisateurService: UtilisateurService,
@@ -58,6 +60,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.logoElement.nativeElement.addEventListener('click', () => {
         console.log('Logo cliqué');
       });
+      this.utilisateurService.getUtilisateur(this.utilisateurService.userSession.userId ?? 0).subscribe({
+        next : (utilisateur: Utilisateur) => {
+          this.utilisateur = utilisateur;
+        },
+        error : (error: any) => {
+          console.log(error);
+        }
+      })
     }
 
     });
