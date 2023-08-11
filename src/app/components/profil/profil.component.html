@@ -10,19 +10,60 @@
     </div>
     <div class="pp-container">
       <!-- Image de profil -->
-      <div class="pp-wrapper" (click)="openPPForm()" (mouseenter)="onPPMouseEnter()" (mouseleave)="onPPMouseLeave()" >
+      <div class="pp-wrapper"  >
         <img class="pp" [src]="utilisateur.urlPhoto" alt="Photo de profil"          
-      [ngClass]="{'filterGray': isPPHovered}">
+      [ngClass]="{'filterGray': isPPHovered}" (click)="openPPForm()" (mouseenter)="onPPMouseEnter()" (mouseleave)="onPPMouseLeave()">
         <!-- Icône au milieu de l'image de profil -->
-        <div class="icon-overlay">
-          <mat-icon *ngIf="isPPHovered" class="change-pp">image_search</mat-icon>
+        <div class="icon-overlay" >
+          <mat-icon *ngIf="isPPHovered" class="change-pp" (click)="openPPForm()">image_search</mat-icon>
         </div>
       </div>
     </div>
     <div class="name-container">
       <h1 id="name" class="name">{{ " " + utilisateur.prenom + " " + utilisateur.nom }}</h1>
     </div>
+    <div class="but-container">
+      <mat-icon>send</mat-icon>
+    </div>
   </div>
+    
+
+  <mat-card class="description">
+    <mat-card-header>
+      <mat-card-title>A propos de moi</mat-card-title>
+      <mat-icon *ngIf="!editMode" (click)="toggleEditMode()">edit</mat-icon>
+      <mat-icon *ngIf="editMode" (click)="saveDescription()">check</mat-icon>
+      <button mat-button *ngIf="editMode" (click)="cancelEditMode()">Annuler</button>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngIf="editMode; else displayMode">
+        <mat-form-field class="descriptionEdit">
+          <textarea matInput class="full-width" [(ngModel)]="editedDescription"></textarea>
+        </mat-form-field>
+      </ng-container>
+      <ng-template #displayMode>
+        <p class="descriptionText">{{ utilisateur.description }}</p>
+      </ng-template>
+      <p>Parcours :</p>
+        <ul>
+          <li>Embauches</li>
+          <li *ngFor="let embauche of utilisateur.embauches">{{ embauche.entreprise.raisonSociale }} DU {{ embauche.dateDebut | date: 'dd/MM/yy' }} AUX {{ embauche.dateFin | date: 'dd/MM/yy'}} </li>
+        </ul>
+
+        <ul>
+          <li>Stages</li>
+          <li *ngFor="let stage of utilisateur.stages">{{ stage.type }} DU {{ stage.dateDebut | date: 'dd/MM/yy' }} AUX {{ stage.dateFin | date: 'dd/MM/yy'}} à l'entreprise {{ stage.entreprise.raisonSociale }} pour la formation {{ stage.formation.titre }}</li>
+        </ul>
+
+        <ul>
+          <li>Formations</li>
+          <li *ngFor="let suivi of utilisateur.suivis">{{ suivi.session.formation.titre }} DU {{ suivi.session.dateDebut | date: 'dd/MM/yy' }} AUX {{ suivi.session.dateFin | date: 'dd/MM/yy' }} aux centre {{ suivi.session.centre }}</li>
+        </ul>
+      <button mat-button (click)="openParcoursForm()">Modifier mon parcours</button>
+    </mat-card-content>
+    <mat-card-actions>
+    </mat-card-actions>
+  </mat-card>
 </section>
   <app-form-create-publication></app-form-create-publication>
   

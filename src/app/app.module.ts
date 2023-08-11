@@ -57,6 +57,9 @@ import { FormCreatePublicationComponent } from './components/form-create-publica
 import { ParametreCompteComponent } from './components/parametre-compte/parametre-compte.component';
 import { ModalChangePwdComponent } from './components/modal-change-pwd/modal-change-pwd.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { FormChangePpComponent } from './components/form-change-pp/form-change-pp.component';
+import { FormChangeBanniereComponent } from './components/form-change-banniere/form-change-banniere.component';
+import { FormParcoursComponent } from './components/form-parcours/form-parcours.component';
 
 //SERVICES
 import { AuthenticationUserService } from './services/authentification-user.service';
@@ -67,8 +70,6 @@ import { UnauthGuardGuard } from './services/unauth-guard.guard';
 //HTTP
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './components/search/search.component';
-import { FormChangePpComponent } from './components/form-change-pp/form-change-pp.component';
-import { FormChangeBanniereComponent } from './components/form-change-banniere/form-change-banniere.component';
 
 
 @NgModule({
@@ -102,7 +103,8 @@ import { FormChangeBanniereComponent } from './components/form-change-banniere/f
     ModalChangePwdComponent,
     NotFoundComponent,
     FormChangePpComponent,
-    FormChangeBanniereComponent
+    FormChangeBanniereComponent,
+    FormParcoursComponent
   ],
   imports: [
     BrowserModule,

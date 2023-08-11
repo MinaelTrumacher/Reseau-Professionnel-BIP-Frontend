@@ -1,0 +1,18 @@
+<p>Parcours :</p>
+<ul>
+    <li>Embauches</li>
+    <li *ngFor="let embauche of utilisateur.embauches">{{ embauche.entreprise.raisonSociale }} DU {{ embauche.dateDebut | date: 'dd/MM/yy' }} AUX {{ embauche.dateFin | date: 'dd/MM/yy'}} </li>
+    <li>Ajouter une embauche</li>
+</ul>
+
+<ul>
+    <li>Stages</li>
+    <li *ngFor="let stage of utilisateur.stages">{{ stage.type }} DU {{ stage.dateDebut | date: 'dd/MM/yy' }} AUX {{ stage.dateFin | date: 'dd/MM/yy'}} à l'entreprise {{ stage.entreprise.raisonSociale }} pour la formation {{ stage.formation.titre }}</li>
+    <li>Ajouter un stage</li>
+</ul>
+
+<ul>
+    <li>Formations</li>
+    <li *ngFor="let suivi of utilisateur.suivis">{{ suivi.session.formation.titre }} DU {{ suivi.session.dateDebut | date: 'dd/MM/yy' }} AUX {{ suivi.session.dateFin | date: 'dd/MM/yy' }} aux centre {{ suivi.session.centre }}</li>
+    <li>Ajouter une formation</li>
+</ul>

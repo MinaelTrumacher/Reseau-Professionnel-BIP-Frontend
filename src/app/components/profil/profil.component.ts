@@ -7,6 +7,8 @@ import { PublicationService } from 'src/app/services/publication.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormChangePpComponent } from 'src/app/components/form-change-pp/form-change-pp.component';
 import { FormChangeBanniereComponent } from '../form-change-banniere/form-change-banniere.component';
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { FormParcoursComponent } from '../form-parcours/form-parcours.component';
 
 @Component({
   selector: 'app-profil',
@@ -147,6 +149,50 @@ export class ProfilComponent implements OnInit{
       if (urlBanniere) {
         this.utilisateur!.urlBanniere = urlBanniere;
       }
+    });
+  }
+
+  /*Gestion de la description */
+  editMode = false;
+  editedDescription = '';
+
+  toggleEditMode() {
+    this.editMode = true;
+    this.editedDescription = this.utilisateur!.description;
+  }
+
+  saveDescription() {
+    const userId = this.utilisateurService.userSession.userId;
+    console.log(this.editedDescription)
+    if(userId !== null)
+      this.utilisateurService.updateUtilisateurElement(null,null,this.editedDescription,userId).subscribe({
+        next: (result) => {
+          this.utilisateur!.description = this.editedDescription;
+          this.editMode = false;
+          console.log(result);
+        },
+        error: (error) => {
+          this.openErrorDialog();
+          console.log(error);
+        }
+      });
+      
+  }
+
+  cancelEditMode() {
+    this.editMode = false;
+  }
+
+  openErrorDialog(): void {
+    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+      width: '300px',
+      data: "Une erreur est survenue. Veuillez réessayer plus tard !"
+    });
+  }
+
+  openParcoursForm() : void{
+    this.dialog.open(FormParcoursComponent, {
+      data : {utilisateur : this.utilisateur}
     });
   }
   

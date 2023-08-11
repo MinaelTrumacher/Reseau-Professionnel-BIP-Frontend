@@ -1,3 +1,7 @@
+import { Embauche } from "./Embauche";
+import { Geolocalisation } from "./Geolocalisation";
+import { Stage } from "./Stage";
+
 export interface Utilisateur {
   id: number;
   nom: string;
@@ -9,16 +13,10 @@ export interface Utilisateur {
   mdp: string;
   description: string;
   etatInscription : string;
-  geolocalisation: {
-    id: string; 
-    ville? : string;
-    region? : string;
-    latitude? : string;
-    longitude? : string;
-    codePostal? : string;
-  };
-  embauches? : any[];
-  stages? : any[];
+  geolocalisation: Geolocalisation;
+  embauches? : Embauche[];
+  stages? : Stage[];
+  suivis? : any[];
   date_creation? : Date
   date_inscription?: Date;
 }
