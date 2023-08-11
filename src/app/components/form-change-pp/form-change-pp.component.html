@@ -1,0 +1,11 @@
+<div class="form-container">
+    <form class="center-form">
+      <h3>Changer votre image de profil</h3>
+      <mat-form-field class="bloc">
+        <mat-label for="nom">Image de profil</mat-label>
+        <input matInput name="URL" placeholder="URL de votre image de profil" [formControl]="newPPControl" required>
+      </mat-form-field>
+      <button mat-raised-button type="submit" (click)="submitForm()" [disabled]="newPPControl.invalid" >Envoyer</button>
+    </form>
+  </div>
+  

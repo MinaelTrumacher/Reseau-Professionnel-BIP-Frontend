@@ -1,0 +1,11 @@
+<div class="form-container">
+    <form class="center-form">
+      <h3>Changer votre bannière de profil</h3>
+      <mat-form-field class="bloc">
+        <mat-label for="banniere">Bannière de profil</mat-label>
+        <input matInput placeholder="URL de votre image de bannière" [formControl]="newBanniereControl" required>
+      </mat-form-field>
+      <button mat-raised-button type="submit" (click)="submitForm()">Envoyer</button>
+    </form>
+  </div>
+  
