@@ -39,7 +39,7 @@
 
           <!-- Le bouton du menu avec l'icône person -->
           <button mat-button *ngIf="(utilisateurService.isLoggedIn$ | async)" [matMenuTriggerFor]="menu">
-              <mat-icon class="icon">person</mat-icon>
+            <img class="photo" id="photo" [src]="utilisateur?.urlPhoto" alt="Photo de profil">
           </button>
 
           <!-- Le menu déroulant -->

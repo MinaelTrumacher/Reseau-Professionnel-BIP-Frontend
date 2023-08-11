@@ -38,6 +38,15 @@ a:hover{
     color:#007BFF;
 }
 
+.photo {
+    display: flex;
+    text-align:left;
+    width: 50px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+}
+
 /* FILTRE */
 
 .filter{
