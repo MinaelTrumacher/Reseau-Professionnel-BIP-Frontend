@@ -30,6 +30,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCommonModule } from '@angular/material/core';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
 
 // COMPONENTS
 import { HomeComponent } from './components/home/home.component';
@@ -134,7 +135,8 @@ import { SearchComponent } from './components/search/search.component';
     MatCardModule,
     MatAutocompleteModule,
     MatCommonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule
   ],
   providers: [AuthenticationUserService, MatIconRegistry, MatDialog, UtilisateurService, AuthGuard,UnauthGuardGuard],
   bootstrap: [AppComponent]

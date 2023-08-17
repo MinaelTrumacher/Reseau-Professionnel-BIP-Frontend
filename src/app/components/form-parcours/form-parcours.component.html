@@ -1,13 +1,64 @@
 <p>Parcours :</p>
-<ul>
-    <li>Embauches</li>
-    <li *ngFor="let embauche of utilisateur.embauches">{{ embauche.entreprise.raisonSociale }} DU {{ embauche.dateDebut | date: 'dd/MM/yy' }} AUX {{ embauche.dateFin | date: 'dd/MM/yy'}} </li>
-    <li>Ajouter une embauche</li>
-</ul>
+<article class="table-header">
+    <button class="button-add-row" mat-button (click)="addEmbauche()">Add Row</button>
+  </article>
+  <table mat-table [dataSource]="embauches">
+      <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ col.label }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
+            <div class="btn-edit" *ngSwitchCase="'isEdit'">
+              <button mat-raised-button color="accent" (click)="element.isEdit = !element.isEdit">Modifier</button>
+              <button
+              mat-raised-button
+              color="warn"
+              class="button-remove"
+              (click)="deleteEmbauche(element.id)">
+              Supprimer
+            </button>
+            </div>
+            <span *ngSwitchDefault>
+              {{ element[col.key] }}{{ col.key }}
+            </span>
+          </div>
+          <div *ngIf="element.isEdit">
+            <div class="btn-edit" *ngIf="col.key === 'isEdit' || col.key === 'isDelete'; else dataField">
+              <div class="btn-edit" *ngIf="col.key === 'isDelete'; else doneButton">
+                <button
+              mat-raised-button
+              color="warn"
+              class="button-remove"
+              (click)="deleteEmbauche(element.id)">
+              Supprimer
+            </button>
+  
+              </div>
+              <ng-template #doneButton>
+                <button mat-button (click)="element.isEdit = !element.isEdit">Done</button>
+              </ng-template>
+            </div>
+            <ng-template #dataField>
+              <mat-form-field>
+                <input
+                  [type]="col.type"
+                  matInput
+                  [(ngModel)]="element[col.key]"
+                />
+              </mat-form-field>
+            </ng-template>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
 
 <ul>
     <li>Stages</li>
-    <li *ngFor="let stage of utilisateur.stages">{{ stage.type }} DU {{ stage.dateDebut | date: 'dd/MM/yy' }} AUX {{ stage.dateFin | date: 'dd/MM/yy'}} à l'entreprise {{ stage.entreprise.raisonSociale }} pour la formation {{ stage.formation.titre }}</li>
+    <li *ngFor="let stage of utilisateur.stages">{{ stage.type }} DU {{ stage.dateDebut | date: 'dd/MM/yy' }} AUX {{ stage.dateFin | date: 'dd/MM/yy'}} à l'entreprise {{ stage.entreprise?.raisonSociale }} pour la formation {{ stage.formation.titre }}</li>
     <li>Ajouter un stage</li>
 </ul>
 

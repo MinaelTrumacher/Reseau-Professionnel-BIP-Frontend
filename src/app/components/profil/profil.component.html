@@ -47,12 +47,12 @@
       <p>Parcours :</p>
         <ul>
           <li>Embauches</li>
-          <li *ngFor="let embauche of utilisateur.embauches">{{ embauche.entreprise.raisonSociale }} DU {{ embauche.dateDebut | date: 'dd/MM/yy' }} AUX {{ embauche.dateFin | date: 'dd/MM/yy'}} </li>
+          <li *ngFor="let embauche of utilisateur.embauches">{{ embauche.entreprise?.raisonSociale }} DU {{ embauche.dateDebut | date: 'dd/MM/yy' }} AUX {{ embauche.dateFin | date: 'dd/MM/yy'}} </li>
         </ul>
 
         <ul>
           <li>Stages</li>
-          <li *ngFor="let stage of utilisateur.stages">{{ stage.type }} DU {{ stage.dateDebut | date: 'dd/MM/yy' }} AUX {{ stage.dateFin | date: 'dd/MM/yy'}} à l'entreprise {{ stage.entreprise.raisonSociale }} pour la formation {{ stage.formation.titre }}</li>
+          <li *ngFor="let stage of utilisateur.stages">{{ stage.type }} DU {{ stage.dateDebut | date: 'dd/MM/yy' }} AUX {{ stage.dateFin | date: 'dd/MM/yy'}} à l'entreprise {{ stage.entreprise?.raisonSociale }} pour la formation {{ stage.formation.titre }}</li>
         </ul>
 
         <ul>

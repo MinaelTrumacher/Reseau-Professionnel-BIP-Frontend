@@ -1,9 +1,10 @@
 import { Entreprise } from "./Entreprise";
 
 export interface Embauche {
-    id: number;
+    id? : number;
     dateDebut : string;
     dateFin:string;
-    entreprise : Entreprise;
+    entreprise : Entreprise | null;
+    isEdit? : boolean;
+    isDelete? : boolean;
 }
-  
