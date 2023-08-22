@@ -5,7 +5,7 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { Subscription, catchError } from 'rxjs';
 import { matchValues } from 'src/app/functions/matchTo';
 import { EncryptionService } from 'src/app/services/encryption.service';
-import { changeMdp } from 'src/app/models/changeMdp.model';
+import { ChangeMdp } from 'src/app/models/ChangeMdp.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalChangePwdComponent } from '../modal-change-pwd/modal-change-pwd.component';
 import { Router } from '@angular/router';
@@ -125,7 +125,7 @@ export class ParametreCompteComponent implements OnInit {
       const ancienMdpEncrypt = this.encryptService.encryption(ancienMdp);
       const nouveauMdpEncrypt = this.encryptService.encryption(nouveauMdp);
 
-      const passwordUpdate: changeMdp = {
+      const passwordUpdate: ChangeMdp = {
         ancienMdp: ancienMdpEncrypt,
         nouveauMdp: nouveauMdpEncrypt
       } 

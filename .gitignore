@@ -40,3 +40,5 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+mra-0.0.1-SNAPSHOT.jar
+launch.bat

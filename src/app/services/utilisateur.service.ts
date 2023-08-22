@@ -4,7 +4,7 @@ import { Utilisateur } from '../models/Utilisateur';
 import { Observable, Subject } from 'rxjs';
 import { EncryptionService } from './encryption.service';
 import { environment } from 'src/environments/environment';
-import { changeMdp } from '../models/changeMdp.model';
+import { ChangeMdp } from '../models/ChangeMdp.model';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
@@ -35,6 +35,18 @@ getEntrepriseBySiren(siren : string){
   return this.http.get(endpoint + siren + filter, { headers });
 }
 
+getFormations(){
+  const ENCODEDATA = ' Bearer ' + this.userSession.token;
+    var HEADEROPTIONS = { headers: new HttpHeaders({
+                            'Content-Type' : 'application/json',
+                            'Authorization' : ENCODEDATA
+                            }),
+                          responseType: 'json' as 'json'
+                        };
+    const url = environment.url + '/formations';
+    return this.http.get<any>(url, HEADEROPTIONS);
+}
+
 //Fonctions pour CRUD user
 createUtilisateur(utilisateur: Utilisateur): Observable<any> {
   console.log(utilisateur);
@@ -44,7 +56,7 @@ createUtilisateur(utilisateur: Utilisateur): Observable<any> {
   return this.http.post(url, utilisateur);
 }
 
-changePassword(changeMdp: changeMdp): Observable<any> {
+changePassword(changeMdp: ChangeMdp): Observable<any> {
   const url = environment.url + '/reset/updatePwd/' + this.userSession.userId;
   var ENCODEDATA = ' Bearer ' + this.userSession.token;
   var HEADEROPTIONS = { headers: new HttpHeaders({

@@ -1,66 +1,173 @@
-<p>Parcours :</p>
-<article class="table-header">
-    <button class="button-add-row" mat-button (click)="addEmbauche()">Add Row</button>
-  </article>
-  <table mat-table [dataSource]="embauches">
-      <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ col.label }}
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
-            <div class="btn-edit" *ngSwitchCase="'isEdit'">
-              <button mat-raised-button color="accent" (click)="element.isEdit = !element.isEdit">Modifier</button>
-              <button
-              mat-raised-button
-              color="warn"
-              class="button-remove"
-              (click)="deleteEmbauche(element.id)">
-              Supprimer
-            </button>
+<h1>Parcours</h1>
+<table mat-table [dataSource]="embauches">
+  <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchemaEmbauche">
+    <th mat-header-cell *matHeaderCellDef>
+      {{ col.label }}
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <div [ngSwitch]="col.type" *ngIf="!element.isEdit && !element.isDelete">
+        <div class="btn-edit" *ngSwitchCase="'isEdit'">
+          <button mat-raised-button color="accent" (click)="element.isEdit = !element.isEdit">Modifier</button>
+        </div>
+        <div *ngSwitchCase="'isDelete'">         
+          <button
+            mat-raised-button
+            color="warn"
+            class="button-remove"
+            (click)="deleteEmbauche(element.id)">
+            Supprimer
+          </button>
+        </div>
+        <div *ngSwitchCase="'entreprise'">
+          {{ element[col.key].raisonSociale }}
+        </div>
+        <div *ngSwitchCase="'date'">
+          {{ element[col.key] | dateFormat }}
+        </div>
+        <span *ngSwitchDefault>
+          {{ element[col.key] }}
+        </span>
+      </div>
+      <div *ngIf="element.isEdit">
+          <div [ngSwitch]="col.type">
+            <div *ngSwitchCase="'isEdit'">
+              <button mat-button (click)="element.isCreate ? createEmbauche(element) : editEmbauche(element.id,element)">Valider</button>
             </div>
-            <span *ngSwitchDefault>
-              {{ element[col.key] }}{{ col.key }}
-            </span>
-          </div>
-          <div *ngIf="element.isEdit">
-            <div class="btn-edit" *ngIf="col.key === 'isEdit' || col.key === 'isDelete'; else dataField">
-              <div class="btn-edit" *ngIf="col.key === 'isDelete'; else doneButton">
-                <button
-              mat-raised-button
-              color="warn"
-              class="button-remove"
-              (click)="deleteEmbauche(element.id)">
-              Supprimer
-            </button>
-  
-              </div>
-              <ng-template #doneButton>
-                <button mat-button (click)="element.isEdit = !element.isEdit">Done</button>
-              </ng-template>
+            <div *ngSwitchCase="'isDelete'">
+              <button mat-raised-button color="warn" (click)="deleteEmbauche(element.id)">Supprimer</button>
             </div>
-            <ng-template #dataField>
+            <div *ngSwitchCase="'entreprise'">
+              <mat-form-field>
+                <input
+                  type="text"
+                  matInput
+                  [(ngModel)]="element[col.key].siret"
+                  (input)="getEntrepriseBySiren(siretInput.value,element[col.key])"
+                  #siretInput
+                />
+              </mat-form-field>
               <mat-form-field>
                 <input
                   [type]="col.type"
                   matInput
-                  [(ngModel)]="element[col.key]"
+                  [(ngModel)]="element[col.key].raisonSociale"
+                  disabled
                 />
               </mat-form-field>
-            </ng-template>
+            </div>
+            <mat-form-field *ngSwitchDefault>
+              <input
+                [type]="col.type"
+                matInput
+                [(ngModel)]="element[col.key]"
+              />
+            </mat-form-field>
           </div>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumnsEmbauche"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumnsEmbauche"></tr>
+</table>
+<article class="table-header">
+  <button class="button-add-row" mat-button (click)="addEmbauche()">Ajouter une embauche</button>
+</article>
 
-
-<ul>
-    <li>Stages</li>
-    <li *ngFor="let stage of utilisateur.stages">{{ stage.type }} DU {{ stage.dateDebut | date: 'dd/MM/yy' }} AUX {{ stage.dateFin | date: 'dd/MM/yy'}} à l'entreprise {{ stage.entreprise?.raisonSociale }} pour la formation {{ stage.formation.titre }}</li>
-    <li>Ajouter un stage</li>
-</ul>
+<table mat-table [dataSource]="stages">
+  <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchemaStage">
+    <th mat-header-cell *matHeaderCellDef>
+      {{ col.label }}
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <div [ngSwitch]="col.type" *ngIf="!element.isEdit && !element.isDelete">
+        <div class="btn-edit" *ngSwitchCase="'isEdit'">
+          <button mat-raised-button color="accent" (click)="element.isEdit = !element.isEdit">Modifier</button>
+        </div>
+        <div *ngSwitchCase="'isDelete'">         
+          <button
+            mat-raised-button
+            color="warn"
+            class="button-remove"
+            (click)="deleteStage(element.id)">
+            Supprimer
+          </button>
+        </div>
+        <div *ngSwitchCase="'entreprise'">
+          {{ element[col.key].raisonSociale }}
+        </div>
+        <div *ngSwitchCase="'formation'">
+          {{ element[col.key].titre }}
+        </div>
+        <div *ngSwitchCase="'date'">
+          {{ element[col.key] | dateFormat }}
+        </div>
+        <span *ngSwitchDefault>
+          {{ element[col.key] }}
+        </span>
+      </div>
+      <div *ngIf="element.isEdit">
+          <div [ngSwitch]="col.type">
+            <div *ngSwitchCase="'isEdit'">
+              <button mat-button (click)="element.isCreate ? createStage(element) : editStage(element.id,element)">Valider</button>
+            </div>
+            <div *ngSwitchCase="'isDelete'">
+              <button mat-raised-button color="warn" (click)="deleteStage(element.id)">Supprimer</button>
+            </div>
+            <div *ngSwitchCase="'entreprise'">
+              <mat-form-field>
+                <input
+                  type="text"
+                  matInput
+                  [(ngModel)]="element[col.key].siret"
+                  (input)="getEntrepriseBySiren(siretInput.value,element[col.key])"
+                  #siretInput
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  [type]="col.type"
+                  matInput
+                  [(ngModel)]="element[col.key].raisonSociale"
+                  disabled
+                />
+              </mat-form-field>
+            </div>
+            <div *ngSwitchCase="'type'">
+              <mat-form-field>
+                <mat-label>Types</mat-label>
+                <mat-select [(ngModel)]="element[col.key]">
+                  <mat-option value="PAE">PAE</mat-option>
+                  <mat-option value="ALTERNANCE">ALTERNANCE</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div *ngSwitchCase="'formation'">
+              <mat-form-field>
+                <mat-label>Formations</mat-label>
+                <mat-select [(ngModel)]="element[col.key].id">
+                  <mat-option *ngFor="let formation of formations" [value]="formation.id">
+                    {{ formation.titre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <mat-form-field *ngSwitchDefault>
+              <input
+                [type]="col.type"
+                matInput
+                [(ngModel)]="element[col.key]"
+              />
+            </mat-form-field>
+          </div>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumnsStage"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumnsStage"></tr>
+</table>
+<article class="table-header">
+  <button class="button-add-row" mat-button (click)="addStage()">Ajouter un stage</button>
+</article>
 
 <ul>
     <li>Formations</li>

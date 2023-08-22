@@ -1,4 +1,4 @@
-export interface changeMdp {
+export interface ChangeMdp {
     ancienMdp: string,
     nouveauMdp: string
   }

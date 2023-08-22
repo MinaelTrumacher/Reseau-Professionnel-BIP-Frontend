@@ -68,6 +68,9 @@ import { UtilisateurService } from './services/utilisateur.service';
 import { AuthGuard } from './services/auth-guard.service'
 import { UnauthGuardGuard } from './services/unauth-guard.guard';
 
+//PIPES
+import { DateFormatPipe } from './date-format.pipe';
+
 //HTTP
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './components/search/search.component';
@@ -105,7 +108,8 @@ import { SearchComponent } from './components/search/search.component';
     NotFoundComponent,
     FormChangePpComponent,
     FormChangeBanniereComponent,
-    FormParcoursComponent
+    FormParcoursComponent,
+    DateFormatPipe
   ],
   imports: [
     BrowserModule,

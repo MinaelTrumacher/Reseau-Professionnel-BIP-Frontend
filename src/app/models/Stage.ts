@@ -2,10 +2,13 @@ import { Entreprise } from "./Entreprise";
 import { Formation } from "./Formation";
 
 export interface Stage {
-    id : number;
+    id? : number;
     type : string; 
-    dateDebut : string;
-    dateFin : string;
+    dateDebut : Date | null;
+    dateFin : Date | null;
     entreprise : Entreprise;
-    formation : Formation;
+    formation : Formation;   
+    isEdit? : boolean;
+    isDelete? : boolean;
+    isCreate? : boolean;
 }
